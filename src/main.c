@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:56:01 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/09 18:07:08 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/09 19:53:20 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void init_appdata(t_appdata **appdata)
 	node->e_texture = NULL;
 	node->floor_colors = 0;
 	node->ceiling_colors = 0;
+	node->map_lines_total = 0;
 	*appdata = node;
 }
 
@@ -43,4 +44,5 @@ int main(int argc, char **argv)
 	}
 	init_appdata(&appdata);
 	parse_map(appdata, argv[1]);
+	check_for_errors(appdata);
 }

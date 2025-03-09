@@ -6,7 +6,7 @@
 #    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/09 18:54:03 by vitakinsfat      ###   ########.fr        #
+#    Updated: 2025/03/09 22:07:56 by vitakinsfat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,13 @@ CFLAGS = -Wall -Wextra -Werror
 # path to source and object files, source and object files
 SRC_PATH = src/
 OBJ_PATH = obj/
-SRC = get_next_line_utils.c \
+SRC = error_handling_utils.c \
+error_handling.c \
+get_next_line_utils.c \
 get_next_line.c \
 main.c \
-parse_map.c
+parse_map.c \
+parsing_utils.c
 OBJ = $(SRC:.c=.o)
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
@@ -53,9 +56,10 @@ clean:
 	@make clean -C $(LIBFT_DIR)
 	@echo "\n$(YELLOW)All the object files are removed.$(NC)"
 
-fclean: clean
+fclean:
 	@make fclean -C $(LIBFT_DIR)
-	rm -f $(NAME) $(LIBNAME)
+	rm -rf $(OBJ_PATH)
+	rm -f $(NAME)
 	@echo "\n$(RED)$(NAME) is removed.$(NC)"
 
 re: fclean all

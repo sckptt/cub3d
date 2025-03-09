@@ -6,56 +6,20 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:08:03 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/09 19:22:26 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/09 21:52:57 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int is_empty_line(char *line)
-{
-	int i;
+//Ok, map has kinda weird format - path to texture, 
+//then floor and ceiling colors, then map (and all it in one file!).
+//On this step I just put everything (excluding empty lines) in 
+//appdata->whole_map. Want to check it for errors.
 
-	i = 0;
-	while (line[i])
-	{
-		if ((line[i] >= 9 && line[i] <= 13) || line[i] == 32)
-			i++;
-		else
-			return (FALSE);
-	}
-	return (TRUE);
-}
-
-int count_non_empty_lines(char *path)
+void allocate_memory_for_whole_map(t_appdata *appdata)
 {
-	int counter;
-	int fd;
-	char *line;
-	
-	counter = 0;
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_putstr_fd(FILE_ERROR, 2);
-		// free_appdata(appdata);
-		exit(1);
-	}
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		if (!is_empty_line(line))
-			counter++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	return (counter);
-}
-
-void allocate_memory_for_whole_map(t_appdata *appdata, int line_num)
-{
-	appdata->whole_map = malloc(sizeof(char *) * (line_num + 1));
+	appdata->whole_map = malloc(sizeof(char *) * (appdata->map_lines_total + 1));
 	if (!appdata->whole_map)
 	{
 		ft_putstr_fd(ALLOC_ERROR, 2);
@@ -64,14 +28,14 @@ void allocate_memory_for_whole_map(t_appdata *appdata, int line_num)
 	}
 }
 
-void fill_whole_map(t_appdata *appdata, int fd, int num_of_lines)
+void fill_whole_map(t_appdata *appdata, int fd)
 {
 	int i;
 	char *line;
 	
 	i = 0;
 	line = get_next_line(fd);
-	while (i < num_of_lines)
+	while (i < appdata->map_lines_total)
 	{
 		if (!is_empty_line(line))
 		{
@@ -87,8 +51,7 @@ void fill_whole_map(t_appdata *appdata, int fd, int num_of_lines)
 int parse_map(t_appdata *appdata, char *path)
 {
 	int fd;
-	int non_empty_lines;
-	
+
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
@@ -96,9 +59,14 @@ int parse_map(t_appdata *appdata, char *path)
 		// free_appdata(appdata);
 		exit(1);
 	}
-	non_empty_lines = count_non_empty_lines(path);
-	allocate_memory_for_whole_map(appdata, non_empty_lines);
-	fill_whole_map(appdata, fd, non_empty_lines);
-	close(fd);
+	appdata->map_lines_total = count_non_empty_lines(path);
+	if (appdata->map_lines_total == 0)
+	{
+		ft_putstr_fd(EMPTY, 2);
+		// free_appdata(appdata);
+		exit(1);
+	}
+	allocate_memory_for_whole_map(appdata);
+	fill_whole_map(appdata, fd);
 	return (0);
 }
