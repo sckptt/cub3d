@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:33:08 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/09 19:34:24 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/10 17:33:53 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int is_empty_line(char *line)
 	return (TRUE);
 }
 
-int count_non_empty_lines(char *path)
+int count_non_empty_lines(t_appdata *appdata, char *path)
 {
 	int counter;
 	int fd;
@@ -38,8 +38,8 @@ int count_non_empty_lines(char *path)
 	if (fd == -1)
 	{
 		ft_putstr_fd(FILE_ERROR, 2);
-		// free_appdata(appdata);
-		exit(1);
+		free_appdata(appdata);
+		exit(FAILURE);
 	}
 	line = get_next_line(fd);
 	while (line != NULL)

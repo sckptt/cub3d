@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:47:50 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/09 22:04:53 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/10 18:49:57 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void check_numeric(t_appdata *appdata, char *string)
 	int i;
 	size_t j;
 	char **splitted_numbers;
-	(void)appdata;
 
 	i = 0;
 	splitted_numbers = get_number_array(string);
@@ -35,16 +34,16 @@ void check_numeric(t_appdata *appdata, char *string)
 		{
 			if (!ft_isdigit(splitted_numbers[i][j]))
 			{
-				//free splitted numbers
-				//free appdata;
+				free_char_array(splitted_numbers);
+				free_appdata(appdata);
 				ft_putstr_fd(INVALID_RGB_VALUES, 2);
-				exit(1);
+				exit(FAILURE);
 			}
 			j++;
 		}
 		i++;
 	}
-	//free splitted numbers
+	free_char_array(splitted_numbers);
 }
 
 int check_paths(t_appdata *appdata)
@@ -59,10 +58,10 @@ int check_paths(t_appdata *appdata)
 	east = count_identifiers(appdata, "WE ");
 	west = count_identifiers(appdata, "EA ");
 	if (north == 0 || south == 0 || east == 0 || west == 0)
-		return (ft_putstr_fd(MISSING_TEXTURE, 2), 1);
+		return (ft_putstr_fd(MISSING_TEXTURE, 2), FAILURE);
 	else if (north > 1 || south > 1 || east > 1 || west > 1)
-		return (ft_putstr_fd(TEXTURE_DUPLICATE, 2), 1);
-	return (0);
+		return (ft_putstr_fd(TEXTURE_DUPLICATE, 2), FAILURE);
+	return (SUCCESS);
 }
 
 int check_colors(t_appdata *appdata)
@@ -70,13 +69,13 @@ int check_colors(t_appdata *appdata)
 	int floor;
 	int ceiling;
 
-	floor = count_identifiers(appdata, "F");
-	ceiling = count_identifiers(appdata, "C");
+	floor = count_identifiers(appdata, "F ");
+	ceiling = count_identifiers(appdata, "C ");
 	if (floor == 0 || ceiling == 0)
-		return (ft_putstr_fd(MISSING_COLOR, 2), 1);
+		return (ft_putstr_fd(MISSING_COLOR, 2), FAILURE);
 	else if (floor > 1 || ceiling > 1)
-		return (ft_putstr_fd(COLOR_DUPLICATE, 2), 1);
-	return (0);
+		return (ft_putstr_fd(COLOR_DUPLICATE, 2), FAILURE);
+	return (SUCCESS);
 }
 
 int	is_valid_filename(const char *arg)
@@ -93,14 +92,19 @@ int	is_valid_filename(const char *arg)
 
 void check_for_errors(t_appdata *appdata)
 {
-	if (check_paths(appdata))
+	if (check_paths(appdata) == FAILURE)
 	{
-		//free appdata
-		exit(1);
+		free_appdata(appdata);
+		exit(FAILURE);
 	}
-	if (check_colors(appdata))
+	if (check_colors(appdata) == FAILURE)
 	{
-		//free appdata
-		exit(1);
+		free_appdata(appdata);
+		exit(FAILURE);
+	}
+	if (check_map(appdata) == FAILURE)
+	{
+		free_appdata(appdata);
+		exit(FAILURE);
 	}
 }

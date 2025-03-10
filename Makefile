@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
+#    By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/09 22:07:56 by vitakinsfat      ###   ########.fr        #
+#    Updated: 2025/03/10 18:05:59 by vkinsfat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,11 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 SRC = error_handling_utils.c \
 error_handling.c \
+error_handling2.c \
+free_things.c \
 get_next_line_utils.c \
 get_next_line.c \
+init.c \
 main.c \
 parse_map.c \
 parsing_utils.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:08:03 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/09 21:52:57 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/10 18:37:05 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 
 void allocate_memory_for_whole_map(t_appdata *appdata)
 {
-	appdata->whole_map = malloc(sizeof(char *) * (appdata->map_lines_total + 1));
-	if (!appdata->whole_map)
+	appdata->map->whole_map = malloc(sizeof(char *) * (appdata->map->map_lines_total + 1));
+	if (!appdata->map->whole_map)
 	{
 		ft_putstr_fd(ALLOC_ERROR, 2);
-		// free_appdata(appdata);
+		free_appdata(appdata);
 		exit(1);
 	}
 }
@@ -35,17 +35,17 @@ void fill_whole_map(t_appdata *appdata, int fd)
 	
 	i = 0;
 	line = get_next_line(fd);
-	while (i < appdata->map_lines_total)
+	while (i < appdata->map->map_lines_total)
 	{
 		if (!is_empty_line(line))
 		{
-			appdata->whole_map[i] = ft_strdup(line);
+			appdata->map->whole_map[i] = ft_strdup(line);
 			i++;
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	appdata->whole_map[i] = NULL;
+	appdata->map->whole_map[i] = NULL;
 }
 
 int parse_map(t_appdata *appdata, char *path)
@@ -56,14 +56,14 @@ int parse_map(t_appdata *appdata, char *path)
 	if (fd == -1)
 	{
 		ft_putstr_fd(FILE_ERROR, 2);
-		// free_appdata(appdata);
+		free_appdata(appdata);
 		exit(1);
 	}
-	appdata->map_lines_total = count_non_empty_lines(path);
-	if (appdata->map_lines_total == 0)
+	appdata->map->map_lines_total = count_non_empty_lines(appdata, path);
+	if (appdata->map->map_lines_total == 0)
 	{
 		ft_putstr_fd(EMPTY, 2);
-		// free_appdata(appdata);
+		free_appdata(appdata);
 		exit(1);
 	}
 	allocate_memory_for_whole_map(appdata);
