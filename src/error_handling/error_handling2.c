@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:44:37 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/10 18:53:02 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:44:45 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,7 @@
 
 int check_the_wall(t_map_data *map)
 {
-	int i;
-	int j;
-
-	i = 6;
-	while (i < map->map_lines_total)
-	{
-		j = 0;
-		while (map->whole_map[i][j])
-		{
-			if (map->whole_map[i][j] != 'N' && map->whole_map[i][j] != 'S'
-			&& map->whole_map[i][j] != 'W' && map->whole_map[i][j] != 'E'
-			&& map->whole_map[i][j] != '1' && map->whole_map[i][j] != '0'
-			&& map->whole_map[i][j] != ' ')
-				return (ft_putstr_fd(EXTRA_SYMBOLS_MSG, 2), FAILURE);
-			j++;
-		}
-		i++;
-	}
-	return (SUCCESS);
+	
 }
 
 int check_extra_symbols(t_map_data *map)
@@ -96,7 +78,7 @@ int check_map(t_appdata *appdata)
 		return(FAILURE);
 	if (check_extra_symbols(appdata->map) == FAILURE)
 		return(FAILURE);
-	if (check_the_wall(appdata->map) == FAILURE)
-		return(FAILURE);
+	// if (check_the_wall(appdata->map) == FAILURE)
+	// 	return(FAILURE);
 	return (SUCCESS);
 }

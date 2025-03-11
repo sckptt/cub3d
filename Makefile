@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+         #
+#    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/10 18:05:59 by vkinsfat         ###   ########.fr        #
+#    Updated: 2025/03/11 11:42:33 by vitakinsfat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,16 @@ CFLAGS = -Wall -Wextra -Werror
 # path to source and object files, source and object files
 SRC_PATH = src/
 OBJ_PATH = obj/
-SRC = error_handling_utils.c \
-error_handling.c \
-error_handling2.c \
-free_things.c \
-get_next_line_utils.c \
-get_next_line.c \
+SRC = error_handling/error_handling_utils.c \
+error_handling/error_handling1.c \
+error_handling/error_handling2.c \
+utils/free_things.c \
+utils/get_next_line_utils.c \
+utils/get_next_line.c \
+utils/parsing_utils.c \
 init.c \
 main.c \
-parse_map.c \
-parsing_utils.c
+parse_map.c
 OBJ = $(SRC:.c=.o)
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
