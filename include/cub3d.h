@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 15:02:25 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/11 16:32:08 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ int		count_non_empty_lines(t_appdata *appdata, char *path);
 int		is_empty_line(char *line);
 int		parse_map(t_appdata *appdata, char *path);
 int		find_position(char **map, char id);
+int		fill_the_structs(t_appdata *appdata);
+char	*get_path(char *string);
+int		*get_rgb_colors(char *string);
 
 //error handling
 char	**copy_array(char **array, int array_len);
