@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:08:03 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/10 18:37:05 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:58:27 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 //On this step I just put everything (excluding empty lines) in 
 //appdata->whole_map. Want to check it for errors.
 
-void allocate_memory_for_whole_map(t_appdata *appdata)
+static void	allocate_memory_for_whole_map(t_appdata *appdata)
 {
 	appdata->map->whole_map = malloc(sizeof(char *) * (appdata->map->map_lines_total + 1));
 	if (!appdata->map->whole_map)
 	{
 		ft_putstr_fd(ALLOC_ERROR, 2);
 		free_appdata(appdata);
-		exit(1);
+		exit(FAILURE);
 	}
 }
 
-void fill_whole_map(t_appdata *appdata, int fd)
+static void	fill_whole_map(t_appdata *appdata, int fd)
 {
-	int i;
-	char *line;
-	
+	int		i;
+	char	*line;
+
 	i = 0;
 	line = get_next_line(fd);
 	while (i < appdata->map->map_lines_total)
@@ -48,25 +48,25 @@ void fill_whole_map(t_appdata *appdata, int fd)
 	appdata->map->whole_map[i] = NULL;
 }
 
-int parse_map(t_appdata *appdata, char *path)
+int	parse_map(t_appdata *appdata, char *path)
 {
-	int fd;
+	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_putstr_fd(FILE_ERROR, 2);
 		free_appdata(appdata);
-		exit(1);
+		exit(FAILURE);
 	}
 	appdata->map->map_lines_total = count_non_empty_lines(appdata, path);
 	if (appdata->map->map_lines_total == 0)
 	{
 		ft_putstr_fd(EMPTY, 2);
 		free_appdata(appdata);
-		exit(1);
+		exit(FAILURE);
 	}
 	allocate_memory_for_whole_map(appdata);
 	fill_whole_map(appdata, fd);
-	return (0);
+	return (SUCCESS);
 }

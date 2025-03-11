@@ -1,32 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_handling_utils2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 15:56:01 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 13:41:24 by vitakinsfat      ###   ########.fr       */
+/*   Created: 2025/03/11 13:30:34 by vitakinsfat       #+#    #+#             */
+/*   Updated: 2025/03/11 13:43:19 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	main(int argc, char **argv)
-{
-	t_appdata	appdata;
-
-	if (argc != 2)
-	{
-		ft_putstr_fd(WRONG_ARGS_MSG, 2);
-		exit(FAILURE);
-	}
-	if (is_valid_filename(argv[1]) == FALSE)
-	{
-		ft_putstr_fd(NO_CUB_MSG, 2);
-		exit(FAILURE);
-	}
-	init_appdata(&appdata);
-	parse_map(&appdata, argv[1]);
-	check_for_errors(&appdata);
-}

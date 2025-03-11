@@ -6,7 +6,7 @@
 #    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/11 11:42:33 by vitakinsfat      ###   ########.fr        #
+#    Updated: 2025/03/11 14:01:24 by vitakinsfat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ CFLAGS = -Wall -Wextra -Werror
 # path to source and object files, source and object files
 SRC_PATH = src/
 OBJ_PATH = obj/
-SRC = error_handling/error_handling_utils.c \
+SRC = error_handling/error_handling_utils1.c \
+error_handling/error_handling_utils2.c \
 error_handling/error_handling1.c \
 error_handling/error_handling2.c \
 utils/free_things.c \

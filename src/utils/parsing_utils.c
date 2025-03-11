@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:33:08 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/10 17:33:53 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:42:25 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int is_empty_line(char *line)
+int	is_empty_line(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -27,12 +27,12 @@ int is_empty_line(char *line)
 	return (TRUE);
 }
 
-int count_non_empty_lines(t_appdata *appdata, char *path)
+int	count_non_empty_lines(t_appdata *appdata, char *path)
 {
-	int counter;
-	int fd;
-	char *line;
-	
+	int		counter;
+	int		fd;
+	char	*line;
+
 	counter = 0;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -51,4 +51,29 @@ int count_non_empty_lines(t_appdata *appdata, char *path)
 	}
 	close(fd);
 	return (counter);
+}
+
+int	find_position(char **map, char id)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (ft_strchr("NSEW", map[i][j]))
+			{
+				if (id == 'x')
+					return (j);
+				else
+					return (i);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (-1);
 }
