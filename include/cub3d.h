@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 13:57:18 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/11 15:02:25 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ char	**copy_array(char **array, int array_len);
 char	**get_number_array(char *string);
 int		*create_row_len_array(char **array);
 int		check_map(t_appdata *appdata);
+int		check_order(t_appdata *appdata);
 int		count_identifiers(t_appdata *appdata, char *identifier);
 int		count_length_of_array(char **array);
 int		is_valid_filename(const char *arg);

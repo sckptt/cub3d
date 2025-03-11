@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:40:00 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 14:00:05 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/11 15:03:16 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 //Next step - check the map. 
 
 //TODO - whitespace cases like "XX,   XX,XX"
-static void	check_numeric(t_appdata *appdata, char *string)
+void	check_numeric(t_appdata *appdata, char *string)
 {
 	int		i;
 	size_t	j;
@@ -98,6 +98,11 @@ void	check_for_errors(t_appdata *appdata)
 		exit(FAILURE);
 	}
 	if (check_colors(appdata) == FAILURE)
+	{
+		free_appdata(appdata);
+		exit(FAILURE);
+	}
+	if (check_order(appdata) == FAILURE)
 	{
 		free_appdata(appdata);
 		exit(FAILURE);

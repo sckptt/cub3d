@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:44:37 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/11 13:59:21 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/11 15:08:53 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ static int	check_extra_symbols(t_map_data *map)
 		j = 0;
 		while (map->whole_map[i][j])
 		{
-			if (ft_strchr("NSEW10 ", map->whole_map[i][j]))
+			if (map->whole_map[i][j] != 'N' && map->whole_map[i][j] != 'S'
+			&& map->whole_map[i][j] != 'W' && map->whole_map[i][j] != 'E'
+			&& map->whole_map[i][j] != '1' && map->whole_map[i][j] != '0'
+			&& map->whole_map[i][j] != ' ')
 				return (ft_putstr_fd(EXTRA_SYMBOLS_MSG, 2), FAILURE);
 			j++;
 		}
