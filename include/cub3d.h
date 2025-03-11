@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/10 18:05:44 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:32:08 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,28 @@ size_t	gnl_strlen(const char *str);
 int		count_non_empty_lines(t_appdata *appdata, char *path);
 int		is_empty_line(char *line);
 int		parse_map(t_appdata *appdata, char *path);
+int		find_position(char **map, char id);
+int		fill_the_structs(t_appdata *appdata);
+char	*get_path(char *string);
+int		*get_rgb_colors(char *string);
 
 //error handling
+char	**copy_array(char **array, int array_len);
 char	**get_number_array(char *string);
+int		*create_row_len_array(char **array);
+int		check_map(t_appdata *appdata);
+int		check_order(t_appdata *appdata);
 int		count_identifiers(t_appdata *appdata, char *identifier);
 int		count_length_of_array(char **array);
 int		is_valid_filename(const char *arg);
 void	check_for_errors(t_appdata *appdata);
 void	check_numeric(t_appdata *appdata, char *string);
-int check_map(t_appdata *appdata);
 
 //free memory
 void	free_char_array(char **array);
 void	free_appdata(t_appdata *appdata);
 
 //init
-void init_appdata(t_appdata *appdata);
+void	init_appdata(t_appdata *appdata);
 
 #endif

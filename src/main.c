@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:56:01 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/10 18:59:43 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:29:15 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_appdata appdata;
-	
+	t_appdata	appdata;
+
 	if (argc != 2)
 	{
 		ft_putstr_fd(WRONG_ARGS_MSG, 2);
@@ -29,4 +29,7 @@ int main(int argc, char **argv)
 	init_appdata(&appdata);
 	parse_map(&appdata, argv[1]);
 	check_for_errors(&appdata);
+	fill_the_structs(&appdata);
 }
+
+

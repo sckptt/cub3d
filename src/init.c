@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/10 17:29:34 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:58:12 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_map_data(t_appdata *appdata)
+static void	init_map_data(t_appdata *appdata)
 {
 	appdata->map = malloc(sizeof(t_map_data));
 	if (!appdata->map)
@@ -31,7 +31,7 @@ void init_map_data(t_appdata *appdata)
 	appdata->map->map_lines_total = 0;
 }
 
-void init_player_data(t_appdata *appdata)
+static void	init_player_data(t_appdata *appdata)
 {
 	appdata->player = malloc(sizeof(t_player_data));
 	if (!appdata->player)
@@ -44,7 +44,7 @@ void init_player_data(t_appdata *appdata)
 	appdata->player->pos_y = 0;
 }
 
-void init_textures(t_appdata *appdata)
+static void	init_textures(t_appdata *appdata)
 {
 	appdata->textures = malloc(sizeof(t_textures));
 	if (!appdata->textures)
@@ -60,7 +60,7 @@ void init_textures(t_appdata *appdata)
 	appdata->textures->east = NULL;
 }
 
-void init_appdata(t_appdata *appdata)
+void	init_appdata(t_appdata *appdata)
 {
 	appdata->map = NULL;
 	appdata->player = NULL;
