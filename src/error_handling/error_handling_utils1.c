@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling_utils1.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:30:46 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 13:51:46 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/13 18:20:26 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ char	**get_number_array(char *string)
 	return (splitted_numbers);
 }
 
+int	is_png_file(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	if (str[i] != 'g' || str[i - 1] != 'n'
+		|| str[i - 2] != 'p'
+		|| str[i - 3] != '.')
+		return (FALSE);
+	return (TRUE);
+}
+
 int	count_identifiers(t_appdata *appdata, char *identifier)
 {
 	int	i;
@@ -53,10 +65,16 @@ int	count_identifiers(t_appdata *appdata, char *identifier)
 	{
 		if (ft_strnstr(appdata->map->whole_map[i], identifier,
 				ft_strlen(appdata->map->whole_map[i])))
+			
 		{
 			counter++;
 			if (identifier[0] == 'F' || identifier[0] == 'C')
 				check_numeric(appdata, appdata->map->whole_map[i]);
+			if (ft_strchr("NSEW", identifier[0]))
+			{
+				if (is_png_file(appdata->map->whole_map[i]) == FALSE)
+					return (-1);
+			}
 		}
 		i++;
 	}

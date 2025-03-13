@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:44:37 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/11 15:08:53 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/13 17:47:52 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 //TODO - free memory
+//TODO - add space in error if 
 static void	flood_fill(char **map, int *row_len, int x, int y)
 {
 	if (x < 0 || y < 0 || y >= count_length_of_array(map)

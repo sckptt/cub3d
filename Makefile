@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
+#    By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/11 16:36:40 by vitakinsfat      ###   ########.fr        #
+#    Updated: 2025/03/13 15:30:07 by vkinsfat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # set a compiler and flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+MLX42 = MLX42/build/libmlx42.a -I include -ldl -lglfw -pthread -lm
 
 # path to source and object files, source and object files
 SRC_PATH = src/
@@ -21,6 +22,7 @@ SRC = error_handling/error_handling_utils1.c \
 error_handling/error_handling1.c \
 error_handling/error_handling2.c \
 error_handling/error_handling3.c \
+graphic/start_graphic.c \
 utils/free_things.c \
 utils/get_next_line_utils.c \
 utils/get_next_line.c \
@@ -54,7 +56,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c include/cub3d.h | $(OBJ_PATH)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
 $(NAME): $(OBJS) $(LIBFT_DIR)$(LIBNAME)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft $(LIBMLX_FLAG) $(MLX42)
 	@echo "\n$(GREEN)$(NAME) is created!$(NC)"
 
 clean:
@@ -65,7 +67,7 @@ clean:
 fclean:
 	@make fclean -C $(LIBFT_DIR)
 	rm -rf $(OBJ_PATH)
-	rm -f $(NAME)
+	rm -f $(NAME) libmlx.a
 	@echo "\n$(RED)$(NAME) is removed.$(NC)"
 
 re: fclean all

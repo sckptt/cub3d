@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_things.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:50:21 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/11 13:58:57 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/13 15:26:46 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,13 @@ void	free_appdata(t_appdata *appdata)
 	free_map_data(appdata);
 	free(appdata->player);
 	free(appdata->textures);
+}
+
+void free_after_exit(void *param)
+{
+	t_appdata	*appdata;
+
+	appdata = (t_appdata *)param;
+	free_appdata(appdata);
+	exit(SUCCESS);
 }

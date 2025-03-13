@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:30:36 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 16:31:24 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/13 15:13:06 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,21 @@ char *get_path(char *string)
 		return (ft_putstr_fd(ALLOC_ERROR, 2), NULL);
 	free_char_array(splitted_string);
 	return (path_to_texture);
+}
+
+int count_width(char **map)
+{
+	int i;
+	int width;
+	size_t str_width;
+
+	i = -1;
+	width = 0;
+	while (map[++i])
+	{
+		str_width = ft_strlen(map[i]);
+		if ((int)str_width > width)
+			width = (int)str_width;
+	}
+	return (width);
 }

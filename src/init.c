@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/11 13:58:12 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/13 18:59:22 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ static void	init_map_data(t_appdata *appdata)
 	appdata->map->s_texture = NULL;
 	appdata->map->w_texture = NULL;
 	appdata->map->e_texture = NULL;
-	appdata->map->floor_colors = 0;
-	appdata->map->ceiling_colors = 0;
+	appdata->map->floor_colors = NULL;
+	appdata->map->ceiling_colors = NULL;
 	appdata->map->map_lines_total = 0;
+	appdata->map->height = 0;
+	appdata->map->width = 0;
 }
 
 static void	init_player_data(t_appdata *appdata)
@@ -65,7 +67,7 @@ void	init_appdata(t_appdata *appdata)
 	appdata->map = NULL;
 	appdata->player = NULL;
 	appdata->textures = NULL;
-	//appdata->mlx = NULL;
+	appdata->mlx = NULL;
 	init_map_data(appdata);
 	init_player_data(appdata);
 	init_textures(appdata);

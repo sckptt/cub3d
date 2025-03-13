@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 16:32:08 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/13 18:22:10 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include "../Libft/include/libft.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 
 # define BUFFER_SIZE 42
 # define FALSE 0
@@ -45,6 +46,7 @@
 # define WRONG_TEXTURE_PATH "Error\nPath to texture is wrong!\n"
 # define TEXTURE_DUPLICATE "Error\nDuplicates in texture path!\n"
 # define MISSING_TEXTURE "Error\nOne of textures is missing!\n"
+# define NON_PNG_TEXTURE "Error\nTexture is not .png file!\n"
 
 //Map error messages
 # define EXTRA_SYMBOLS_MSG "Error\nExtra symbols in the map!\n"
@@ -66,6 +68,8 @@ typedef struct s_map_data
 	int		*floor_colors;
 	int		*ceiling_colors;
 	int		map_lines_total;
+	int		height;
+	int		width;
 }	t_map_data;
 
 typedef struct s_textures
@@ -85,7 +89,7 @@ typedef struct s_player_data
 typedef struct s_appdata
 {
 	t_map_data		*map;
-	// mlx_t			mlx;
+	mlx_t			*mlx;
 	t_textures		*textures;
 	t_player_data	*player;
 }	t_appdata;
@@ -96,12 +100,13 @@ char	*gnl_strjoin(char const *s1, char const *s2);
 size_t	gnl_strlen(const char *str);
 
 //parsing
+char	*get_path(char *string);
 int		count_non_empty_lines(t_appdata *appdata, char *path);
+int		count_width(char **map);
 int		is_empty_line(char *line);
 int		parse_map(t_appdata *appdata, char *path);
 int		find_position(char **map, char id);
 int		fill_the_structs(t_appdata *appdata);
-char	*get_path(char *string);
 int		*get_rgb_colors(char *string);
 
 //error handling
@@ -117,10 +122,14 @@ void	check_for_errors(t_appdata *appdata);
 void	check_numeric(t_appdata *appdata, char *string);
 
 //free memory
-void	free_char_array(char **array);
 void	free_appdata(t_appdata *appdata);
+void	free_char_array(char **array);
+void	free_after_exit(void *param);
 
 //init
 void	init_appdata(t_appdata *appdata);
+
+//graphic
+void	start_mlx(t_appdata *appdata);
 
 #endif
