@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/14 15:53:31 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:22:10 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,12 @@
 # include <limits.h>
 # include "../Libft/include/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
-// added by Y:
-# include <math.h>
 
 # define BUFFER_SIZE 42
 # define FALSE 0
 # define TRUE 1
 # define FAILURE 1
 # define SUCCESS 0
-// added by Y:
-# define PI 3.141592653589793
-# define SCREEN_HEIGHT 1600
-# define SCREEN_WIDTH 2560
 
 //Common error messages
 # define WRONG_ARGS_MSG "Error\nNumber of arguments is not 2!\n"
@@ -74,59 +68,23 @@ typedef struct s_map_data
 	int		*floor_colors;
 	int		*ceiling_colors;
 	int		map_lines_total;
-// added by Y:
-	int		unit_size;
-
+	int		height;
+	int		width;
 }	t_map_data;
 
 typedef struct s_textures
 {
-	mlx_image_t	*north;
-	mlx_image_t	*south;
-	mlx_image_t	*west;
-	mlx_image_t	*east;
-	long		floor_color;
-	long		ceiling_color;
+	void	*north;
+	void	*south;
+	void	*west;
+	void	*east;
 }	t_textures;
 
 typedef struct s_player_data
 {
 	int	pos_x;
 	int	pos_y;
-	int	camera_position;
-	int	tile_pos_x;
-	int	tile_pos_y;
-	int	move_speed;
-	int	turn_speed;
-// added by Y:
-	int	field_of_view_deg;
-	int	field_of_view_rad;
-	int	eyes_height;
-	float	camera_position_rad;
-
 }	t_player_data;
-
-// added by Y:
-typedef struct s_raycasting
-{
-	float	angle_btw_rays_rad;
-	float	dist_to_plane;
-	float	curr_ray_angle;
-	float	closest_wall_dist;
-	float	closest_wall_corrected;
-	int	first_h_intersection_coord_x;
-	int	first_h_intersection_coord_y;
-	int	next_h_intersection_coord_x;
-	int	next_h_intersection_coord_y;
-	int	first_v_intersection_coord_x;
-	int	first_v_intersection_coord_y;
-	int	next_v_intersection_coord_x;
-	int	next_v_intersection_coord_y;
-	int	projected_slice_height;
-	int	slice_starting_point;
-	int	slice_end_point;
-}	t_raycasting;
-
 
 typedef struct s_appdata
 {
@@ -134,9 +92,6 @@ typedef struct s_appdata
 	mlx_t			*mlx;
 	t_textures		*textures;
 	t_player_data	*player;
-// added by Y:
-	t_raycasting	*raycast;
-
 }	t_appdata;
 
 //GNL
@@ -147,6 +102,7 @@ size_t	gnl_strlen(const char *str);
 //parsing
 char	*get_path(char *string);
 int		count_non_empty_lines(t_appdata *appdata, char *path);
+int		count_width(char **map);
 int		is_empty_line(char *line);
 int		parse_map(t_appdata *appdata, char *path);
 int		find_position(char **map, char id);
@@ -161,7 +117,6 @@ int		check_map(t_appdata *appdata);
 int		check_order(t_appdata *appdata);
 int		count_identifiers(t_appdata *appdata, char *identifier);
 int		count_length_of_array(char **array);
-int		is_png_file(char *str);
 int		is_valid_filename(const char *arg);
 void	check_for_errors(t_appdata *appdata);
 void	check_numeric(t_appdata *appdata, char *string);
@@ -176,24 +131,5 @@ void	init_appdata(t_appdata *appdata);
 
 //graphic
 void	start_mlx(t_appdata *appdata);
-long	rgb_to_long(int *rgb_array);
-
-// added by Y:
-//maths
-float	degrees_to_radians(float value_in_degrees);
-void	iterate_casted_rays(t_appdata *appdata);
-void	wall_height_for_drawing(t_appdata *appdata);
-float	correct_fishbowl_effect(t_appdata *appdata);
-float	closest_wall_distance(t_appdata *appdata);
-float	first_vertical_wall_dist(t_appdata *appdata);
-float	first_horizont_wall_dist(t_appdata *appdata);
-float	calc_wall_distance(t_appdata *appdata, int intersection_x);
-int	check_if_wall_at(t_appdata *appdata);
-void	find_next_v_inters_coord(t_appdata *appdata, int iteration);
-void	find_1st_v_inters_coord(t_appdata *appdata);
-void	find_next_h_inters_coord(t_appdata *appdata, int iteration);
-void	find_1st_h_inters_coord(t_appdata *appdata);
-float	set_alpha_angle(t_appdata *appdata);
-float	set_ray_angle(int casted_ray_index, t_appdata *appdata);
 
 #endif

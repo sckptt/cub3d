@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:08:03 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/14 15:38:46 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:59:08 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static void	allocate_memory_for_whole_map(t_appdata *appdata, int fd)
 {
-	appdata->map->whole_map = malloc(sizeof(char *) * \
-			(appdata->map->map_lines_total + 1));
+	appdata->map->whole_map = malloc(sizeof(char *) * (appdata->map->map_lines_total + 1));
 	if (!appdata->map->whole_map)
 	{
 		ft_putstr_fd(ALLOC_ERROR, 2);

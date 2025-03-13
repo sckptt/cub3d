@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:56:01 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/14 15:32:30 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:23:22 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ int	main(int argc, char **argv)
 	parse_map(&appdata, argv[1]);
 	check_for_errors(&appdata);
 	fill_the_structs(&appdata);
-// added by Y:
-// function call put here for testing purpose, might be elsewhere once tested
-	iterate_casted_rays(&appdata);
-
+	free_appdata(&appdata);
 	start_mlx(&appdata);
 }
+
+

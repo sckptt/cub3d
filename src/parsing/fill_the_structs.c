@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_the_structs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/14 15:50:10 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:35:45 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	fill_the_structs(t_appdata *appdata)
 		free_appdata(appdata);
 		exit(FAILURE);
 	}
+	appdata->map->height = count_length_of_array(appdata->map->map);
+	appdata->map->width = count_width(appdata->map->map);
 	fill_player(appdata);
 	return (SUCCESS);
 }
