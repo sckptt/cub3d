@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:40:00 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 15:03:16 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/13 18:58:35 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//We have shit tone of places where it can go wrong!
-//Missing things, duplicates, non-numeric values (where it requires to be
-//numeric). I don't check map errors (like missing player, more than 1 player,
-//extra symbols, no walls etc) yet. But some error cases are working well.
-//Next step - check the map. 
 
 //TODO - whitespace cases like "XX,   XX,XX"
 void	check_numeric(t_appdata *appdata, char *string)
@@ -61,6 +55,8 @@ static int	check_paths(t_appdata *appdata)
 		return (ft_putstr_fd(MISSING_TEXTURE, 2), FAILURE);
 	else if (north > 1 || south > 1 || east > 1 || west > 1)
 		return (ft_putstr_fd(TEXTURE_DUPLICATE, 2), FAILURE);
+	else if (north == -1 || south == -1 || east == -1 || west == -1)
+		return (ft_putstr_fd(NON_PNG_TEXTURE, 2), FAILURE);
 	return (SUCCESS);
 }
 

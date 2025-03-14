@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   fill_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:30:36 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/11 16:31:24 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/14 15:50:39 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int *get_rgb_colors(char *string)
+int	*get_rgb_colors(char *string)
 {
-	char **splitted_string;
-	char **rgb_array;
-	int *rgb_int;
-	int i;
-	
+	char	**splitted_string;
+	char	**rgb_array;
+	int		*rgb_int;
+	int		i;
+
 	splitted_string = ft_split(string, ' ');
 	if (!splitted_string)
 		return (ft_putstr_fd(ALLOC_ERROR, 2), NULL);
@@ -35,17 +35,17 @@ int *get_rgb_colors(char *string)
 		rgb_int[i] = ft_atoi(rgb_array[i]);
 		if (rgb_int[i] > 255)
 			return (ft_putstr_fd(INVALID_RGB_VALUES, 2),
-		free_char_array(rgb_array), free(rgb_int), NULL);
+				free_char_array(rgb_array), free(rgb_int), NULL);
 	}
 	free_char_array(rgb_array);
 	return (rgb_int);
 }
 
-char *get_path(char *string)
+char	*get_path(char *string)
 {
-	char **splitted_string;
-	char *path_to_texture;
-	
+	char	**splitted_string;
+	char	*path_to_texture;
+
 	splitted_string = ft_split(string, ' ');
 	if (!splitted_string)
 		return (ft_putstr_fd(ALLOC_ERROR, 2), NULL);
