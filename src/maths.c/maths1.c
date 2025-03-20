@@ -119,40 +119,38 @@ int	*find_next_h_inters_coord(float current_ray_angle, int first_intersection_co
 	float	x_increment_value;
 
 	if (current_ray_angle < pi)
-		y_increment_value = unit_size;
-	else
 		y_increment_value = - unit_size;
+	else
+		y_increment_value = unit_size;
 	x_increment_value = unit_size / tan(set_alpha_angle(current_ray_angle));
 	next_intersection_coord[0] = (first_intersection_coord[0] + (x_increment_value * iteration)) / unit_size;
 	next_intersection_coord[1] = (first_intersection_coord[1] + (y_increment_value * unit_size)) / unit_size
 	return (next_intersection_coord);
 }
 
-// TO BE REMADE FOR VERTICAL (COPIED FROM HORIZONTAL):
 int	*find_1st_v_inters_coord(float current_ray_angle)
 {
 	int	first_intersection_coord[2];
 
-	if (current_ray_angle < pi)
-		first_intersection_coord[1] = floor(player_position_raw[1] / unit_size) * unit_size - 1; // Shouldn't floor includes all?
+	if (current_ray_angle > (pi / 2) && current_ray_angle < (3 * pi / 2))
+		first_intersection_coord[0] = floor(player_position_raw[0] / unit_size) * unit_size - 1; // Shouldn't floor includes all?
 	else
-		first_intersection_coord[1] = floor(player_position_raw[1] / unit_size) * unit_size + 64; // Shouldn't floor includes all?
-	first_intersection_coord[0] = (player_position_raw[1] - first_intersection_coord[1]) / tan(set_alpha_angle(current_ray_angle));
+		first_intersection_coord[0] = floor(player_position_raw[0] / unit_size) * unit_size + 64; // Shouldn't floor includes all?
+	first_intersection_coord[1] = (player_position_raw[0] - first_intersection_coord[0]) / tan(set_alpha_angle(current_ray_angle));
 	return (first_intersection_coord)
 }
 
-// TO BE REMADE FOR VERTICAL (COPIED FROM HORIZONTAL):
 int	*find_next_v_inters_coord(float current_ray_angle, int first_intersection_coord[2], int iteration)
 {
 	int	next_intersection_coord[2];
 	int	y_increment_value;
 	float	x_increment_value;
 
-	if (current_ray_angle < pi)
-		y_increment_value = unit_size;
+	if (current_ray_angle > (pi / 2) && current_ray_angle < (3 * pi / 2))
+		x_increment_value = - unit_size;
 	else
-		y_increment_value = - unit_size;
-	x_increment_value = unit_size / tan(set_alpha_angle(current_ray_angle));
+		x_increment_value = unit_size;
+	y_increment_value = unit_size * tan(set_alpha_angle(current_ray_angle));
 	next_intersection_coord[0] = (first_intersection_coord[0] + (x_increment_value * iteration)) / unit_size;
 	next_intersection_coord[1] = (first_intersection_coord[1] + (y_increment_value * unit_size)) / unit_size
 	return (next_intersection_coord);
@@ -197,7 +195,7 @@ float	first_horizont_wall_dist(float current_ray_angle)
 	return(calc_wall_distance(current_ray_angle, next_intersection_coord[0]));
 }
 
-float	first_vertical_wall_dist()
+float	first_vertical_wall_dist(float current_ray_angle)
 {
 	int	first_intersection_coord[2];
 	int	next_intersection_coord[2];
@@ -215,43 +213,51 @@ float	first_vertical_wall_dist()
 	return(calc_wall_distance(current_ray_angle, next_intersection_coord[0]));
 }
 
+//QUESTION: what should be done if both vertical and horizontal are equidistant?
 float	closest_wall_distance(float current_ray_angle)
 {
 	float	dist_to_1st_vertical_wall;
 	float	dist_to_1st_horizont_wall;
 
-	dist_to_1st_horizont_wall = first_horizont_wall_dist(current_ray_angle, .....);
-	dist_to_1st_vertical_wall = first_vertical_wall_dist(, current_ray_angle.....);
-	.........
-	.........
+	dist_to_1st_horizont_wall = first_horizont_wall_dist(current_ray_angle);
+	dist_to_1st_vertical_wall = first_vertical_wall_dist(, current_ray_angle);
+	if (dist_to_1st_horizont_wall > dist_to_1st_vertical_wall)
+		return (dist_to_1st_horizont_wall);
+	else
+		return (dist_to_1st_vertical_wall);
 }
 
-float	correct_fishbowl_effect()
+float	correct_fishbowl_effect(float closest_wall_distance, float current_ray_angle)
 {
-	........
-	........
-	........
+	float	corrected_distance;
+	float	beta_angle;
+	
+	beta_angle = abs(current_ray_angle - player_view_direction_rad);
+	corrected_distance = closest_wall_distance * cos(beta_angle);
+	return (corrected_distance);
 }
 
 void	iterate_casted_rays()
 {
 	int	casted_ray_index;
 	float	current_ray_angle;
+	float	closest_wall_dist;
+	float	closest_wall_corrected;
 
 	casted_ray_index = 0;
 	while (casted_ray_index < projection_plane_width)
 	{
 		current_ray_angle = set_ray_angle(casted_ray_index);
-
-		closest_wall_distance(current_ray_angle, ........);
-		.......
-
+		closest_wall_dist = closest_wall_distance(current_ray_angle);
+		closest_wall_corrected = correct_fishbowl_effect(closest_wall_dist, current_ray_angle);
+		// CALL DRAWING FUNCTION(S) HERE?
+		// [...]
 		ray_index++;
 	}
 }
 
-int	main(void)
-{
+// int	main(void)
+// {
 
-	return (0);
-}
+// 	return (0);
+// }
