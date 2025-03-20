@@ -237,6 +237,17 @@ float	correct_fishbowl_effect(float closest_wall_distance, float current_ray_ang
 	return (corrected_distance);
 }
 
+void	wall_height_for_drawing(float closest_wall_corrected)
+{
+	int	projected_slice_height;
+	int	slice_starting_point;
+	int	slice_ending_point;
+
+	projected_slice_height = roundf(unit_size / closest_wall_corrected) * distance_player_to_plane;
+	slice_starting_point = (projection_plane_height / 2) - (projected_slice_height / 2);
+	slice_ending_point = slice_starting_point + projected_slice_height;
+}
+
 void	iterate_casted_rays()
 {
 	int	casted_ray_index;
@@ -250,11 +261,19 @@ void	iterate_casted_rays()
 		current_ray_angle = set_ray_angle(casted_ray_index);
 		closest_wall_dist = closest_wall_distance(current_ray_angle);
 		closest_wall_corrected = correct_fishbowl_effect(closest_wall_dist, current_ray_angle);
-		// CALL DRAWING FUNCTION(S) HERE?
+		wall_height_for_drawing(........);
+		// CALL MLX DRAWING FUNCTION(S) HERE?
 		// [...]
 		ray_index++;
 	}
 }
+
+
+void	player_moving()
+{
+	.....
+}
+
 
 // int	main(void)
 // {
