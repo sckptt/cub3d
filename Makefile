@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+         #
+#    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/13 15:30:07 by vkinsfat         ###   ########.fr        #
+#    Updated: 2025/03/21 17:01:14 by vitakinsfat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # set a compiler and flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX42 = MLX42/build/libmlx42.a -I include -ldl -lglfw -pthread -lm
+MLX42 = MLX42/build/libmlx42.a -I include -ldl -L/opt/homebrew/lib -lglfw -pthread -lm
 
 # path to source and object files, source and object files
 SRC_PATH = src/
@@ -23,6 +23,8 @@ error_handling/error_handling1.c \
 error_handling/error_handling2.c \
 error_handling/error_handling3.c \
 graphic/start_graphic.c \
+graphic/graphic_utils.c \
+graphic/move_turn.c \
 utils/free_things.c \
 utils/get_next_line_utils.c \
 utils/get_next_line.c \

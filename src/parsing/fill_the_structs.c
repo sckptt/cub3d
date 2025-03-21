@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 15:35:45 by vitakinsfat      ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/03/27 15:38:58 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 
@@ -68,8 +69,10 @@ void	fill_player(t_appdata *appdata)
 	appdata->player->pos_y = find_position(appdata->map->map, 'y');
 	x = appdata->player->pos_x;
 	y = appdata->player->pos_y;
+	appdata->player->tile_pos_x = x * 64 + 32;
+	appdata->player->tile_pos_y = y * 64 + 32;
 	if (appdata->map->map[y][x] == 'E')
-		appdata->player->camera_position = 0;
+		appdata->player->camera_position = 360;
 	else if (appdata->map->map[y][x] == 'N')
 		appdata->player->camera_position = 90;
 	else if (appdata->map->map[y][x] == 'W')
@@ -95,8 +98,6 @@ int	fill_the_structs(t_appdata *appdata)
 		free_appdata(appdata);
 		exit(FAILURE);
 	}
-	appdata->map->height = count_length_of_array(appdata->map->map);
-	appdata->map->width = count_width(appdata->map->map);
 	fill_player(appdata);
 	return (SUCCESS);
 }

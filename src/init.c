@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/13 18:59:22 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:52:58 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static void	init_map_data(t_appdata *appdata)
 	appdata->map->floor_colors = NULL;
 	appdata->map->ceiling_colors = NULL;
 	appdata->map->map_lines_total = 0;
-	appdata->map->height = 0;
-	appdata->map->width = 0;
 }
 
 static void	init_player_data(t_appdata *appdata)
@@ -44,6 +42,11 @@ static void	init_player_data(t_appdata *appdata)
 	}
 	appdata->player->pos_x = 0;
 	appdata->player->pos_y = 0;
+	appdata->player->camera_position = 0;
+	appdata->player->tile_pos_x = 0;
+	appdata->player->tile_pos_y = 0;
+	appdata->player->move_speed = 10;
+	appdata->player->turn_speed = 30;
 }
 
 static void	init_textures(t_appdata *appdata)
@@ -60,6 +63,8 @@ static void	init_textures(t_appdata *appdata)
 	appdata->textures->south = NULL;
 	appdata->textures->west = NULL;
 	appdata->textures->east = NULL;
+	appdata->textures->ceiling_color = 0;
+	appdata->textures->floor_color = 0;
 }
 
 void	init_appdata(t_appdata *appdata)

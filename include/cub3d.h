@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/13 18:22:10 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:28:03 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <limits.h>
+# include <math.h>
 # include "../Libft/include/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
@@ -68,22 +69,27 @@ typedef struct s_map_data
 	int		*floor_colors;
 	int		*ceiling_colors;
 	int		map_lines_total;
-	int		height;
-	int		width;
 }	t_map_data;
 
 typedef struct s_textures
 {
-	void	*north;
-	void	*south;
-	void	*west;
-	void	*east;
+	mlx_image_t	*north;
+	mlx_image_t	*south;
+	mlx_image_t	*west;
+	mlx_image_t	*east;
+	long		floor_color;
+	long		ceiling_color;
 }	t_textures;
 
 typedef struct s_player_data
 {
 	int	pos_x;
 	int	pos_y;
+	int	camera_position;
+	double	tile_pos_x;
+	double	tile_pos_y;
+	int	move_speed;
+	int	turn_speed;
 }	t_player_data;
 
 typedef struct s_appdata
@@ -102,7 +108,6 @@ size_t	gnl_strlen(const char *str);
 //parsing
 char	*get_path(char *string);
 int		count_non_empty_lines(t_appdata *appdata, char *path);
-int		count_width(char **map);
 int		is_empty_line(char *line);
 int		parse_map(t_appdata *appdata, char *path);
 int		find_position(char **map, char id);
@@ -117,6 +122,7 @@ int		check_map(t_appdata *appdata);
 int		check_order(t_appdata *appdata);
 int		count_identifiers(t_appdata *appdata, char *identifier);
 int		count_length_of_array(char **array);
+int		is_png_file(char *str);
 int		is_valid_filename(const char *arg);
 void	check_for_errors(t_appdata *appdata);
 void	check_numeric(t_appdata *appdata, char *string);
@@ -131,5 +137,8 @@ void	init_appdata(t_appdata *appdata);
 
 //graphic
 void	start_mlx(t_appdata *appdata);
+long	rgb_to_long(int *rgb_array);
+void	turn_right(t_player_data *player);
+void	turn_left(t_player_data *player);
 
 #endif
