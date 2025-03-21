@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/03/27 15:38:58 by vitakinsfat      ###   ########.fr       */
+/*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
+/*   Updated: 2025/03/27 15:41:43 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	fill_player(t_appdata *appdata)
 	appdata->player->tile_pos_x = x * 64 + 32;
 	appdata->player->tile_pos_y = y * 64 + 32;
 	if (appdata->map->map[y][x] == 'E')
-		appdata->player->camera_position = 360;
+		appdata->player->camera_position = 0;
 	else if (appdata->map->map[y][x] == 'N')
 		appdata->player->camera_position = 90;
 	else if (appdata->map->map[y][x] == 'W')
