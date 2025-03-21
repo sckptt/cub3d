@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/14 15:50:50 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:52:58 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	init_player_data(t_appdata *appdata)
 	appdata->player->pos_x = 0;
 	appdata->player->pos_y = 0;
 	appdata->player->camera_position = 0;
-	appdata->player->tile_pos_x = 32;
-	appdata->player->tile_pos_y = 32;
+	appdata->player->tile_pos_x = 0;
+	appdata->player->tile_pos_y = 0;
 	appdata->player->move_speed = 10;
 	appdata->player->turn_speed = 30;
 }

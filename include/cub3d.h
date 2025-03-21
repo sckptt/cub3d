@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/14 15:53:31 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:28:03 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <limits.h>
+# include <math.h>
 # include "../Libft/include/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
@@ -85,8 +86,8 @@ typedef struct s_player_data
 	int	pos_x;
 	int	pos_y;
 	int	camera_position;
-	int	tile_pos_x;
-	int	tile_pos_y;
+	double	tile_pos_x;
+	double	tile_pos_y;
 	int	move_speed;
 	int	turn_speed;
 }	t_player_data;
@@ -137,5 +138,7 @@ void	init_appdata(t_appdata *appdata);
 //graphic
 void	start_mlx(t_appdata *appdata);
 long	rgb_to_long(int *rgb_array);
+void	turn_right(t_player_data *player);
+void	turn_left(t_player_data *player);
 
 #endif

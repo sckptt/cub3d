@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_graphic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:21:26 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/14 15:57:34 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:01:40 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,24 @@ void	hook_the_keys(mlx_key_data_t keydata, void *param)
 		free_appdata(appdata);
 		exit(SUCCESS);
 	}
-// 	if (keydata->key == MLX_KEY_W && keydata->action == MLX_PRESS)
-// 		// go_forward();
+	// if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+	// 	go_forward(appdata->player);
 // 	if (keydata->key == MLX_KEY_A && keydata->action == MLX_PRESS)
 // 		// go_left();
 // 	if (keydata->key == MLX_KEY_S && keydata->action == MLX_PRESS)
 // 		// go_back();
 // 	if (keydata->key == MLX_KEY_D && keydata->action == MLX_PRESS)
 // 		// go_right();
-// 	if (keydata->key == MLX_KEY_LEFT && keydata->action == MLX_PRESS)
-// 		//turn_left();
-// 	if (keydata->key == MLX_KEY_RIGHT && keydata->action == MLX_PRESS)
-// 		//turn_right();
+	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
+		turn_left(appdata->player);
+	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
+		turn_right(appdata->player);
 }
 
+//for school screen window size is 640 * 4, 400 * 4
 void	init_mlx(t_appdata *appdata)
 {
-	appdata->mlx = mlx_init(640 * 4, 400 * 4, "cub3D", false);
+	appdata->mlx = mlx_init(640, 400, "cub3D", false);
 	if (!appdata->mlx)
 	{
 		ft_putstr_fd(MLX_ERROR, 2);

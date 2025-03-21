@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_the_structs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/14 15:50:10 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:09:04 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ void	fill_player(t_appdata *appdata)
 	appdata->player->pos_y = find_position(appdata->map->map, 'y');
 	x = appdata->player->pos_x;
 	y = appdata->player->pos_y;
+	appdata->player->tile_pos_x = x * 64 + 32;
+	appdata->player->tile_pos_y = y * 64 + 32;
 	if (appdata->map->map[y][x] == 'E')
-		appdata->player->camera_position = 0;
+		appdata->player->camera_position = 360;
 	else if (appdata->map->map[y][x] == 'N')
 		appdata->player->camera_position = 90;
 	else if (appdata->map->map[y][x] == 'W')
