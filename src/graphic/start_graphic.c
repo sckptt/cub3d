@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:21:26 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/27 15:41:15 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 15:43:15 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ void	get_textures(t_appdata *appdata)
 	mlx_delete_texture(east);
 }
 
+void draw_player_square(t_appdata *appdata)
+{
+	mlx_image_t *player_img;
+	
+	player_img = mlx_new_image(appdata->mlx, 64, 64);
+	for (int y = 28; y < 36; y++)
+    {
+        for (int x = 28; x < 36; x++)
+            mlx_put_pixel(player_img, x, y, 0x00693EFF);
+    }
+	mlx_image_to_window(appdata->mlx, player_img,
+			appdata->player->pos_x * 64, appdata->player->pos_y * 64);
+}
+
 void draw_the_map(t_appdata *appdata)
 {
 	int i = 0;
@@ -52,15 +66,16 @@ void draw_the_map(t_appdata *appdata)
 		while (appdata->map->map[i][j])
 		{
 			if (appdata->map->map[i][j] == '1')
-				mlx_image_to_window(appdata->mlx, appdata->textures->west, j * 64, i * 64);
-			if (appdata->map->map[i][j] == '0')
-				mlx_image_to_window(appdata->mlx, appdata->textures->north, j * 64, i * 64);
-			if (ft_strchr("NSEW", appdata->map->map[i][j]))
-				mlx_image_to_window(appdata->mlx, appdata->textures->south, j * 64, i * 64);
+				mlx_image_to_window(appdata->mlx,
+						appdata->textures->north, j * 64, i * 64);
+			else
+				mlx_image_to_window(appdata->mlx,
+						appdata->textures->south, j * 64, i * 64);
 			j++;
 		}
 		i++;
 	}
+	draw_player_square(appdata);
 }
 
 //for school screen window size is 640 * 4, 400 * 4
