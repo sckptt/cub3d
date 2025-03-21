@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_things.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:50:21 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/14 16:27:51 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:21:59 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	free_map_data(t_map_data *map)
 	free(map);
 }
 
-static void free_textures(t_appdata *appdata)
+static void	free_textures(t_appdata *appdata)
 {
 	if (appdata->textures->north)
 		mlx_delete_image(appdata->mlx, appdata->textures->north);
@@ -72,7 +72,7 @@ void	free_appdata(t_appdata *appdata)
 	{
 		if (appdata->textures)
 			free_textures(appdata);
-		mlx_terminate(appdata->mlx);	
+		mlx_terminate(appdata->mlx);
 	}
 }
 

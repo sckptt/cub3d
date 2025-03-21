@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/21 17:28:03 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/21 22:28:37 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ typedef struct s_textures
 
 typedef struct s_player_data
 {
-	int	pos_x;
-	int	pos_y;
-	int	camera_position;
+	int		pos_x;
+	int		pos_y;
+	int		camera_position;
 	double	tile_pos_x;
 	double	tile_pos_y;
-	int	move_speed;
-	int	turn_speed;
+	int		move_speed;
+	int		turn_speed;
 }	t_player_data;
 
 typedef struct s_appdata
@@ -138,7 +138,12 @@ void	init_appdata(t_appdata *appdata);
 //graphic
 void	start_mlx(t_appdata *appdata);
 long	rgb_to_long(int *rgb_array);
+
+//movement
+void	hook_the_keys(mlx_key_data_t keydata, void *param);
 void	turn_right(t_player_data *player);
 void	turn_left(t_player_data *player);
+int		is_passable(char **map, double y, double x);
+double	deg_to_rad(int angle_deg);
 
 #endif
