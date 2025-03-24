@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/21 15:52:58 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/24 17:48:59 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	init_textures(t_appdata *appdata)
 	appdata->textures->south = NULL;
 	appdata->textures->west = NULL;
 	appdata->textures->east = NULL;
+	appdata->textures->player = NULL; //temp
 	appdata->textures->ceiling_color = 0;
 	appdata->textures->floor_color = 0;
 }

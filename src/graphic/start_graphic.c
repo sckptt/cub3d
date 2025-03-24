@@ -6,10 +6,9 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:21:26 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/27 15:43:15 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/24 18:20:38 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -42,17 +41,15 @@ void	get_textures(t_appdata *appdata)
 }
 
 void draw_player_square(t_appdata *appdata)
-{
-	mlx_image_t *player_img;
-	
-	player_img = mlx_new_image(appdata->mlx, 64, 64);
-	for (int y = 28; y < 36; y++)
+{	
+	appdata->textures->player = mlx_new_image(appdata->mlx, 8, 8);
+	for (int y = 0; y < 8; y++)
     {
-        for (int x = 28; x < 36; x++)
-            mlx_put_pixel(player_img, x, y, 0x00693EFF);
+        for (int x = 0; x < 8; x++)
+            mlx_put_pixel(appdata->textures->player, x, y, 0x00693EFF);
     }
-	mlx_image_to_window(appdata->mlx, player_img,
-			appdata->player->pos_x * 64, appdata->player->pos_y * 64);
+	mlx_image_to_window(appdata->mlx, appdata->textures->player,
+			appdata->player->tile_pos_x, appdata->player->tile_pos_y);
 }
 
 void draw_the_map(t_appdata *appdata)
