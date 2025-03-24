@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/21 22:28:37 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/24 19:19:55 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_textures
 	mlx_image_t	*south;
 	mlx_image_t	*west;
 	mlx_image_t	*east;
+	mlx_image_t *player;       //temporary
 	long		floor_color;
 	long		ceiling_color;
 }	t_textures;
@@ -138,6 +139,7 @@ void	init_appdata(t_appdata *appdata);
 //graphic
 void	start_mlx(t_appdata *appdata);
 long	rgb_to_long(int *rgb_array);
+void	draw_player_square(t_appdata *appdata);
 
 //movement
 void	hook_the_keys(mlx_key_data_t keydata, void *param);
