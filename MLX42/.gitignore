@@ -18,7 +18,7 @@
 
 # Libraries
 *.lib
-*.a
+# *.a
 *.la
 *.lo
 
@@ -60,7 +60,7 @@ lib/glfw/
 
 # Special shader files
 mlx_*_shader.c
-build/
+# build/
 main.c
 test
 
