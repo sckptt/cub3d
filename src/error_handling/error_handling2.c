@@ -6,54 +6,51 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:44:37 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/13 17:47:52 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:25:53 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//TODO - free memory
-//TODO - add space in error if 
-static void	flood_fill(char **map, int *row_len, int x, int y)
+static void	flood_fill(t_appdata *appdata, int x, int y)
 {
-	if (x < 0 || y < 0 || y >= count_length_of_array(map)
-		|| x > row_len[y])
+	if (x < 0 || y < 0 || y >= count_length_of_array(appdata->map->copy_map)
+		|| x > appdata->map->row_len[y])
 	{
 		ft_putstr_fd(NO_WALL_MSG, 2);
-		free_char_array(map);
-		free(row_len);
-		row_len = NULL;
+		free_appdata(appdata);
 		exit(FAILURE);
 	}
-	if (x >= row_len[y] || map[y][x] == '1' || map[y][x] == 'X')
+	if (appdata->map->copy_map[y][x] == ' ')
+	{
+		ft_putstr_fd(SPACE_FOUND, 2);
+		free_appdata(appdata);
+		exit(FAILURE);
+	}
+	if (x >= appdata->map->row_len[y] || appdata->map->copy_map[y][x] == '1'
+		|| appdata->map->copy_map[y][x] == 'X')
 		return ;
-	map[y][x] = 'X';
-	flood_fill(map, row_len, x + 1, y);
-	flood_fill(map, row_len, x - 1, y);
-	flood_fill(map, row_len, x, y + 1);
-	flood_fill(map, row_len, x, y - 1);
+	appdata->map->copy_map[y][x] = 'X';
+	flood_fill(appdata, x + 1, y);
+	flood_fill(appdata, x - 1, y);
+	flood_fill(appdata, x, y + 1);
+	flood_fill(appdata, x, y - 1);
 }
 
-static int	check_the_wall(t_map_data *map)
+static int	check_the_wall(t_appdata *appdata)
 {
-	char	**copy;
-	int		*row_len;
 	int		pos_x;
 	int		pos_y;
 
-	copy = copy_array(map->whole_map, map->map_lines_total);
-	if (!copy)
+	appdata->map->copy_map = copy_array(appdata->map->whole_map, appdata->map->map_lines_total);
+	if (!appdata->map->copy_map)
 		return (FAILURE);
-	row_len = create_row_len_array(copy);
-	if (!row_len)
+	appdata->map->row_len = create_row_len_array(appdata->map->copy_map);
+	if (!appdata->map->row_len)
 		return (FAILURE);
-	pos_x = find_position(copy, 'x');
-	pos_y = find_position(copy, 'y');
-	flood_fill(copy, row_len, pos_x, pos_y);
-	if (copy)
-		free_char_array(copy);
-	if (row_len)
-		free(row_len);
+	pos_x = find_position(appdata->map->copy_map, 'x');
+	pos_y = find_position(appdata->map->copy_map, 'y');
+	flood_fill(appdata, pos_x, pos_y);
 	return (SUCCESS);
 }
 
@@ -117,7 +114,7 @@ int	check_map(t_appdata *appdata)
 		return (FAILURE);
 	if (check_extra_symbols(appdata->map) == FAILURE)
 		return (FAILURE);
-	if (check_the_wall(appdata->map) == FAILURE)
+	if (check_the_wall(appdata) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
