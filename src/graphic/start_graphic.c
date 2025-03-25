@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_graphic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:21:26 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/14 15:57:34 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/24 18:20:38 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,41 +40,53 @@ void	get_textures(t_appdata *appdata)
 	mlx_delete_texture(east);
 }
 
-void	hook_the_keys(mlx_key_data_t keydata, void *param)
-{
-	t_appdata	*appdata;
-
-	appdata = (t_appdata *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
-		mlx_close_window(appdata->mlx);
-		free_appdata(appdata);
-		exit(SUCCESS);
-	}
-// 	if (keydata->key == MLX_KEY_W && keydata->action == MLX_PRESS)
-// 		// go_forward();
-// 	if (keydata->key == MLX_KEY_A && keydata->action == MLX_PRESS)
-// 		// go_left();
-// 	if (keydata->key == MLX_KEY_S && keydata->action == MLX_PRESS)
-// 		// go_back();
-// 	if (keydata->key == MLX_KEY_D && keydata->action == MLX_PRESS)
-// 		// go_right();
-// 	if (keydata->key == MLX_KEY_LEFT && keydata->action == MLX_PRESS)
-// 		//turn_left();
-// 	if (keydata->key == MLX_KEY_RIGHT && keydata->action == MLX_PRESS)
-// 		//turn_right();
+void draw_player_square(t_appdata *appdata)
+{	
+	appdata->textures->player = mlx_new_image(appdata->mlx, 8, 8);
+	for (int y = 0; y < 8; y++)
+    {
+        for (int x = 0; x < 8; x++)
+            mlx_put_pixel(appdata->textures->player, x, y, 0x00693EFF);
+    }
+	mlx_image_to_window(appdata->mlx, appdata->textures->player,
+			appdata->player->tile_pos_x, appdata->player->tile_pos_y);
 }
 
+void draw_the_map(t_appdata *appdata)
+{
+	int i = 0;
+	int j;
+	
+	while (appdata->map->map[i])
+	{
+		j = 0;
+		while (appdata->map->map[i][j])
+		{
+			if (appdata->map->map[i][j] == '1')
+				mlx_image_to_window(appdata->mlx,
+						appdata->textures->north, j * 64, i * 64);
+			else
+				mlx_image_to_window(appdata->mlx,
+						appdata->textures->south, j * 64, i * 64);
+			j++;
+		}
+		i++;
+	}
+	draw_player_square(appdata);
+}
+
+//for school screen window size is 640 * 4, 400 * 4
 void	init_mlx(t_appdata *appdata)
 {
-	appdata->mlx = mlx_init(640 * 4, 400 * 4, "cub3D", false);
+	appdata->mlx = mlx_init(640 * 2, 400 * 2, "cub3D", false);
 	if (!appdata->mlx)
 	{
 		ft_putstr_fd(MLX_ERROR, 2);
 		free_appdata(appdata);
 		exit(FAILURE);
 	}
-// 	get_textures(appdata);
+	get_textures(appdata);
+	draw_the_map(appdata);
 }
 
 void	start_mlx(t_appdata *appdata)
