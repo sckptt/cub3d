@@ -91,7 +91,14 @@ static void	init_raycast(t_appdata *appdata)
 	appdata->raycast->curr_ray_angle = 0;
 	appdata->raycast->closest_wall_dist = 0;
 	appdata->raycast->closest_wall_corrected = 0;
-
+	appdata->raycast->first_h_intersection_coord_x = 0;
+	appdata->raycast->first_h_intersection_coord_x = 0;
+	appdata->raycast->next_h_intersection_coord_x = 0;
+	appdata->raycast->next_h_intersection_coord_y = 0;
+	appdata->raycast->first_v_intersection_coord_x = 0;
+	appdata->raycast->first_v_intersection_coord_x = 0;
+	appdata->raycast->next_v_intersection_coord_x = 0;
+	appdata->raycast->next_v_intersection_coord_y = 0;
 	appdata->raycast->projected_slice_height = 0;
 	appdata->raycast->slice_starting_point = 0;
 	appdata->raycast->slice_end_point = 0;

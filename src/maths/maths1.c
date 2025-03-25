@@ -90,19 +90,19 @@ float	set_alpha_angle(t_appdata *appdata)
 
 //ABOVE OK
 
-int	*find_1st_h_inters_coord(float current_ray_angle)
+void	find_1st_h_inters_coord(t_appdata *appdata)
 {
-	int	first_intersection_coord[2];
+//	int	first_intersection_coord[2];
 
-	if (current_ray_angle < PI)
-		first_intersection_coord[1] = floor(pos_x_and_pos_y[1] / unit_size) * unit_size - 1; // Shouldn't floor() includes all?
+	if (appdata->raycast->curr_ray_angle < PI)
+		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / appdata->map->unit_size) * appdata->map->unit_size - 1; // Shouldn't floor() includes all?
 	else
-		first_intersection_coord[1] = floor(pos_x_and_pos_y[1] / unit_size) * unit_size + 64; // Shouldn't floor() includes all?
-	first_intersection_coord[0] = (pos_x_and_pos_y[1] - first_intersection_coord[1]) / tan(set_alpha_angle(current_ray_angle));
-	return (first_intersection_coord)
+		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / appdata->map->unit_size) * appdata->map->unit_size + 64; // Shouldn't floor() includes all?
+	appdata->raycast->first_h_intersection_coord_x = (appdata->player->pos_y - appdata->raycast->first_h_intersection_coord_y) / tan(set_alpha_angle(appdata));
+//	return (first_intersection_coord);
 }
 
-int	*find_next_h_inters_coord(float current_ray_angle, int first_intersection_coord[2], int iteration)
+void	find_next_h_inters_coord(float current_ray_angle, int first_intersection_coord[2], int iteration)
 {
 	int	next_intersection_coord[2];
 	int	y_increment_value;
@@ -115,7 +115,7 @@ int	*find_next_h_inters_coord(float current_ray_angle, int first_intersection_co
 	x_increment_value = unit_size / tan(set_alpha_angle(current_ray_angle));
 	next_intersection_coord[0] = (first_intersection_coord[0] + (x_increment_value * iteration)) / unit_size;
 	next_intersection_coord[1] = (first_intersection_coord[1] + (y_increment_value * unit_size)) / unit_size
-	return (next_intersection_coord);
+//	return (next_intersection_coord);
 }
 
 int	*find_1st_v_inters_coord(float current_ray_angle)
@@ -187,11 +187,7 @@ float	first_horizont_wall_dist(float current_ray_angle)
 
 float	first_vertical_wall_dist(float current_ray_angle)
 {
-	int	first_intersection_coord[2];
-	int	next_intersection_coord[2];
-	int	iterations_before_wall;
-
-	iterations_before_wall = 1;
+	int	first_intersection_coord[2];pos_x_and_pos_y[1]
 	first_intersection_coord = find_1st_v_inters_coord(current_ray_angle); // will not work like this, need to use pointer instead, but the idea is the same
 	if (check_if_wall_at(first_intersection_coord) == 1)
 		return (calc_wall_distance(current_ray_angle, first_intersection_coord[0]));

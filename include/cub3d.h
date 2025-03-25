@@ -115,7 +115,14 @@ typedef struct s_raycasting
 	float	curr_ray_angle;
 	float	closest_wall_dist;
 	float	closest_wall_corrected;
-
+	int	first_h_intersection_coord_x;
+	int	first_h_intersection_coord_y;
+	int	next_h_intersection_coord_x;
+	int	next_h_intersection_coord_y;
+	int	first_v_intersection_coord_x;
+	int	first_v_intersection_coord_y;
+	int	next_v_intersection_coord_x;
+	int	next_v_intersection_coord_y;
 	int	projected_slice_height;
 	int	slice_starting_point;
 	int	slice_end_point;
