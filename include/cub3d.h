@@ -20,7 +20,8 @@
 # include <stdio.h>
 # include <limits.h>
 # include "../Libft/include/libft.h"
-# include "../MLX42/include/MLX42/MLX42.h"
+// commented out temporarly to avoid error message:
+// # include "../MLX42/include/MLX42/MLX42.h"
 // added by Y:
 # include <math.h>
 
@@ -164,6 +165,8 @@ void	init_appdata(t_appdata *appdata);
 void	start_mlx(t_appdata *appdata);
 long	rgb_to_long(int *rgb_array);
 
+// added by Y:
 //maths
+float	degrees_to_radians(float value_in_degrees);
 
 #endif

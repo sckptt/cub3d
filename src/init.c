@@ -29,6 +29,8 @@ static void	init_map_data(t_appdata *appdata)
 	appdata->map->floor_colors = NULL;
 	appdata->map->ceiling_colors = NULL;
 	appdata->map->map_lines_total = 0;
+// added by Y:
+	appdata->map->unit_size = 64;
 }
 
 static void	init_player_data(t_appdata *appdata)
@@ -47,6 +49,11 @@ static void	init_player_data(t_appdata *appdata)
 	appdata->player->tile_pos_y = 32;
 	appdata->player->move_speed = 10;
 	appdata->player->turn_speed = 30;
+// added by Y:
+	appdata->player->field_of_view_deg = 60;
+	appdata->player->field_of_view_rad = degrees_to_radians(appdata->player->field_of_view_deg);
+	appdata->player->eyes_height = appdata->map->unit_size / 2;
+	appdata->player->camera_position_rad = degrees_to_radians(appdata->player->camera_position);
 }
 
 static void	init_textures(t_appdata *appdata)
@@ -67,12 +74,31 @@ static void	init_textures(t_appdata *appdata)
 	appdata->textures->floor_color = 0;
 }
 
+// added by Y:
+static void	init_raycast(t_appdata *appdata)
+{
+	appdata->raycast = malloc(sizeof(t_textures));
+	if (!appdata->raycast)
+	{
+		ft_putstr_fd(ALLOC_ERROR, 2);
+		free(appdata->map);
+		free(appdata->player);
+		free(appdata->textures);
+		exit(FAILURE);
+	}
+	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
+	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(appdata->player->field_of_view_rad);
+}
+
 void	init_appdata(t_appdata *appdata)
 {
 	appdata->map = NULL;
 	appdata->player = NULL;
 	appdata->textures = NULL;
 	appdata->mlx = NULL;
+// added by Y:
+	appdata->raycast = NULL;
+
 	init_map_data(appdata);
 	init_player_data(appdata);
 	init_textures(appdata);

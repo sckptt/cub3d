@@ -6,57 +6,48 @@
 /*   By: yrouzaud <yrouzaud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 09:31:20 by yrouzaud          #+#    #+#             */
-/*   Updated: 2025/03/19 16:31:20 by yrouzaud         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:31:20 by yrouzaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// 640 * 4 * 400 * 4 seems to be the good resolution
-// pixels texture 124
-
-// #include "cub3d.h"
+#include "cub3d.h"
 
 // the math library header is to be added in the header file
-#include <math.h> //ok
+// #include <math.h> //ok
 
-float	PI; //ok PI
-PI = 3.141592653589793; //ok as a define
+//float	PI; //ok PI
+//PI = 3.141592653589793; //ok as a define
 
 // Constant and variable initialization, to be moved in relevant file.s and 
 // struct.s later.
 
 // arbitrary chosen constant:
-int	field_of_view_deg; //ok
-int	field_of_view_rad; //ok
-int	eyes_height; //ok
-int	move_speed; //ok already there
-float	turn_speed; //ok already there
+//int	field_of_view_deg; //ok
+//int	field_of_view_rad; //ok
+//int	eyes_height; //ok
+//int	move_speed; //ok already there
+//float	turn_speed; //ok already there
 
-int	unit_size; //ok
+//int	unit_size; //ok
 
-int	SCREEN_WIDTH; //ok
-int	SCREEN_HEIGHT; //ok
+//int	SCREEN_WIDTH; //ok
+//int	SCREEN_HEIGHT; //ok
 
-float	angle_between_rays_rad; // ok
-float	dist_to_plane; //ok
+//float	angle_between_rays_rad; // ok
+//float	dist_to_plane; //ok
 
 // values extracted from the map:
-int	camera_position; // ok already there
-float	camera_position_rad; // ok
-int	pos_x_and_pos_y[2]; // already there. IMPORTANT: in project, 2 values: pos_x and pos_y
-int	pos_x_and_pos_y_units[2]; // ok IMPORTANT: in project, 2 separate values
+//int	camera_position; // ok already there
+//float	camera_position_rad; // ok
+//int	pos_x_and_pos_y[2]; // already there. IMPORTANT: in project, 2 values: pos_x and pos_y
+//int	pos_x_and_pos_y_units[2]; // already there ok IMPORTANT: in project, 2 separate values
 
-float	degrees_to_radians(float value_in_degrees)
-{
-	float	value_in_radians;
 
-	value_in_radians = value_in_degrees * (PI / 180);
-	return (value_in_radians);
-}
 
-field_of_view_deg = 60;
-field_of_view_rad = degrees_to_radians(field_of_view_deg);
-eyes_height = unit_size / 2;
-move_speed = 10;
+//field_of_view_deg = 60;
+//field_of_view_rad = degrees_to_radians(field_of_view_deg);
+//eyes_height = unit_size / 2;
+//move_speed = 10;
 //turn_speed = ... ;		to be chosen
 
 // camera_position = ... ;		to be extracted from map
@@ -65,14 +56,14 @@ move_speed = 10;
 // pos_x_and_pos_y = ... ;				to be extracted from map
 // pos_x_and_pos_y_units = ... ;			to be calculated with unit_size var
 
-unit_size = 64;
+//unit_size = 64;
 
-SCREEN_HEIGHT = 400 * 4; // OK as a define
-SCREEN_WIDTH = 640 * 4; // OK as a define
+//SCREEN_HEIGHT = 400 * 4; // OK as a define
+//SCREEN_WIDTH = 640 * 4; // OK as a define
 
-angle_between_rays_rad = field_of_view_rad / SCREEN_WIDTH;
+//angle_between_rays_rad = field_of_view_rad / SCREEN_WIDTH;
 
-dist_to_plane = (SCREEN_WIDTH / 2) / tan(field_of_view_rad);
+//dist_to_plane = (SCREEN_WIDTH / 2) / tan(field_of_view_rad);
 
 
 float	set_ray_angle(int casted_ray_index)
@@ -262,7 +253,7 @@ void	iterate_casted_rays(void)
 		wall_height_for_drawing(closest_wall_corrected);
 		// CALL MLX DRAWING FUNCTION(S) HERE?
 		// + TEXTURE FUNCTION(S) HERE TOO?
-		ray_index++;
+		casted_ray_index++;
 	}
 }
 
@@ -271,11 +262,3 @@ void	iterate_casted_rays(void)
 // {
 // 	.....
 // }
-
-
-int	main(void)
-{
-	iterate_casted_rays();
-
-	return (0);
-}
