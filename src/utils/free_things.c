@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:50:21 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/25 15:20:43 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:37:28 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ void	free_char_array(char **array)
 
 static void	free_map_data(t_map_data *map)
 {
+	if (!map)
+		return ;
 	if (map->whole_map)
 		free_char_array(map->whole_map);
 	if (map->map)
 		free_char_array(map->map);
+	if (map->copy_map)
+		free_char_array(map->copy_map);
 	if (map->n_texture)
 		free(map->n_texture);
 	if (map->s_texture)
@@ -46,6 +50,8 @@ static void	free_map_data(t_map_data *map)
 		free(map->floor_colors);
 	if (map->ceiling_colors != 0)
 		free(map->ceiling_colors);
+	if (map->row_len)
+		free(map->row_len);
 	free(map);
 }
 
@@ -74,6 +80,8 @@ void	free_appdata(t_appdata *appdata)
 			free_textures(appdata);
 		mlx_terminate(appdata->mlx);
 	}
+	else if (!appdata->mlx && appdata->textures)
+		free(appdata->textures);
 }
 
 void	free_after_exit(void *param)

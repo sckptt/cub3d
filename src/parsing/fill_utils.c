@@ -6,26 +6,49 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:30:36 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 15:21:21 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:18:25 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+char	*remove_extra_spaces(char *string)
+{
+	char arr[12];
+	char *res;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (!ft_isdigit(string[i]))
+		i++;
+	while (string[i])
+	{
+		if (ft_isdigit(string[i]) || string[i] == ',' || string[i] == '-')
+			arr[j++] = string[i++];
+		else
+			i++;
+	}
+	arr[j] = '\0';
+	res = ft_strdup(arr);
+	return (res);
+}
+
 int	*get_rgb_colors(char *string)
 {
-	char	**splitted_string;
+	char	*cleared_string;
 	char	**rgb_array;
 	int		*rgb_int;
 	int		i;
 
-	splitted_string = ft_split(string, ' ');
-	if (!splitted_string)
+	cleared_string = remove_extra_spaces(string);
+	if (!cleared_string)
 		return (ft_putstr_fd(ALLOC_ERROR, 2), NULL);
-	rgb_array = ft_split(splitted_string[1], ',');
+	rgb_array = ft_split(cleared_string, ',');
 	if (!rgb_array)
 		return (ft_putstr_fd(ALLOC_ERROR, 2), NULL);
-	free_char_array(splitted_string);
+	free(cleared_string);
 	rgb_int = malloc(sizeof(int) * 3);
 	if (!rgb_int)
 		return (ft_putstr_fd(ALLOC_ERROR, 2), NULL);

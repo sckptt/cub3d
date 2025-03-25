@@ -6,13 +6,12 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:40:00 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/13 18:58:35 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:56:53 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//TODO - whitespace cases like "XX,   XX,XX"
 void	check_numeric(t_appdata *appdata, char *string)
 {
 	int		i;
@@ -20,7 +19,7 @@ void	check_numeric(t_appdata *appdata, char *string)
 	char	**splitted_numbers;
 
 	i = 0;
-	splitted_numbers = get_number_array(string);
+	splitted_numbers = get_number_array(appdata, string);
 	while (splitted_numbers[i] != NULL)
 	{
 		j = 0;

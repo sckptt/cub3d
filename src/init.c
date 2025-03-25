@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/25 15:20:26 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:32:22 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ static void	init_map_data(t_appdata *appdata)
 	}
 	appdata->map->whole_map = NULL;
 	appdata->map->map = NULL;
+	appdata->map->copy_map = NULL;
 	appdata->map->n_texture = NULL;
 	appdata->map->s_texture = NULL;
 	appdata->map->w_texture = NULL;
 	appdata->map->e_texture = NULL;
 	appdata->map->floor_colors = NULL;
 	appdata->map->ceiling_colors = NULL;
+	appdata->map->row_len = NULL;
 	appdata->map->map_lines_total = 0;
 	appdata->map->height = 0;
 	appdata->map->width = 0;

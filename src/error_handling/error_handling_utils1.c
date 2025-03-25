@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:30:46 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 15:24:39 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:56:31 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ int	count_length_of_array(char **array)
 	return (counter);
 }
 
-//TODO free appdata;
-char	**get_number_array(char *string)
+char	**get_number_array(t_appdata *appdata, char *string)
 {
-	char	**splitted_line;
+	char	*cleared_line;
 	char	**splitted_numbers;
 
-	splitted_line = ft_split(string, ' ');
-	splitted_numbers = ft_split(splitted_line[1], ',');
-	free_char_array(splitted_line);
+	cleared_line = remove_extra_spaces(string);
+	splitted_numbers = ft_split(cleared_line, ',');
+	free(cleared_line);
 	if (count_length_of_array(splitted_numbers) != 3)
 	{
 		free_char_array(splitted_numbers);
 		ft_putstr_fd(INVALID_RGB_AMOUNT, 2);
+		free_appdata(appdata);
 		exit(FAILURE);
 	}
 	return (splitted_numbers);

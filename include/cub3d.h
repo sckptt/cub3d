@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 15:22:13 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:22:57 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@
 # define NO_WALL_MSG "Error\nMap is not surrounded by walls!\n"
 # define EMPTY "Error\nEmpty file!\n"
 # define WRONG_ORDER "Error\nWrong order of identifiers!\n"
+# define SPACE_FOUND "Error\nSpace instead of 0!\n"
 
 typedef struct s_map_data
 {
 	char	**map;
+	char	**copy_map;
 	char	*n_texture;
 	char	*s_texture;
 	char	*w_texture;
@@ -68,6 +70,7 @@ typedef struct s_map_data
 	char	**whole_map;
 	int		*floor_colors;
 	int		*ceiling_colors;
+	int		*row_len;
 	int		map_lines_total;
 	int		height;
 	int		width;
@@ -120,7 +123,7 @@ int		*get_rgb_colors(char *string);
 
 //error handling
 char	**copy_array(char **array, int array_len);
-char	**get_number_array(char *string);
+char	**get_number_array(t_appdata *appdata, char *string);
 int		*create_row_len_array(char **array);
 int		check_map(t_appdata *appdata);
 int		check_order(t_appdata *appdata);
@@ -130,6 +133,7 @@ int		is_png_file(char *str);
 int		is_valid_filename(const char *arg);
 void	check_for_errors(t_appdata *appdata);
 void	check_numeric(t_appdata *appdata, char *string);
+char	*remove_extra_spaces(char *string);
 
 //free memory
 void	free_appdata(t_appdata *appdata);
