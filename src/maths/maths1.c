@@ -66,6 +66,9 @@
 //dist_to_plane = (SCREEN_WIDTH / 2) / tan(field_of_view_rad);
 
 
+//ABOVE OK
+
+
 float	set_ray_angle(int casted_ray_index)
 {
 	float	current_ray_angle_rad;
@@ -209,7 +212,7 @@ float	closest_wall_distance(float current_ray_angle)
 	float	dist_to_1st_horizont_wall;
 
 	dist_to_1st_horizont_wall = first_horizont_wall_dist(current_ray_angle);
-	dist_to_1st_vertical_wall = first_vertical_wall_dist(, current_ray_angle);
+	dist_to_1st_vertical_wall = first_vertical_wall_dist(current_ray_angle);
 	if (dist_to_1st_horizont_wall > dist_to_1st_vertical_wall)
 		return (dist_to_1st_horizont_wall);
 	else
@@ -226,33 +229,38 @@ float	correct_fishbowl_effect(float closest_wall_distance, float current_ray_ang
 	return (corrected_distance);
 }
 
-void	wall_height_for_drawing(float closest_wall_corrected)
-{
-	int	projected_slice_height;
-	int	slice_starting_point;
-	int	slice_ending_point;
 
-	projected_slice_height = roundf(unit_size / closest_wall_corrected) * dist_to_plane;
-	slice_starting_point = (SCREEN_HEIGHT / 2) - (projected_slice_height / 2);
-	slice_ending_point = slice_starting_point + projected_slice_height;
+// BELOW OK
+
+void	wall_height_for_drawing(t_appdata *appdata)
+{
+//	int	projected_slice_height;
+//	int	slice_starting_point;
+//	int	slice_ending_point;
+
+	appdata->raycast->projected_slice_height = roundf(appdata->map->unit_size / appdata->raycast->closest_wall_corrected) * appdata->raycast->dist_to_plane;
+	appdata->raycast->slice_starting_point = (SCREEN_HEIGHT / 2) - (appdata->raycast->projected_slice_height / 2);
+	appdata->raycast->slice_end_point = appdata->raycast->slice_starting_point + appdata->raycast->projected_slice_height;
 }
 
-void	iterate_casted_rays(void)
+void	iterate_casted_rays(t_appdata *appdata)
 {
 	int	casted_ray_index;
-	float	current_ray_angle;
-	float	closest_wall_dist;
-	float	closest_wall_corrected;
+//	float	current_ray_angle;
+//	float	closest_wall_dist;
+//	float	closest_wall_corrected;
 
 	casted_ray_index = 0;
 	while (casted_ray_index < SCREEN_WIDTH)
 	{
-		current_ray_angle = set_ray_angle(casted_ray_index);
-		closest_wall_dist = closest_wall_distance(current_ray_angle);
-		closest_wall_corrected = correct_fishbowl_effect(closest_wall_dist, current_ray_angle);
-		wall_height_for_drawing(closest_wall_corrected);
+		appdata->raycast->curr_ray_angle = set_ray_angle(casted_ray_index);
+		appdata->raycast->closest_wall_dist = closest_wall_distance(appdata->raycast->curr_ray_angle);
+		appdata->raycast->closest_wall_corrected = correct_fishbowl_effect(appdata->raycast->closest_wall_dist, appdata->raycast->curr_ray_angle);
+		wall_height_for_drawing(appdata);
+
 		// CALL MLX DRAWING FUNCTION(S) HERE?
 		// + TEXTURE FUNCTION(S) HERE TOO?
+
 		casted_ray_index++;
 	}
 }

@@ -112,6 +112,13 @@ typedef struct s_raycasting
 {
 	float	angle_btw_rays_rad;
 	float	dist_to_plane;
+	float	curr_ray_angle;
+	float	closest_wall_dist;
+	float	closest_wall_corrected;
+
+	int	projected_slice_height;
+	int	slice_starting_point;
+	int	slice_end_point;
 }	t_raycasting;
 
 

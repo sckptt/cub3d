@@ -88,6 +88,13 @@ static void	init_raycast(t_appdata *appdata)
 	}
 	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
 	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(appdata->player->field_of_view_rad);
+	appdata->raycast->curr_ray_angle = 0;
+	appdata->raycast->closest_wall_dist = 0;
+	appdata->raycast->closest_wall_corrected = 0;
+
+	appdata->raycast->projected_slice_height = 0;
+	appdata->raycast->slice_starting_point = 0;
+	appdata->raycast->slice_end_point = 0;
 }
 
 void	init_appdata(t_appdata *appdata)
