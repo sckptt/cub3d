@@ -65,41 +65,39 @@
 
 //dist_to_plane = (SCREEN_WIDTH / 2) / tan(field_of_view_rad);
 
-
-//ABOVE OK
-
-
-float	set_ray_angle(int casted_ray_index)
+float	set_ray_angle(int casted_ray_index, t_appdata *appdata)
 {
 	float	current_ray_angle_rad;
 
-	current_ray_angle_rad = (camera_position_rad - (field_of_view_rad / 2)) + (casted_ray_index * angle_between_rays_rad);
+	current_ray_angle_rad = (appdata->player->camera_position_rad - (appdata->player->field_of_view_rad / 2)) + (casted_ray_index * appdata->raycast->angle_btw_rays_rad);
 	return (current_ray_angle_rad);
 }
 
-float	set_alpha_angle(float current_ray_angle)
+float	set_alpha_angle(t_appdata *appdata)
 {
 	float	alpha_angle_rad;
 
-	if (current_ray_angle < (PI / 2))
-		alpha_angle_rad = current_ray_angle;
-	else if (current_ray_angle < PI)
-		alpha_angle_rad = current_ray_angle - (PI / 2);
-	else if (current_ray_angle < ((3 * PI) / 2))
-		alpha_angle_rad = current_ray_angle - PI;
+	if (appdata->raycast->curr_ray_angle < (PI / 2))
+		alpha_angle_rad = appdata->raycast->curr_ray_angle;
+	else if (appdata->raycast->curr_ray_angle < PI)
+		alpha_angle_rad = appdata->raycast->curr_ray_angle - (PI / 2);
+	else if (appdata->raycast->curr_ray_angle < ((3 * PI) / 2))
+		alpha_angle_rad = appdata->raycast->curr_ray_angle - PI;
 	else
-		alpha_angle_rad = current_ray_angle - ((3 * PI) / 2);
+		alpha_angle_rad = appdata->raycast->curr_ray_angle - ((3 * PI) / 2);
 	return (alpha_angle_rad);
 }
+
+//ABOVE OK
 
 int	*find_1st_h_inters_coord(float current_ray_angle)
 {
 	int	first_intersection_coord[2];
 
 	if (current_ray_angle < PI)
-		first_intersection_coord[1] = floor(pos_x_and_pos_y[1] / unit_size) * unit_size - 1; // Shouldn't floor includes all?
+		first_intersection_coord[1] = floor(pos_x_and_pos_y[1] / unit_size) * unit_size - 1; // Shouldn't floor() includes all?
 	else
-		first_intersection_coord[1] = floor(pos_x_and_pos_y[1] / unit_size) * unit_size + 64; // Shouldn't floor includes all?
+		first_intersection_coord[1] = floor(pos_x_and_pos_y[1] / unit_size) * unit_size + 64; // Shouldn't floor() includes all?
 	first_intersection_coord[0] = (pos_x_and_pos_y[1] - first_intersection_coord[1]) / tan(set_alpha_angle(current_ray_angle));
 	return (first_intersection_coord)
 }
@@ -205,39 +203,35 @@ float	first_vertical_wall_dist(float current_ray_angle)
 	return(calc_wall_distance(current_ray_angle, next_intersection_coord[0]));
 }
 
+
+// BELOW OK
+
 //QUESTION: what should be done if both vertical and horizontal are equidistant?
-float	closest_wall_distance(float current_ray_angle)
+float	closest_wall_distance(t_appdata *appdata)
 {
 	float	dist_to_1st_vertical_wall;
 	float	dist_to_1st_horizont_wall;
 
-	dist_to_1st_horizont_wall = first_horizont_wall_dist(current_ray_angle);
-	dist_to_1st_vertical_wall = first_vertical_wall_dist(current_ray_angle);
+	dist_to_1st_horizont_wall = first_horizont_wall_dist(appdata->raycast->curr_ray_angle);
+	dist_to_1st_vertical_wall = first_vertical_wall_dist(appdata->raycast->curr_ray_angle);
 	if (dist_to_1st_horizont_wall > dist_to_1st_vertical_wall)
 		return (dist_to_1st_horizont_wall);
 	else
 		return (dist_to_1st_vertical_wall);
 }
 
-float	correct_fishbowl_effect(float closest_wall_distance, float current_ray_angle)
+float	correct_fishbowl_effect(t_appdata *appdata)
 {
 	float	corrected_distance;
 	float	beta_angle;
 	
-	beta_angle = abs(current_ray_angle - camera_position_rad);
-	corrected_distance = closest_wall_distance * cos(beta_angle);
+	beta_angle = abs(appdata->raycast->curr_ray_angle - appdata->player->camera_position_rad);
+	corrected_distance = appdata->raycast->closest_wall_dist * cos(beta_angle);
 	return (corrected_distance);
 }
 
-
-// BELOW OK
-
 void	wall_height_for_drawing(t_appdata *appdata)
 {
-//	int	projected_slice_height;
-//	int	slice_starting_point;
-//	int	slice_ending_point;
-
 	appdata->raycast->projected_slice_height = roundf(appdata->map->unit_size / appdata->raycast->closest_wall_corrected) * appdata->raycast->dist_to_plane;
 	appdata->raycast->slice_starting_point = (SCREEN_HEIGHT / 2) - (appdata->raycast->projected_slice_height / 2);
 	appdata->raycast->slice_end_point = appdata->raycast->slice_starting_point + appdata->raycast->projected_slice_height;
@@ -246,21 +240,16 @@ void	wall_height_for_drawing(t_appdata *appdata)
 void	iterate_casted_rays(t_appdata *appdata)
 {
 	int	casted_ray_index;
-//	float	current_ray_angle;
-//	float	closest_wall_dist;
-//	float	closest_wall_corrected;
 
 	casted_ray_index = 0;
 	while (casted_ray_index < SCREEN_WIDTH)
 	{
-		appdata->raycast->curr_ray_angle = set_ray_angle(casted_ray_index);
-		appdata->raycast->closest_wall_dist = closest_wall_distance(appdata->raycast->curr_ray_angle);
-		appdata->raycast->closest_wall_corrected = correct_fishbowl_effect(appdata->raycast->closest_wall_dist, appdata->raycast->curr_ray_angle);
+		appdata->raycast->curr_ray_angle = set_ray_angle(casted_ray_index, appdata);
+		appdata->raycast->closest_wall_dist = closest_wall_distance(appdata);
+		appdata->raycast->closest_wall_corrected = correct_fishbowl_effect(appdata);
 		wall_height_for_drawing(appdata);
-
 		// CALL MLX DRAWING FUNCTION(S) HERE?
 		// + TEXTURE FUNCTION(S) HERE TOO?
-
 		casted_ray_index++;
 	}
 }
