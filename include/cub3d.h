@@ -103,8 +103,6 @@ typedef struct s_player_data
 	int	field_of_view_rad;
 	int	eyes_height;
 	float	camera_position_rad;
-	int	pos_x_units;
-	int	pos_y_units;
 
 }	t_player_data;
 
