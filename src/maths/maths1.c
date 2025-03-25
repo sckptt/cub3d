@@ -13,75 +13,73 @@
 // 640 * 4 * 400 * 4 seems to be the good resolution
 // pixels texture 124
 
-#include "cub3d.h"
+// #include "cub3d.h"
 
 // the math library header is to be added in the header file
-#include <math.h>
+#include <math.h> //ok
 
-float	pi;
-pi = 3.141592653589793;
+float	PI; //ok PI
+PI = 3.141592653589793; //ok as a define
 
 // Constant and variable initialization, to be moved in relevant file.s and 
 // struct.s later.
 
 // arbitrary chosen constant:
-int	player_field_of_view_degr;
-int	player_field_of_view_rad;
-int	player_eyes_height;
-int	player_moving_speed;
-float	player_turning_speed;
+int	field_of_view_deg; //ok
+int	field_of_view_rad; //ok
+int	eyes_height; //ok
+int	move_speed; //ok already there
+float	turn_speed; //ok already there
 
-int	unit_size;
+int	unit_size; //ok
 
-int	projection_plane_width;
-int	projection_plane_height;
+int	SCREEN_WIDTH; //ok
+int	SCREEN_HEIGHT; //ok
 
-float	angle_between_rays_rad;
-float	distance_player_to_plane;
+float	angle_between_rays_rad; // ok
+float	dist_to_plane; //ok
 
 // values extracted from the map:
-int	player_view_direction_deg;
-float	player_view_direction_rad;
-int	player_position_raw[2];
-int	player_position_units[2];
-
-
-player_field_of_view_degr = 60;
-// player_field_of_view_rad = ... ;	to be calculated from degrees var
-player_eyes_height = unit_size / 2;
-player_moving_speed = 10;
-//player_turning_speed = ... ;		to be chosen
-
-// player_view_direction_deg = ... ;		to be extracted from map
-// player_view_direction_rad = ... ;		to be calculated from degrees var
-
-// player_position_raw = ... ;				to be extracted from map
-// player_position_units = ... ;			to be calculated with unit_size var
-
-unit_size = 64;
-
-projection_plane_height = 400 * 4;
-projection_plane_width = 640 * 4;
-
-angle_between_rays_rad = player_field_of_view_rad / projection_plane_width;
-
-distance_player_to_plane = (projection_plane_width / 2) / tan(player_field_of_view_rad);
-
+int	camera_position; // ok already there
+float	camera_position_rad; // ok
+int	pos_x_and_pos_y[2]; // already there. IMPORTANT: in project, 2 values: pos_x and pos_y
+int	pos_x_and_pos_y_units[2]; // ok IMPORTANT: in project, 2 separate values
 
 float	degrees_to_radians(float value_in_degrees)
 {
 	float	value_in_radians;
 
-	value_in_radians = value_in_degrees * (pi / 180);
-	return (value_in_radiants);
+	value_in_radians = value_in_degrees * (PI / 180);
+	return (value_in_radians);
 }
+
+field_of_view_deg = 60;
+field_of_view_rad = degrees_to_radians(field_of_view_deg);
+eyes_height = unit_size / 2;
+move_speed = 10;
+//turn_speed = ... ;		to be chosen
+
+// camera_position = ... ;		to be extracted from map
+// camera_position_rad = ... ;		to be calculated from degrees var
+
+// pos_x_and_pos_y = ... ;				to be extracted from map
+// pos_x_and_pos_y_units = ... ;			to be calculated with unit_size var
+
+unit_size = 64;
+
+SCREEN_HEIGHT = 400 * 4; // OK as a define
+SCREEN_WIDTH = 640 * 4; // OK as a define
+
+angle_between_rays_rad = field_of_view_rad / SCREEN_WIDTH;
+
+dist_to_plane = (SCREEN_WIDTH / 2) / tan(field_of_view_rad);
 
 
 float	set_ray_angle(int casted_ray_index)
 {
 	float	current_ray_angle_rad;
 
-	current_ray_angle_rad = (player_view_direction_rad - (player_field_of_view_rad / 2)) + (casted_ray_index * angle_between_rays_rad);
+	current_ray_angle_rad = (camera_position_rad - (field_of_view_rad / 2)) + (casted_ray_index * angle_between_rays_rad);
 	return (current_ray_angle_rad);
 }
 
@@ -89,14 +87,14 @@ float	set_alpha_angle(float current_ray_angle)
 {
 	float	alpha_angle_rad;
 
-	if (current_ray_angle < (pi / 2))
+	if (current_ray_angle < (PI / 2))
 		alpha_angle_rad = current_ray_angle;
-	else if (current_ray_angle < pi)
-		alpha_angle_rad = current_ray_angle - (pi / 2);
-	else if (current_ray_angle < ((3 * pi) / 2))
-		alpha_angle_rad = current_ray_angle - pi;
+	else if (current_ray_angle < PI)
+		alpha_angle_rad = current_ray_angle - (PI / 2);
+	else if (current_ray_angle < ((3 * PI) / 2))
+		alpha_angle_rad = current_ray_angle - PI;
 	else
-		alpha_angle_rad = current_ray_angle - ((3 * pi) / 2);
+		alpha_angle_rad = current_ray_angle - ((3 * PI) / 2);
 	return (alpha_angle_rad);
 }
 
@@ -104,11 +102,11 @@ int	*find_1st_h_inters_coord(float current_ray_angle)
 {
 	int	first_intersection_coord[2];
 
-	if (current_ray_angle < pi)
-		first_intersection_coord[1] = floor(player_position_raw[1] / unit_size) * unit_size - 1; // Shouldn't floor includes all?
+	if (current_ray_angle < PI)
+		first_intersection_coord[1] = floor(pos_x_and_pos_y[1] / unit_size) * unit_size - 1; // Shouldn't floor includes all?
 	else
-		first_intersection_coord[1] = floor(player_position_raw[1] / unit_size) * unit_size + 64; // Shouldn't floor includes all?
-	first_intersection_coord[0] = (player_position_raw[1] - first_intersection_coord[1]) / tan(set_alpha_angle(current_ray_angle));
+		first_intersection_coord[1] = floor(pos_x_and_pos_y[1] / unit_size) * unit_size + 64; // Shouldn't floor includes all?
+	first_intersection_coord[0] = (pos_x_and_pos_y[1] - first_intersection_coord[1]) / tan(set_alpha_angle(current_ray_angle));
 	return (first_intersection_coord)
 }
 
@@ -118,7 +116,7 @@ int	*find_next_h_inters_coord(float current_ray_angle, int first_intersection_co
 	int	y_increment_value;
 	float	x_increment_value;
 
-	if (current_ray_angle < pi)
+	if (current_ray_angle < PI)
 		y_increment_value = - unit_size;
 	else
 		y_increment_value = unit_size;
@@ -132,11 +130,11 @@ int	*find_1st_v_inters_coord(float current_ray_angle)
 {
 	int	first_intersection_coord[2];
 
-	if (current_ray_angle > (pi / 2) && current_ray_angle < (3 * pi / 2))
-		first_intersection_coord[0] = floor(player_position_raw[0] / unit_size) * unit_size - 1; // Shouldn't floor includes all?
+	if (current_ray_angle > (PI / 2) && current_ray_angle < (3 * PI / 2))
+		first_intersection_coord[0] = floor(pos_x_and_pos_y[0] / unit_size) * unit_size - 1; // Shouldn't floor includes all?
 	else
-		first_intersection_coord[0] = floor(player_position_raw[0] / unit_size) * unit_size + 64; // Shouldn't floor includes all?
-	first_intersection_coord[1] = (player_position_raw[0] - first_intersection_coord[0]) / tan(set_alpha_angle(current_ray_angle));
+		first_intersection_coord[0] = floor(pos_x_and_pos_y[0] / unit_size) * unit_size + 64; // Shouldn't floor includes all?
+	first_intersection_coord[1] = (pos_x_and_pos_y[0] - first_intersection_coord[0]) / tan(set_alpha_angle(current_ray_angle));
 	return (first_intersection_coord)
 }
 
@@ -146,7 +144,7 @@ int	*find_next_v_inters_coord(float current_ray_angle, int first_intersection_co
 	int	y_increment_value;
 	float	x_increment_value;
 
-	if (current_ray_angle > (pi / 2) && current_ray_angle < (3 * pi / 2))
+	if (current_ray_angle > (PI / 2) && current_ray_angle < (3 * PI / 2))
 		x_increment_value = - unit_size;
 	else
 		x_increment_value = unit_size;
@@ -173,7 +171,7 @@ float	calc_wall_distance(float current_ray_angle, int intersection_x)
 {
 	float	distance_to_wall;
 
-	distance_to_wall = abs(player_position_raw[0] - intersection_x) / cos(set_alpha_angle(current_ray_angle));
+	distance_to_wall = abs(pos_x_and_pos_y[0] - intersection_x) / cos(set_alpha_angle(current_ray_angle));
 	return(distance_to_wall);
 }
 
@@ -232,7 +230,7 @@ float	correct_fishbowl_effect(float closest_wall_distance, float current_ray_ang
 	float	corrected_distance;
 	float	beta_angle;
 	
-	beta_angle = abs(current_ray_angle - player_view_direction_rad);
+	beta_angle = abs(current_ray_angle - camera_position_rad);
 	corrected_distance = closest_wall_distance * cos(beta_angle);
 	return (corrected_distance);
 }
@@ -243,12 +241,12 @@ void	wall_height_for_drawing(float closest_wall_corrected)
 	int	slice_starting_point;
 	int	slice_ending_point;
 
-	projected_slice_height = roundf(unit_size / closest_wall_corrected) * distance_player_to_plane;
-	slice_starting_point = (projection_plane_height / 2) - (projected_slice_height / 2);
+	projected_slice_height = roundf(unit_size / closest_wall_corrected) * dist_to_plane;
+	slice_starting_point = (SCREEN_HEIGHT / 2) - (projected_slice_height / 2);
 	slice_ending_point = slice_starting_point + projected_slice_height;
 }
 
-void	iterate_casted_rays()
+void	iterate_casted_rays(void)
 {
 	int	casted_ray_index;
 	float	current_ray_angle;
@@ -256,27 +254,28 @@ void	iterate_casted_rays()
 	float	closest_wall_corrected;
 
 	casted_ray_index = 0;
-	while (casted_ray_index < projection_plane_width)
+	while (casted_ray_index < SCREEN_WIDTH)
 	{
 		current_ray_angle = set_ray_angle(casted_ray_index);
 		closest_wall_dist = closest_wall_distance(current_ray_angle);
 		closest_wall_corrected = correct_fishbowl_effect(closest_wall_dist, current_ray_angle);
-		wall_height_for_drawing(........);
+		wall_height_for_drawing(closest_wall_corrected);
 		// CALL MLX DRAWING FUNCTION(S) HERE?
-		// [...]
+		// + TEXTURE FUNCTION(S) HERE TOO?
 		ray_index++;
 	}
 }
 
 
-void	player_moving()
-{
-	.....
-}
-
-
-// int	main(void)
+// void	player_moving()
 // {
-
-// 	return (0);
+// 	.....
 // }
+
+
+int	main(void)
+{
+	iterate_casted_rays();
+
+	return (0);
+}

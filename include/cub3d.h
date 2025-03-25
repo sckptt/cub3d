@@ -21,12 +21,18 @@
 # include <limits.h>
 # include "../Libft/include/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+// added by Y:
+# include <math.h>
 
 # define BUFFER_SIZE 42
 # define FALSE 0
 # define TRUE 1
 # define FAILURE 1
 # define SUCCESS 0
+// added by Y:
+# define PI 3.141592653589793
+# define SCREEN_HEIGHT 1600
+# define SCREEN_WIDTH 2560
 
 //Common error messages
 # define WRONG_ARGS_MSG "Error\nNumber of arguments is not 2!\n"
@@ -68,6 +74,9 @@ typedef struct s_map_data
 	int		*floor_colors;
 	int		*ceiling_colors;
 	int		map_lines_total;
+// added by Y:
+	int		unit_size;
+
 }	t_map_data;
 
 typedef struct s_textures
@@ -89,7 +98,23 @@ typedef struct s_player_data
 	int	tile_pos_y;
 	int	move_speed;
 	int	turn_speed;
+// added by Y:
+	int	field_of_view_deg;
+	int	field_of_view_rad;
+	int	eyes_height;
+	float	camera_position_rad;
+	int	pos_x_units;
+	int	pos_y_units;
+
 }	t_player_data;
+
+// added by Y:
+typedef struct s_raycasting
+{
+	float	angle_btw_rays_rad;
+	float	dist_to_plane;
+}	t_raycasting;
+
 
 typedef struct s_appdata
 {
@@ -97,6 +122,9 @@ typedef struct s_appdata
 	mlx_t			*mlx;
 	t_textures		*textures;
 	t_player_data	*player;
+// added by Y:
+	t_raycasting	*raycast;
+
 }	t_appdata;
 
 //GNL
@@ -137,5 +165,7 @@ void	init_appdata(t_appdata *appdata);
 //graphic
 void	start_mlx(t_appdata *appdata);
 long	rgb_to_long(int *rgb_array);
+
+//maths
 
 #endif
