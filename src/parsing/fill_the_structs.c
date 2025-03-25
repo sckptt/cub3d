@@ -6,16 +6,16 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/13 15:12:14 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:20:56 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int fill_texture_path(t_map_data *map)
+int	fill_texture_path(t_map_data *map)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (map->whole_map[++i])
 	{
@@ -34,10 +34,10 @@ int fill_texture_path(t_map_data *map)
 	return (SUCCESS);
 }
 
-int fill_colors(t_map_data *map)
+int	fill_colors(t_map_data *map)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (map->whole_map[++i])
 	{
@@ -51,7 +51,7 @@ int fill_colors(t_map_data *map)
 	return (SUCCESS);
 }
 
-int fill_map(t_map_data *map)
+int	fill_map(t_map_data *map)
 {
 	map->map = copy_array(map->whole_map, map->map_lines_total);
 	if (!map->map)
@@ -59,13 +59,28 @@ int fill_map(t_map_data *map)
 	return (SUCCESS);
 }
 
-void fill_player(t_appdata *appdata)
+void	fill_player(t_appdata *appdata)
 {
+	int	y;
+	int	x;
+
 	appdata->player->pos_x = find_position(appdata->map->map, 'x');
-	appdata->player->pos_y = find_position(appdata->map->map, 'y');	
+	appdata->player->pos_y = find_position(appdata->map->map, 'y');
+	x = appdata->player->pos_x;
+	y = appdata->player->pos_y;
+	appdata->player->tile_pos_x = x * 64 + 32;
+	appdata->player->tile_pos_y = y * 64 + 32;
+	if (appdata->map->map[y][x] == 'E')
+		appdata->player->camera_position = 0;
+	else if (appdata->map->map[y][x] == 'N')
+		appdata->player->camera_position = 90;
+	else if (appdata->map->map[y][x] == 'W')
+		appdata->player->camera_position = 180;
+	else
+		appdata->player->camera_position = 270;
 }
 
-int fill_the_structs(t_appdata *appdata)
+int	fill_the_structs(t_appdata *appdata)
 {
 	if (fill_texture_path(appdata->map) == FAILURE)
 	{
@@ -87,4 +102,3 @@ int fill_the_structs(t_appdata *appdata)
 	fill_player(appdata);
 	return (SUCCESS);
 }
-	

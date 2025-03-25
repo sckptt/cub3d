@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/13 18:59:22 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:20:26 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ static void	init_player_data(t_appdata *appdata)
 	}
 	appdata->player->pos_x = 0;
 	appdata->player->pos_y = 0;
+	appdata->player->camera_position = 0;
+	appdata->player->tile_pos_x = 0;
+	appdata->player->tile_pos_y = 0;
+	appdata->player->move_speed = 10;
+	appdata->player->turn_speed = 30;
 }
 
 static void	init_textures(t_appdata *appdata)
@@ -60,6 +65,9 @@ static void	init_textures(t_appdata *appdata)
 	appdata->textures->south = NULL;
 	appdata->textures->west = NULL;
 	appdata->textures->east = NULL;
+	appdata->textures->player = NULL; //temp
+	appdata->textures->ceiling_color = 0;
+	appdata->textures->floor_color = 0;
 }
 
 void	init_appdata(t_appdata *appdata)

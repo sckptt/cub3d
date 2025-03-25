@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:56:01 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/13 18:23:22 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:19:55 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,5 @@ int	main(int argc, char **argv)
 	parse_map(&appdata, argv[1]);
 	check_for_errors(&appdata);
 	fill_the_structs(&appdata);
-	free_appdata(&appdata);
 	start_mlx(&appdata);
 }
-
-
