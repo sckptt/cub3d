@@ -95,16 +95,16 @@ void	find_next_v_inters_coord(t_appdata *appdata, int iteration)
 
 // This function is to be built taking into account system built by Vita
 //	regarding the map and its parsing.
-int	check_if_wall_at(int coordinates[2])
-{
-	......
-	......
-	......
-	if (......)
-		return (1);
-	else
-		return (0);
-}
+// int	check_if_wall_at(int coordinates[2])
+// {
+// 	......
+// 	......
+// 	......
+// 	if (......)
+// 		return (1);
+// 	else
+// 		return (0);
+// }
 
 // BELOW OK
 
@@ -154,8 +154,8 @@ float	closest_wall_distance(t_appdata *appdata)
 	float	dist_to_1st_vertical_wall;
 	float	dist_to_1st_horizont_wall;
 
-	dist_to_1st_horizont_wall = first_horizont_wall_dist(appdata->raycast->curr_ray_angle);
-	dist_to_1st_vertical_wall = first_vertical_wall_dist(appdata->raycast->curr_ray_angle);
+	dist_to_1st_horizont_wall = first_horizont_wall_dist(appdata);
+	dist_to_1st_vertical_wall = first_vertical_wall_dist(appdata);
 	if (dist_to_1st_horizont_wall > dist_to_1st_vertical_wall)
 		return (dist_to_1st_horizont_wall);
 	else
@@ -195,7 +195,6 @@ void	iterate_casted_rays(t_appdata *appdata)
 		casted_ray_index++;
 	}
 }
-
 
 // void	player_moving()
 // {
