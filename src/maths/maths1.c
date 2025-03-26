@@ -43,19 +43,17 @@ float	set_alpha_angle(t_appdata *appdata)
 
 void	find_1st_h_inters_coord(t_appdata *appdata)
 {
-//	int	first_intersection_coord[2];
-
 	if (appdata->raycast->curr_ray_angle < PI)
-		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / appdata->map->unit_size) * appdata->map->unit_size - 1; // Shouldn't floor() includes all?
+		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / appdata->map->unit_size) * appdata->map->unit_size - 1; 
+// ^^Shouldn't floor() includes all?^^
 	else
-		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / appdata->map->unit_size) * appdata->map->unit_size + 64; // Shouldn't floor() includes all?
+		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / appdata->map->unit_size) * appdata->map->unit_size + 64; 
+// ^^Shouldn't floor() includes all?^^
 	appdata->raycast->first_h_intersection_coord_x = (appdata->player->pos_y - appdata->raycast->first_h_intersection_coord_y) / tan(set_alpha_angle(appdata));
-//	return (first_intersection_coord);
 }
 
 void	find_next_h_inters_coord(t_appdata *appdata, int iteration)
 {
-//	int	next_intersection_coord[2];
 	int	y_increment_value;
 	float	x_increment_value;
 
@@ -66,38 +64,34 @@ void	find_next_h_inters_coord(t_appdata *appdata, int iteration)
 	x_increment_value = appdata->map->unit_size / tan(set_alpha_angle(appdata));
 	appdata->raycast->next_h_intersection_coord_x = (appdata->raycast->first_h_intersection_coord_x + (x_increment_value * iteration)) / appdata->map->unit_size;
 	appdata->raycast->next_h_intersection_coord_y = (appdata->raycast->first_h_intersection_coord_y + (y_increment_value * appdata->map->unit_size)) / appdata->map->unit_size;
-//	return (next_intersection_coord);
 }
 
-//ABOVE OK
-
-int	*find_1st_v_inters_coord(float current_ray_angle)
+void	find_1st_v_inters_coord(t_appdata *appdata)
 {
-	int	first_intersection_coord[2];
-
-	if (current_ray_angle > (PI / 2) && current_ray_angle < (3 * PI / 2))
-		first_intersection_coord[0] = floor(pos_x_and_pos_y[0] / unit_size) * unit_size - 1; // Shouldn't floor includes all?
+	if (appdata->raycast->curr_ray_angle > (PI / 2) && appdata->raycast->curr_ray_angle < (3 * PI / 2))
+		appdata->raycast->first_v_intersection_coord_x = floor(appdata->player->pos_x / appdata->map->unit_size) * appdata->map->unit_size - 1; 
+// ^^Shouldn't floor() includes all?^^
 	else
-		first_intersection_coord[0] = floor(pos_x_and_pos_y[0] / unit_size) * unit_size + 64; // Shouldn't floor includes all?
-	first_intersection_coord[1] = (pos_x_and_pos_y[0] - first_intersection_coord[0]) / tan(set_alpha_angle(current_ray_angle));
-	return (first_intersection_coord)
+		appdata->raycast->first_v_intersection_coord_x = floor(appdata->player->pos_x / appdata->map->unit_size) * appdata->map->unit_size + 64; 
+// ^^Shouldn't floor() includes all?^^
+	appdata->raycast->first_v_intersection_coord_y = (appdata->player->pos_x - appdata->raycast->first_v_intersection_coord_x) / tan(set_alpha_angle(appdata));
 }
 
-int	*find_next_v_inters_coord(float current_ray_angle, int first_intersection_coord[2], int iteration)
+void	find_next_v_inters_coord(t_appdata *appdata, int iteration)
 {
-	int	next_intersection_coord[2];
 	int	y_increment_value;
 	float	x_increment_value;
 
-	if (current_ray_angle > (PI / 2) && current_ray_angle < (3 * PI / 2))
-		x_increment_value = - unit_size;
+	if (appdata->raycast->curr_ray_angle > (PI / 2) && appdata->raycast->curr_ray_angle < (3 * PI / 2))
+		x_increment_value = - appdata->map->unit_size;
 	else
-		x_increment_value = unit_size;
-	y_increment_value = unit_size * tan(set_alpha_angle(current_ray_angle));
-	next_intersection_coord[0] = (first_intersection_coord[0] + (x_increment_value * iteration)) / unit_size;
-	next_intersection_coord[1] = (first_intersection_coord[1] + (y_increment_value * unit_size)) / unit_size
-	return (next_intersection_coord);
+		x_increment_value = appdata->map->unit_size;
+	y_increment_value = appdata->map->unit_size * tan(set_alpha_angle(appdata));
+	appdata->raycast->next_v_intersection_coord_x = (appdata->raycast->first_v_intersection_coord_x + (x_increment_value * iteration)) / appdata->map->unit_size;
+	appdata->raycast->next_v_intersection_coord_y = (appdata->raycast->first_v_intersection_coord_y + (y_increment_value * appdata->map->unit_size)) / appdata->map->unit_size;
 }
+
+//ABOVE OK
 
 // This function is to be built taking into account system built by Vita
 //	regarding the map and its parsing.
@@ -112,48 +106,47 @@ int	check_if_wall_at(int coordinates[2])
 		return (0);
 }
 
-float	calc_wall_distance(float current_ray_angle, int intersection_x)
+// BELOW OK
+
+float	calc_wall_distance(t_appdata *appdata, int intersection_x)
 {
 	float	distance_to_wall;
 
-	distance_to_wall = abs(pos_x_and_pos_y[0] - intersection_x) / cos(set_alpha_angle(current_ray_angle));
+	distance_to_wall = abs(appdata->player->pos_x - intersection_x) / cos(set_alpha_angle(appdata));
 	return(distance_to_wall);
 }
 
-float	first_horizont_wall_dist(float current_ray_angle)
+float	first_horizont_wall_dist(t_appdata *appdata)
 {
-	int	first_intersection_coord[2];
-	int	next_intersection_coord[2];
 	int	iterations_before_wall;
 
 	iterations_before_wall = 1;
-	first_intersection_coord = find_1st_h_inters_coord(current_ray_angle); // will not work like this, need to use pointer instead, but the idea is the same
-	if (check_if_wall_at(first_intersection_coord) == 1)
-		return (calc_wall_distance(current_ray_angle, first_intersection_coord[0]));
-	while (check_if_wall_at(next_intersection_coord) == 0)
+	find_1st_h_inters_coord(appdata);
+	if (check_if_wall_at(appdata) == 1)
+		return (calc_wall_distance(appdata, appdata->raycast->first_h_intersection_coord_x));
+	while (check_if_wall_at(appdata) == 0)
 	{
-		next_intersection_coord = find_next_h_inters_coord(current_ray_angle, iterations_before_wall);  // will not work like this, need to use pointer instead, but the idea is the same
+		find_next_h_inters_coord(appdata, iterations_before_wall);
 		iterations_before_wall++;
 	}
-	return(calc_wall_distance(current_ray_angle, next_intersection_coord[0]));
+	return(calc_wall_distance(appdata, appdata->raycast->next_h_intersection_coord_x));
 }
 
-float	first_vertical_wall_dist(float current_ray_angle)
+float	first_vertical_wall_dist(t_appdata *appdata)
 {
-	int	first_intersection_coord[2];pos_x_and_pos_y[1]
-	first_intersection_coord = find_1st_v_inters_coord(current_ray_angle); // will not work like this, need to use pointer instead, but the idea is the same
-	if (check_if_wall_at(first_intersection_coord) == 1)
-		return (calc_wall_distance(current_ray_angle, first_intersection_coord[0]));
-	while (check_if_wall_at(next_intersection_coord) == 0)
+	int	iterations_before_wall;
+	
+	iterations_before_wall = 1;
+	find_1st_v_inters_coord(appdata);
+	if (check_if_wall_at(appdata) == 1)
+		return (calc_wall_distance(appdata, appdata->raycast->first_v_intersection_coord_x));
+	while (check_if_wall_at(appdata) == 0)
 	{
-		next_intersection_coord = find_next_v_inters_coord(current_ray_angle, iterations_before_wall); // will not work like this, need to use pointer instead, but the idea is the same
+		find_next_v_inters_coord(appdata, iterations_before_wall);
 		iterations_before_wall++;
 	}
-	return(calc_wall_distance(current_ray_angle, next_intersection_coord[0]));
+	return(calc_wall_distance(appdata, appdata->raycast->next_v_intersection_coord_x));
 }
-
-
-// BELOW OK
 
 //QUESTION: what should be done if both vertical and horizontal are equidistant?
 float	closest_wall_distance(t_appdata *appdata)
