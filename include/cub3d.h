@@ -20,8 +20,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include "../Libft/include/libft.h"
-// commented out temporarly to avoid error message:
-// # include "../MLX42/include/MLX42/MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 // added by Y:
 # include <math.h>
 
