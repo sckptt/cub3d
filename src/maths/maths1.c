@@ -12,58 +12,11 @@
 
 #include "cub3d.h"
 
-// the math library header is to be added in the header file
-// #include <math.h> //ok
-
-//float	PI; //ok PI
-//PI = 3.141592653589793; //ok as a define
-
-// Constant and variable initialization, to be moved in relevant file.s and 
-// struct.s later.
-
-// arbitrary chosen constant:
-//int	field_of_view_deg; //ok
-//int	field_of_view_rad; //ok
-//int	eyes_height; //ok
-//int	move_speed; //ok already there
-//float	turn_speed; //ok already there
-
-//int	unit_size; //ok
-
-//int	SCREEN_WIDTH; //ok
-//int	SCREEN_HEIGHT; //ok
-
-//float	angle_between_rays_rad; // ok
-//float	dist_to_plane; //ok
-
-// values extracted from the map:
-//int	camera_position; // ok already there
-//float	camera_position_rad; // ok
-//int	pos_x_and_pos_y[2]; // already there. IMPORTANT: in project, 2 values: pos_x and pos_y
-//int	pos_x_and_pos_y_units[2]; // already there ok IMPORTANT: in project, 2 separate values
-
-
-
-//field_of_view_deg = 60;
-//field_of_view_rad = degrees_to_radians(field_of_view_deg);
-//eyes_height = unit_size / 2;
-//move_speed = 10;
-//turn_speed = ... ;		to be chosen
-
 // camera_position = ... ;		to be extracted from map
 // camera_position_rad = ... ;		to be calculated from degrees var
 
 // pos_x_and_pos_y = ... ;				to be extracted from map
 // pos_x_and_pos_y_units = ... ;			to be calculated with unit_size var
-
-//unit_size = 64;
-
-//SCREEN_HEIGHT = 400 * 4; // OK as a define
-//SCREEN_WIDTH = 640 * 4; // OK as a define
-
-//angle_between_rays_rad = field_of_view_rad / SCREEN_WIDTH;
-
-//dist_to_plane = (SCREEN_WIDTH / 2) / tan(field_of_view_rad);
 
 float	set_ray_angle(int casted_ray_index, t_appdata *appdata)
 {
@@ -88,8 +41,6 @@ float	set_alpha_angle(t_appdata *appdata)
 	return (alpha_angle_rad);
 }
 
-//ABOVE OK
-
 void	find_1st_h_inters_coord(t_appdata *appdata)
 {
 //	int	first_intersection_coord[2];
@@ -102,21 +53,23 @@ void	find_1st_h_inters_coord(t_appdata *appdata)
 //	return (first_intersection_coord);
 }
 
-void	find_next_h_inters_coord(float current_ray_angle, int first_intersection_coord[2], int iteration)
+void	find_next_h_inters_coord(t_appdata *appdata, int iteration)
 {
-	int	next_intersection_coord[2];
+//	int	next_intersection_coord[2];
 	int	y_increment_value;
 	float	x_increment_value;
 
-	if (current_ray_angle < PI)
-		y_increment_value = - unit_size;
+	if (appdata->raycast->curr_ray_angle < PI)
+		y_increment_value = - appdata->map->unit_size;
 	else
-		y_increment_value = unit_size;
-	x_increment_value = unit_size / tan(set_alpha_angle(current_ray_angle));
-	next_intersection_coord[0] = (first_intersection_coord[0] + (x_increment_value * iteration)) / unit_size;
-	next_intersection_coord[1] = (first_intersection_coord[1] + (y_increment_value * unit_size)) / unit_size
+		y_increment_value = appdata->map->unit_size;
+	x_increment_value = appdata->map->unit_size / tan(set_alpha_angle(appdata));
+	appdata->raycast->next_h_intersection_coord_x = (appdata->raycast->first_h_intersection_coord_x + (x_increment_value * iteration)) / appdata->map->unit_size;
+	appdata->raycast->next_h_intersection_coord_y = (appdata->raycast->first_h_intersection_coord_y + (y_increment_value * appdata->map->unit_size)) / appdata->map->unit_size;
 //	return (next_intersection_coord);
 }
+
+//ABOVE OK
 
 int	*find_1st_v_inters_coord(float current_ray_angle)
 {
