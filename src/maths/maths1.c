@@ -12,11 +12,20 @@
 
 #include "cub3d.h"
 
-// camera_position = ... ;		to be extracted from map
-// camera_position_rad = ... ;		to be calculated from degrees var
-
-// pos_x_and_pos_y = ... ;				to be extracted from map
-// pos_x_and_pos_y_units = ... ;			to be calculated with unit_size var
+// TO DO NOW:
+// ==========
+// - Integrate a call to the maths process in the existing main loop
+// - Build functions to extract the following values:
+// 		camera_position = ... ;		to be extracted from map
+// 		camera_position_rad = ... ;		to be calculated from degrees var
+// 		pos_x_and_pos_y = ... ;				to be extracted from map
+// 		pos_x_and_pos_y_units = ... ;			to be calculated with unit_size var
+// - Build the function (or Vita's one) to check if there is a wall at a given coord
+// - Print the main values to see if no mistakes in current maths formulas
+// - Integrate the drawing in the loop
+// - Check if there is no too long function
+// - Put the maths functions in different files to respect the 5 functions limit
+// - See how to implement the textures
 
 float	set_ray_angle(int casted_ray_index, t_appdata *appdata)
 {
@@ -95,16 +104,19 @@ void	find_next_v_inters_coord(t_appdata *appdata, int iteration)
 
 // This function is to be built taking into account system built by Vita
 //	regarding the map and its parsing.
-// int	check_if_wall_at(int coordinates[2])
-// {
-// 	......
-// 	......
-// 	......
-// 	if (......)
-// 		return (1);
-// 	else
-// 		return (0);
-// }
+int	check_if_wall_at(t_appdata *appdata)
+{
+	// ......
+	// ......
+	// ......
+	// if (......)
+	if (appdata != NULL)
+		return (1);
+	else
+		return (0);
+	// else
+	// 	return (0);
+}
 
 // BELOW OK
 
@@ -167,7 +179,7 @@ float	correct_fishbowl_effect(t_appdata *appdata)
 	float	corrected_distance;
 	float	beta_angle;
 	
-	beta_angle = abs(appdata->raycast->curr_ray_angle - appdata->player->camera_position_rad);
+	beta_angle = fabsf(appdata->raycast->curr_ray_angle - appdata->player->camera_position_rad);
 	corrected_distance = appdata->raycast->closest_wall_dist * cos(beta_angle);
 	return (corrected_distance);
 }

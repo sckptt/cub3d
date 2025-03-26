@@ -31,6 +31,8 @@ parsing/fill_the_structs.c \
 parsing/fill_utils.c \
 parsing/parse_map.c \
 parsing/parsing_utils.c \
+maths/maths_utils.c \
+maths/maths1.c \
 init.c \
 main.c
 OBJ = $(SRC:.c=.o)
