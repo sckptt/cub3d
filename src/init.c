@@ -116,4 +116,6 @@ void	init_appdata(t_appdata *appdata)
 	init_map_data(appdata);
 	init_player_data(appdata);
 	init_textures(appdata);
+//added by Y:
+	init_raycast(appdata);
 }
