@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 16:14:09 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 17:42:19 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 # define PI 3.141592653589793
 # define SCREEN_HEIGHT 1600
 # define SCREEN_WIDTH 2560
+# define FOV_D 60
+# define FOV_R 1.047
+# define MOVE_SPEED 10
+# define TURN_SPEED 30
+# define TILE_SIZE 64
+# define EYES_HEIGHT 32
 
 //Common error messages
 # define WRONG_ARGS_MSG "Error\nNumber of arguments is not 2!\n"

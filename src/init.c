@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/27 16:09:29 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 17:23:46 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static void	init_player_data(t_appdata *appdata)
 	appdata->player->tile_pos_y = 0;
 	appdata->player->move_speed = 10;
 	appdata->player->turn_speed = 30;
-	appdata->player->field_of_view_deg = 60;
-	appdata->player->field_of_view_rad = degrees_to_radians(appdata->player->field_of_view_deg);
+	appdata->player->field_of_view_deg = 0;
+	appdata->player->field_of_view_rad = 0;
 	appdata->player->eyes_height = appdata->map->unit_size / 2;
-	appdata->player->camera_position_rad = degrees_to_radians(appdata->player->camera_position);
+	appdata->player->camera_position_rad = 0;
 }
 
 static void	init_textures(t_appdata *appdata)
@@ -86,8 +86,8 @@ static void	init_raycast(t_appdata *appdata)
 		free(appdata->textures);
 		exit(FAILURE);
 	}
-	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
-	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(appdata->player->field_of_view_rad);
+	appdata->raycast->angle_btw_rays_rad = 0;
+	appdata->raycast->dist_to_plane = 0;
 	appdata->raycast->curr_ray_angle = 0;
 	appdata->raycast->closest_wall_dist = 0;
 	appdata->raycast->closest_wall_corrected = 0;

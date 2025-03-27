@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maths1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yrouzaud <yrouzaud@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 09:31:20 by yrouzaud          #+#    #+#             */
-/*   Updated: 2025/03/24 16:31:20 by yrouzaud         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:41:58 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ float	set_ray_angle(int casted_ray_index, t_appdata *appdata)
 {
 	float	current_ray_angle_rad;
 
+	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
+	printf("ABR_D is %d\n", ABR_D);
+	printf("FOV_R %i\n", appdata->player->field_of_view_rad);
+	printf("CRI %i\n", casted_ray_index);
+	printf("ABR_R %f\n\n", appdata->raycast->angle_btw_rays_rad);
 	current_ray_angle_rad = (appdata->player->camera_position_rad - (appdata->player->field_of_view_rad / 2)) + (casted_ray_index * appdata->raycast->angle_btw_rays_rad);
 	return (current_ray_angle_rad);
 }
@@ -197,14 +202,22 @@ void	iterate_casted_rays(t_appdata *appdata)
 	int	casted_ray_index;
 
 	casted_ray_index = 0;
+	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
+	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(appdata->player->field_of_view_rad);
 	while (casted_ray_index < SCREEN_WIDTH)
 	{
 		appdata->raycast->curr_ray_angle = set_ray_angle(casted_ray_index, appdata);
+		printf("Ray angle: %f\n", appdata->raycast->curr_ray_angle);
 		appdata->raycast->closest_wall_dist = closest_wall_distance(appdata);
 		appdata->raycast->closest_wall_corrected = correct_fishbowl_effect(appdata);
 		wall_height_for_drawing(appdata);
 		// CALL MLX DRAWING FUNCTION(S) HERE?
 		// + TEXTURE FUNCTION(S) HERE TOO?
+		printf("Current ray index is %i\n", casted_ray_index);
+		printf("Current ray angle is %f\n", appdata->raycast->curr_ray_angle);
+		printf("Closest wall distance is %f\n", appdata->raycast->closest_wall_dist);
+		printf("Undistorted val is %f\n\n", appdata->raycast->closest_wall_corrected);
+		sleep(1);
 		casted_ray_index++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 16:14:33 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 17:33:28 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void	fill_player(t_appdata *appdata)
 	y = appdata->player->pos_y;
 	appdata->player->tile_pos_x = x * 64 + 32;
 	appdata->player->tile_pos_y = y * 64 + 32;
-	appdata->player->tile_pos_x = x * 64 + 32;
-	appdata->player->tile_pos_y = y * 64 + 32;
 	if (appdata->map->map[y][x] == 'E')
 		appdata->player->camera_position = 0;
 	else if (appdata->map->map[y][x] == 'N')
@@ -81,6 +79,15 @@ void	fill_player(t_appdata *appdata)
 		appdata->player->camera_position = 180;
 	else
 		appdata->player->camera_position = 270;
+	appdata->player->camera_position_rad = deg_to_rad(appdata->player->camera_position);
+	appdata->player->field_of_view_deg = 60;
+	appdata->player->field_of_view_rad = deg_to_rad(appdata->player->field_of_view_deg);
+}
+
+void fill_raycast(t_appdata *appdata)
+{
+	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
+	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(appdata->player->field_of_view_rad);
 }
 
 int	fill_the_structs(t_appdata *appdata)
@@ -101,5 +108,6 @@ int	fill_the_structs(t_appdata *appdata)
 		exit(FAILURE);
 	}
 	fill_player(appdata);
+	fill_raycast(appdata);
 	return (SUCCESS);
 }

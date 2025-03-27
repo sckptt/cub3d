@@ -6,18 +6,18 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:43:44 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/24 19:13:00 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 16:55:22 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void redraw_map(t_appdata *appdata)
-{
-	if (appdata->textures->player)
-		mlx_delete_image(appdata->mlx, appdata->textures->player);
-	draw_player_square(appdata);
-}
+// void redraw_map(t_appdata *appdata)
+// {
+// 	if (appdata->textures->player)
+// 		mlx_delete_image(appdata->mlx, appdata->textures->player);
+// 	draw_player_square(appdata);
+// }
 
 void move_player(t_appdata *appdata, int offset)
 {
@@ -34,7 +34,7 @@ void move_player(t_appdata *appdata, int offset)
 		return ;
 	appdata->player->tile_pos_y = y;
 	appdata->player->tile_pos_x = x;
-	redraw_map(appdata);
+	// redraw_map(appdata);
 }
 
 void	hook_the_keys(mlx_key_data_t keydata, void *param)

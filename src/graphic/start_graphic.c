@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:21:26 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/27 15:52:32 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 16:50:49 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,40 @@ void	get_textures(t_appdata *appdata)
 	mlx_delete_texture(east);
 }
 
-void draw_player_square(t_appdata *appdata)
-{	
-	appdata->textures->player = mlx_new_image(appdata->mlx, 8, 8);
-	for (int y = 0; y < 8; y++)
-    {
-        for (int x = 0; x < 8; x++)
-            mlx_put_pixel(appdata->textures->player, x, y, 0x00693EFF);
-    }
-	mlx_image_to_window(appdata->mlx, appdata->textures->player,
-			appdata->player->tile_pos_x, appdata->player->tile_pos_y);
-}
+// void draw_player_square(t_appdata *appdata)
+// {	
+// 	appdata->textures->player = mlx_new_image(appdata->mlx, 8, 8);
+// 	for (int y = 0; y < 8; y++)
+//     {
+//         for (int x = 0; x < 8; x++)
+//             mlx_put_pixel(appdata->textures->player, x, y, 0x00693EFF);
+//     }
+// 	mlx_image_to_window(appdata->mlx, appdata->textures->player,
+// 			appdata->player->tile_pos_x, appdata->player->tile_pos_y);
+// }
 
-void draw_the_map(t_appdata *appdata)
-{
-	int i = 0;
-	int j;
+// void draw_the_map(t_appdata *appdata)
+// {
+// 	int i = 0;
+// 	int j;
 	
-	while (appdata->map->map[i])
-	{
-		j = 0;
-		while (appdata->map->map[i][j])
-		{
-			if (appdata->map->map[i][j] == '1')
-				mlx_image_to_window(appdata->mlx,
-						appdata->textures->north, j * 64, i * 64);
-			else
-				mlx_image_to_window(appdata->mlx,
-						appdata->textures->south, j * 64, i * 64);
-			j++;
-		}
-		i++;
-	}
-	draw_player_square(appdata);
-}
+// 	while (appdata->map->map[i])
+// 	{
+// 		j = 0;
+// 		while (appdata->map->map[i][j])
+// 		{
+// 			if (appdata->map->map[i][j] == '1')
+// 				mlx_image_to_window(appdata->mlx,
+// 						appdata->textures->north, j * 64, i * 64);
+// 			else
+// 				mlx_image_to_window(appdata->mlx,
+// 						appdata->textures->south, j * 64, i * 64);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	draw_player_square(appdata);
+// }
 
 //for school screen window size is 640 * 4, 400 * 4
 void	init_mlx(t_appdata *appdata)
@@ -86,7 +86,8 @@ void	init_mlx(t_appdata *appdata)
 		exit(FAILURE);
 	}
 	get_textures(appdata);
-	draw_the_map(appdata);
+	
+	// draw_the_map(appdata);
 }
 
 void	start_mlx(t_appdata *appdata)
