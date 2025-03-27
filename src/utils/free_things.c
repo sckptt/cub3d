@@ -68,6 +68,10 @@ void	free_appdata(t_appdata *appdata)
 		free_map_data(appdata->map);
 	if (appdata->player)
 		free(appdata->player);
+// added by Y:
+	if (appdata->raycast)
+		free(appdata->raycast);
+
 	if (appdata->mlx)
 	{
 		if (appdata->textures)

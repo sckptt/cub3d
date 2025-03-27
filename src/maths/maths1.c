@@ -22,9 +22,10 @@
 // 		pos_x_and_pos_y_units = ... ;			to be calculated with unit_size var
 // - Build the function (or Vita's one) to check if there is a wall at a given coord
 // - Print the main values to see if no mistakes in current maths formulas
-// - Integrate the drawing in the loop
-// - Check if there is no too long function
-// - Put the maths functions in different files to respect the 5 functions limit
+// - Integrate the drawing in the main loop of the maths function;
+// - Check if there is no too long function;
+// - Put the maths functions in different files to respect the 5 functions limit;
+// - Deal with too long lines (more than 80 chars);
 // - See how to implement the textures
 
 float	set_ray_angle(int casted_ray_index, t_appdata *appdata)
