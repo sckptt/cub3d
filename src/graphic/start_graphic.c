@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:21:26 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/27 16:50:49 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 18:58:39 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	get_textures(t_appdata *appdata)
 //for school screen window size is 640 * 4, 400 * 4
 void	init_mlx(t_appdata *appdata)
 {
-	appdata->mlx = mlx_init(640 * 2, 400 * 2, "cub3D", false);
+	appdata->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D", false);
 	if (!appdata->mlx)
 	{
 		ft_putstr_fd(MLX_ERROR, 2);
@@ -86,7 +86,7 @@ void	init_mlx(t_appdata *appdata)
 		exit(FAILURE);
 	}
 	get_textures(appdata);
-	
+	iterate_casted_rays(appdata);
 	// draw_the_map(appdata);
 }
 

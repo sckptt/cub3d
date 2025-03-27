@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:43:44 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 16:55:22 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 17:47:08 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void move_player(t_appdata *appdata, int offset)
 
 	new_angle = (appdata->player->camera_position + offset) % 360;
 	angle = deg_to_rad(new_angle);
-	y = appdata->player->tile_pos_y + sin(angle) * appdata->player->move_speed;
-	x = appdata->player->tile_pos_x + cos(angle) * appdata->player->move_speed;
+	y = appdata->player->tile_pos_y + sin(angle) * MOVE_SPEED;
+	x = appdata->player->tile_pos_x + cos(angle) * MOVE_SPEED;
 	if (!is_passable(appdata->map->map, y, x))
 		return ;
 	appdata->player->tile_pos_y = y;

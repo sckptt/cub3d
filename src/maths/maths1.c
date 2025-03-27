@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 09:31:20 by yrouzaud          #+#    #+#             */
-/*   Updated: 2025/03/27 17:41:58 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 19:06:40 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ float	set_ray_angle(int casted_ray_index, t_appdata *appdata)
 {
 	float	current_ray_angle_rad;
 
-	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
-	printf("ABR_D is %d\n", ABR_D);
-	printf("FOV_R %i\n", appdata->player->field_of_view_rad);
-	printf("CRI %i\n", casted_ray_index);
-	printf("ABR_R %f\n\n", appdata->raycast->angle_btw_rays_rad);
-	current_ray_angle_rad = (appdata->player->camera_position_rad - (appdata->player->field_of_view_rad / 2)) + (casted_ray_index * appdata->raycast->angle_btw_rays_rad);
+	appdata->raycast->angle_btw_rays_rad = FOV_R / SCREEN_WIDTH;
+	// printf("FOV_R %f\n", FOV_R);
+	// printf("CRI %i\n", casted_ray_index);
+	// printf("ABR_R %f\n\n", appdata->raycast->angle_btw_rays_rad);
+	current_ray_angle_rad = (appdata->player->camera_position_rad - (FOV_R / 2)) + (casted_ray_index * appdata->raycast->angle_btw_rays_rad);
 	return (current_ray_angle_rad);
 }
 
@@ -59,10 +58,10 @@ float	set_alpha_angle(t_appdata *appdata)
 void	find_1st_h_inters_coord(t_appdata *appdata)
 {
 	if (appdata->raycast->curr_ray_angle < PI)
-		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / appdata->map->unit_size) * appdata->map->unit_size - 1; 
+		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / TILE_SIZE) * TILE_SIZE - 1; 
 // ^^Shouldn't floor() includes all?^^
 	else
-		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / appdata->map->unit_size) * appdata->map->unit_size + 64; 
+		appdata->raycast->first_h_intersection_coord_y = floor(appdata->player->pos_y / TILE_SIZE) * TILE_SIZE + 64; 
 // ^^Shouldn't floor() includes all?^^
 	appdata->raycast->first_h_intersection_coord_x = (appdata->player->pos_y - appdata->raycast->first_h_intersection_coord_y) / tan(set_alpha_angle(appdata));
 }
@@ -73,21 +72,21 @@ void	find_next_h_inters_coord(t_appdata *appdata, int iteration)
 	float	x_increment_value;
 
 	if (appdata->raycast->curr_ray_angle < PI)
-		y_increment_value = - appdata->map->unit_size;
+		y_increment_value = - TILE_SIZE;
 	else
-		y_increment_value = appdata->map->unit_size;
-	x_increment_value = appdata->map->unit_size / tan(set_alpha_angle(appdata));
-	appdata->raycast->next_h_intersection_coord_x = (appdata->raycast->first_h_intersection_coord_x + (x_increment_value * iteration)) / appdata->map->unit_size;
-	appdata->raycast->next_h_intersection_coord_y = (appdata->raycast->first_h_intersection_coord_y + (y_increment_value * appdata->map->unit_size)) / appdata->map->unit_size;
+		y_increment_value = TILE_SIZE;
+	x_increment_value = TILE_SIZE / tan(set_alpha_angle(appdata));
+	appdata->raycast->next_h_intersection_coord_x = (appdata->raycast->first_h_intersection_coord_x + (x_increment_value * iteration)) / TILE_SIZE;
+	appdata->raycast->next_h_intersection_coord_y = (appdata->raycast->first_h_intersection_coord_y + (y_increment_value * TILE_SIZE)) / TILE_SIZE;
 }
 
 void	find_1st_v_inters_coord(t_appdata *appdata)
 {
 	if (appdata->raycast->curr_ray_angle > (PI / 2) && appdata->raycast->curr_ray_angle < (3 * PI / 2))
-		appdata->raycast->first_v_intersection_coord_x = floor(appdata->player->pos_x / appdata->map->unit_size) * appdata->map->unit_size - 1; 
+		appdata->raycast->first_v_intersection_coord_x = floor(appdata->player->pos_x / TILE_SIZE) * TILE_SIZE - 1; 
 // ^^Shouldn't floor() includes all?^^
 	else
-		appdata->raycast->first_v_intersection_coord_x = floor(appdata->player->pos_x / appdata->map->unit_size) * appdata->map->unit_size + 64; 
+		appdata->raycast->first_v_intersection_coord_x = floor(appdata->player->pos_x / TILE_SIZE) * TILE_SIZE + 64; 
 // ^^Shouldn't floor() includes all?^^
 	appdata->raycast->first_v_intersection_coord_y = (appdata->player->pos_x - appdata->raycast->first_v_intersection_coord_x) / tan(set_alpha_angle(appdata));
 }
@@ -98,12 +97,12 @@ void	find_next_v_inters_coord(t_appdata *appdata, int iteration)
 	float	x_increment_value;
 
 	if (appdata->raycast->curr_ray_angle > (PI / 2) && appdata->raycast->curr_ray_angle < (3 * PI / 2))
-		x_increment_value = - appdata->map->unit_size;
+		x_increment_value = - TILE_SIZE;
 	else
-		x_increment_value = appdata->map->unit_size;
-	y_increment_value = appdata->map->unit_size * tan(set_alpha_angle(appdata));
-	appdata->raycast->next_v_intersection_coord_x = (appdata->raycast->first_v_intersection_coord_x + (x_increment_value * iteration)) / appdata->map->unit_size;
-	appdata->raycast->next_v_intersection_coord_y = (appdata->raycast->first_v_intersection_coord_y + (y_increment_value * appdata->map->unit_size)) / appdata->map->unit_size;
+		x_increment_value = TILE_SIZE;
+	y_increment_value = TILE_SIZE * tan(set_alpha_angle(appdata));
+	appdata->raycast->next_v_intersection_coord_x = (appdata->raycast->first_v_intersection_coord_x + (x_increment_value * iteration)) / TILE_SIZE;
+	appdata->raycast->next_v_intersection_coord_y = (appdata->raycast->first_v_intersection_coord_y + (y_increment_value * TILE_SIZE)) / TILE_SIZE;
 }
 
 //ABOVE OK
@@ -192,34 +191,54 @@ float	correct_fishbowl_effect(t_appdata *appdata)
 
 void	wall_height_for_drawing(t_appdata *appdata)
 {
-	appdata->raycast->projected_slice_height = roundf(appdata->map->unit_size / appdata->raycast->closest_wall_corrected) * appdata->raycast->dist_to_plane;
+	appdata->raycast->projected_slice_height = roundf(TILE_SIZE / appdata->raycast->closest_wall_corrected) * appdata->raycast->dist_to_plane;
 	appdata->raycast->slice_starting_point = (SCREEN_HEIGHT / 2) - (appdata->raycast->projected_slice_height / 2);
 	appdata->raycast->slice_end_point = appdata->raycast->slice_starting_point + appdata->raycast->projected_slice_height;
+}
+
+void	draw_view(t_appdata *appdata, int casted_ray_index, mlx_image_t *img)
+{
+	int j = 0;
+	
+	while (j < SCREEN_HEIGHT)
+	{
+		if (j <= appdata->raycast->slice_starting_point)
+			mlx_put_pixel(img, casted_ray_index, j, appdata->textures->ceiling_color);
+		else if (j <= appdata->raycast->slice_end_point)
+			mlx_put_pixel(img, casted_ray_index, j, 0x00693EFF);
+		else
+			mlx_put_pixel(img, casted_ray_index, j, appdata->textures->floor_color);
+		j++;
+	}
 }
 
 void	iterate_casted_rays(t_appdata *appdata)
 {
 	int	casted_ray_index;
-
+	mlx_image_t *img;
+	
+	img = mlx_new_image(appdata->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	
 	casted_ray_index = 0;
-	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
-	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(appdata->player->field_of_view_rad);
+	appdata->raycast->angle_btw_rays_rad = FOV_R / SCREEN_WIDTH;
+	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(FOV_R);
 	while (casted_ray_index < SCREEN_WIDTH)
 	{
 		appdata->raycast->curr_ray_angle = set_ray_angle(casted_ray_index, appdata);
-		printf("Ray angle: %f\n", appdata->raycast->curr_ray_angle);
 		appdata->raycast->closest_wall_dist = closest_wall_distance(appdata);
 		appdata->raycast->closest_wall_corrected = correct_fishbowl_effect(appdata);
 		wall_height_for_drawing(appdata);
+		draw_view(appdata, casted_ray_index, img);
 		// CALL MLX DRAWING FUNCTION(S) HERE?
 		// + TEXTURE FUNCTION(S) HERE TOO?
-		printf("Current ray index is %i\n", casted_ray_index);
-		printf("Current ray angle is %f\n", appdata->raycast->curr_ray_angle);
-		printf("Closest wall distance is %f\n", appdata->raycast->closest_wall_dist);
-		printf("Undistorted val is %f\n\n", appdata->raycast->closest_wall_corrected);
-		sleep(1);
+		// printf("Current ray index is %i\n", casted_ray_index);
+		// printf("Current ray angle is %f\n", appdata->raycast->curr_ray_angle);
+		// printf("Closest wall distance is %f\n", appdata->raycast->closest_wall_dist);
+		// printf("Undistorted val is %f\n\n", appdata->raycast->closest_wall_corrected);
+		// usleep(500);
 		casted_ray_index++;
 	}
+	mlx_image_to_window(appdata->mlx, img, 0, 0);
 }
 
 // void	player_moving()

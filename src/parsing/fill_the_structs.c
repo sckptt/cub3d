@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 17:33:28 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 17:51:00 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,12 @@ void	fill_player(t_appdata *appdata)
 	else
 		appdata->player->camera_position = 270;
 	appdata->player->camera_position_rad = deg_to_rad(appdata->player->camera_position);
-	appdata->player->field_of_view_deg = 60;
-	appdata->player->field_of_view_rad = deg_to_rad(appdata->player->field_of_view_deg);
 }
 
 void fill_raycast(t_appdata *appdata)
 {
-	appdata->raycast->angle_btw_rays_rad = appdata->player->field_of_view_rad / SCREEN_WIDTH;
-	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(appdata->player->field_of_view_rad);
+	appdata->raycast->angle_btw_rays_rad = FOV_R / SCREEN_WIDTH;
+	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(FOV_R);
 }
 
 int	fill_the_structs(t_appdata *appdata)

@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 17:42:19 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 18:41:40 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define FAILURE 1
 # define SUCCESS 0
 # define PI 3.141592653589793
-# define SCREEN_HEIGHT 1600
-# define SCREEN_WIDTH 2560
+# define SCREEN_HEIGHT 400
+# define SCREEN_WIDTH 800
 # define FOV_D 60
 # define FOV_R 1.047
 # define MOVE_SPEED 10
@@ -81,7 +81,6 @@ typedef struct s_map_data
 	int		*ceiling_colors;
 	int		*row_len;
 	int		map_lines_total;
-	int		unit_size;
 
 }	t_map_data;
 
@@ -103,11 +102,6 @@ typedef struct s_player_data
 	int	camera_position;
 	int	tile_pos_x;
 	int	tile_pos_y;
-	int	move_speed;
-	int	turn_speed;
-	int	field_of_view_deg;
-	int	field_of_view_rad;
-	int	eyes_height;
 	float	camera_position_rad;
 
 }	t_player_data;

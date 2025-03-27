@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/27 17:23:46 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 17:50:05 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	init_map_data(t_appdata *appdata)
 	appdata->map->ceiling_colors = NULL;
 	appdata->map->row_len = NULL;
 	appdata->map->map_lines_total = 0;
-	appdata->map->unit_size = 64;
 }
 
 static void	init_player_data(t_appdata *appdata)
@@ -48,11 +47,6 @@ static void	init_player_data(t_appdata *appdata)
 	appdata->player->camera_position = 0;
 	appdata->player->tile_pos_x = 0;
 	appdata->player->tile_pos_y = 0;
-	appdata->player->move_speed = 10;
-	appdata->player->turn_speed = 30;
-	appdata->player->field_of_view_deg = 0;
-	appdata->player->field_of_view_rad = 0;
-	appdata->player->eyes_height = appdata->map->unit_size / 2;
 	appdata->player->camera_position_rad = 0;
 }
 
