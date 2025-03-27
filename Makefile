@@ -6,13 +6,13 @@
 #    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/27 15:53:03 by vitakinsfat      ###   ########.fr        #
+#    Updated: 2025/03/27 16:10:37 by vitakinsfat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # set a compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MLX42 = MLX42/build/libmlx42.a -I include -ldl -L/opt/homebrew/lib -lglfw -pthread -lm
 
 # path to source and object files, source and object files
@@ -26,6 +26,8 @@ graphic/start_graphic.c \
 graphic/graphic_utils.c \
 graphic/move.c \
 graphic/turn.c \
+maths/maths_utils.c \
+maths/maths1.c \
 utils/free_things.c \
 utils/get_next_line_utils.c \
 utils/get_next_line.c \

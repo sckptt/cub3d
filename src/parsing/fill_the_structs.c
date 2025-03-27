@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 15:52:07 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/03/27 16:14:33 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ int	fill_the_structs(t_appdata *appdata)
 		free_appdata(appdata);
 		exit(FAILURE);
 	}
-	appdata->map->height = count_length_of_array(appdata->map->map);
-	appdata->map->width = count_width(appdata->map->map);
 	fill_player(appdata);
 	return (SUCCESS);
 }

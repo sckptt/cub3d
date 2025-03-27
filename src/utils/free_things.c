@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_things.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:50:21 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/25 16:37:28 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:05:35 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	free_appdata(t_appdata *appdata)
 		free_map_data(appdata->map);
 	if (appdata->player)
 		free(appdata->player);
+	if (appdata->raycast)
+		free(appdata->raycast);
 	if (appdata->mlx)
 	{
 		if (appdata->textures)

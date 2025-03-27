@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 16:22:57 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:14:09 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define TRUE 1
 # define FAILURE 1
 # define SUCCESS 0
+# define PI 3.141592653589793
+# define SCREEN_HEIGHT 1600
+# define SCREEN_WIDTH 2560
 
 //Common error messages
 # define WRONG_ARGS_MSG "Error\nNumber of arguments is not 2!\n"
@@ -72,8 +75,8 @@ typedef struct s_map_data
 	int		*ceiling_colors;
 	int		*row_len;
 	int		map_lines_total;
-	int		height;
-	int		width;
+	int		unit_size;
+
 }	t_map_data;
 
 typedef struct s_textures
@@ -89,14 +92,40 @@ typedef struct s_textures
 
 typedef struct s_player_data
 {
-	int		pos_x;
-	int		pos_y;
-	int		camera_position;
-	double	tile_pos_x;
-	double	tile_pos_y;
-	int		move_speed;
-	int		turn_speed;
+	int	pos_x;
+	int	pos_y;
+	int	camera_position;
+	int	tile_pos_x;
+	int	tile_pos_y;
+	int	move_speed;
+	int	turn_speed;
+	int	field_of_view_deg;
+	int	field_of_view_rad;
+	int	eyes_height;
+	float	camera_position_rad;
+
 }	t_player_data;
+
+typedef struct s_raycasting
+{
+	float	angle_btw_rays_rad;
+	float	dist_to_plane;
+	float	curr_ray_angle;
+	float	closest_wall_dist;
+	float	closest_wall_corrected;
+	int	first_h_intersection_coord_x;
+	int	first_h_intersection_coord_y;
+	int	next_h_intersection_coord_x;
+	int	next_h_intersection_coord_y;
+	int	first_v_intersection_coord_x;
+	int	first_v_intersection_coord_y;
+	int	next_v_intersection_coord_x;
+	int	next_v_intersection_coord_y;
+	int	projected_slice_height;
+	int	slice_starting_point;
+	int	slice_end_point;
+}	t_raycasting;
+
 
 typedef struct s_appdata
 {
@@ -104,6 +133,8 @@ typedef struct s_appdata
 	mlx_t			*mlx;
 	t_textures		*textures;
 	t_player_data	*player;
+	t_raycasting	*raycast;
+
 }	t_appdata;
 
 //GNL
@@ -147,12 +178,29 @@ void	init_appdata(t_appdata *appdata);
 void	start_mlx(t_appdata *appdata);
 long	rgb_to_long(int *rgb_array);
 void	draw_player_square(t_appdata *appdata);
-
-//movement
 void	hook_the_keys(mlx_key_data_t keydata, void *param);
-void	turn_right(t_player_data *player);
-void	turn_left(t_player_data *player);
-int		is_passable(char **map, double y, double x);
+int	is_passable(char **map, double y, double x);
 double	deg_to_rad(int angle_deg);
+void	turn_left(t_player_data *player);
+void	turn_right(t_player_data *player);
+
+
+// added by Y:
+//maths
+float	degrees_to_radians(float value_in_degrees);
+void	iterate_casted_rays(t_appdata *appdata);
+void	wall_height_for_drawing(t_appdata *appdata);
+float	correct_fishbowl_effect(t_appdata *appdata);
+float	closest_wall_distance(t_appdata *appdata);
+float	first_vertical_wall_dist(t_appdata *appdata);
+float	first_horizont_wall_dist(t_appdata *appdata);
+float	calc_wall_distance(t_appdata *appdata, int intersection_x);
+int	check_if_wall_at(t_appdata *appdata);
+void	find_next_v_inters_coord(t_appdata *appdata, int iteration);
+void	find_1st_v_inters_coord(t_appdata *appdata);
+void	find_next_h_inters_coord(t_appdata *appdata, int iteration);
+void	find_1st_h_inters_coord(t_appdata *appdata);
+float	set_alpha_angle(t_appdata *appdata);
+float	set_ray_angle(int casted_ray_index, t_appdata *appdata);
 
 #endif
