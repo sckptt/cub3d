@@ -30,5 +30,9 @@ int	main(int argc, char **argv)
 	parse_map(&appdata, argv[1]);
 	check_for_errors(&appdata);
 	fill_the_structs(&appdata);
+// added by Y:
+// function call put here for testing purpose, might be elsewhere once tested
+	iterate_casted_rays(&appdata);
+
 	start_mlx(&appdata);
 }

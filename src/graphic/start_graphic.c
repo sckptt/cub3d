@@ -79,7 +79,7 @@ void	init_mlx(t_appdata *appdata)
 
 void	start_mlx(t_appdata *appdata)
 {
-	init_mlx(appdata);
+	init_mlx(appdata); 
 	mlx_close_hook(appdata->mlx, &free_after_exit, appdata);
 	mlx_key_hook(appdata->mlx, &hook_the_keys, appdata);
 	mlx_loop(appdata->mlx);

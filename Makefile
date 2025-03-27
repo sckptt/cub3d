@@ -13,7 +13,7 @@
 # set a compiler and flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-MLX42 = MLX42/build/libmlx42.a -I include -ldl -lglfw -pthread -lm
+MLX42 = MLX42/build/libmlx42.a -I include -ldl -L/opt/homebrew/lib -lglfw -pthread -lm
 
 # path to source and object files, source and object files
 SRC_PATH = src/

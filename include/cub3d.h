@@ -181,5 +181,19 @@ long	rgb_to_long(int *rgb_array);
 // added by Y:
 //maths
 float	degrees_to_radians(float value_in_degrees);
+void	iterate_casted_rays(t_appdata *appdata);
+void	wall_height_for_drawing(t_appdata *appdata);
+float	correct_fishbowl_effect(t_appdata *appdata);
+float	closest_wall_distance(t_appdata *appdata);
+float	first_vertical_wall_dist(t_appdata *appdata);
+float	first_horizont_wall_dist(t_appdata *appdata);
+float	calc_wall_distance(t_appdata *appdata, int intersection_x);
+int	check_if_wall_at(t_appdata *appdata);
+void	find_next_v_inters_coord(t_appdata *appdata, int iteration);
+void	find_1st_v_inters_coord(t_appdata *appdata);
+void	find_next_h_inters_coord(t_appdata *appdata, int iteration);
+void	find_1st_h_inters_coord(t_appdata *appdata);
+float	set_alpha_angle(t_appdata *appdata);
+float	set_ray_angle(int casted_ray_index, t_appdata *appdata);
 
 #endif
