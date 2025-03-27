@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+         #
+#    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/25 15:19:23 by vkinsfat         ###   ########.fr        #
+#    Updated: 2025/03/27 15:53:03 by vitakinsfat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

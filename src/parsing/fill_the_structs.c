@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   fill_the_structs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 15:20:56 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:52:07 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 
@@ -68,6 +69,8 @@ void	fill_player(t_appdata *appdata)
 	appdata->player->pos_y = find_position(appdata->map->map, 'y');
 	x = appdata->player->pos_x;
 	y = appdata->player->pos_y;
+	appdata->player->tile_pos_x = x * 64 + 32;
+	appdata->player->tile_pos_y = y * 64 + 32;
 	appdata->player->tile_pos_x = x * 64 + 32;
 	appdata->player->tile_pos_y = y * 64 + 32;
 	if (appdata->map->map[y][x] == 'E')
