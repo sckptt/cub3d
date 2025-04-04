@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/04/04 18:08:15 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/04 19:04:31 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,15 @@
 //Common error messages
 # define WRONG_ARGS_MSG "Error\nNumber of arguments is not 2!\n"
 # define TEXTURE_LOADING_ERROR "Error\nProgram failed to load the texture!\n"
+# define IMAGE_CREATION_ERROR "Error\nProgram failed to create the image!\n"
 # define MLX_ERROR "Error\nProgram failed to initialize MLX!\n"
 # define FILE_ERROR "Error\nProgram failed to open the file!\n"
 # define ALLOC_ERROR "Error\nProgram failed to allocate memory!\n"
 # define NO_CUB_MSG "Error\nFile is not .cub!\n"
 
 //Color error messages
-# define INVALID_RGB_VALUES "Error\nRGB colors should be ints in range [0, 255]!\n"
-# define INVALID_RGB_AMOUNT "Error\nRGB colors should be represented with 3 ints\n"
+# define INVALID_RGB_VALUES "Error\nRGB should be ints in range [0, 255]!\n"
+# define INVALID_RGB_AMOUNT "Error\nRGB should be represented with 3 ints\n"
 # define COLOR_DUPLICATE "Error\nDuplicates in colors!\n"
 # define MISSING_COLOR "Error\nFloor or ceiling color is missing!\n"
 
@@ -111,12 +112,17 @@ typedef struct s_raycasting
 	float	curr_ray;
 	float	wall_dist;
 	float	correct_dist;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	int		map_x;
+	int		map_y;
 	int		slice_height;
 	int		wall_start;
 	int		wall_end;
 	int		wall_side;
 }	t_raycasting;
-
 
 typedef struct s_appdata
 {
@@ -128,50 +134,54 @@ typedef struct s_appdata
 }	t_appdata;
 
 //GNL
-char	*get_next_line(int fd);
-char	*gnl_strjoin(char const *s1, char const *s2);
-size_t	gnl_strlen(const char *str);
+char			*get_next_line(int fd);
+char			*gnl_strjoin(char const *s1, char const *s2);
+size_t			gnl_strlen(const char *str);
 
 //parsing
-char	*get_path(char *string);
-int		count_non_empty_lines(t_appdata *appdata, char *path);
-int		is_empty_line(char *line);
-int		parse_map(t_appdata *appdata, char *path);
-int		find_position(char **map, char id);
-int		fill_the_structs(t_appdata *appdata);
-int		*get_rgb_colors(char *string);
+char			*get_path(char *string);
+int				count_non_empty_lines(t_appdata *appdata, char *path);
+int				is_empty_line(char *line);
+int				parse_map(t_appdata *appdata, char *path);
+int				find_position(char **map, char id);
+int				fill_the_structs(t_appdata *appdata);
+int				*get_rgb_colors(char *string);
 
 //error handling
-char	**copy_array(char **array, int array_len);
-char	**get_number_array(t_appdata *appdata, char *string);
-int		*create_row_len_array(char **array);
-int		check_map(t_appdata *appdata);
-int		check_order(t_appdata *appdata);
-int		count_identifiers(t_appdata *appdata, char *identifier);
-int		count_array_len(char **array);
-int		is_png_file(char *str);
-int		is_valid_filename(const char *arg);
-void	check_for_errors(t_appdata *appdata);
-void	check_numeric(t_appdata *appdata, char *string);
-char	*remove_extra_spaces(char *string);
+char			**copy_array(char **array, int array_len);
+char			**get_number_array(t_appdata *appdata, char *string);
+int				*create_row_len_array(char **array);
+int				check_map(t_appdata *appdata);
+int				check_order(t_appdata *appdata);
+int				count_identifiers(t_appdata *appdata, char *identifier);
+int				count_array_len(char **array);
+int				is_png_file(char *str);
+int				is_valid_filename(const char *arg);
+void			check_for_errors(t_appdata *appdata);
+void			check_numeric(t_appdata *appdata, char *string);
+char			*remove_extra_spaces(char *string);
 
 //free memory
-void	free_appdata(t_appdata *appdata);
-void	free_char_array(char **array);
-void	free_after_exit(void *param);
+void			free_appdata(t_appdata *appdata);
+void			free_char_array(char **array);
+void			free_after_exit(void *param);
 
 //init
-void	init_appdata(t_appdata *appdata);
+void			init_appdata(t_appdata *appdata);
 
 //graphic
-void	start_mlx(t_appdata *appdata);
+void			start_mlx(t_appdata *appdata);
 unsigned int	rgb_to_long(int *rgb_array);
-void	hook_the_keys(mlx_key_data_t keydata, void *param);
+void			hook_the_keys(mlx_key_data_t keydata, void *param);
 
 //maths
-int		is_passable(char **map, float y, float x);
-double	deg_to_rad(int angle_deg);
-float	set_ray_angle(int ray_index, t_player_data *player);
-void	iterate_casted_rays(t_appdata *appdata);
+int				is_passable(char **map, float y, float x);
+double			deg_to_rad(int angle_deg);
+float			set_ray_angle(int ray_index, t_player_data *player);
+void			iterate_casted_rays(t_appdata *appdata);
+int				get_step_x(t_appdata *appdata);
+int				get_step_y(t_appdata *appdata);
+int				hit_check(t_raycasting *raycast,
+					t_map_data *map, int step_y, int step_x);
 
 #endif

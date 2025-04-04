@@ -14,78 +14,22 @@
 
 float	calc_wall_distance_dda(t_appdata *appdata)
 {
-	float	ray_dir_x;
-	float	ray_dir_y;
-	int		map_x;
-	int		map_y;
-	float	side_dist_x;
-	float	side_dist_y;
-	float	delta_dist_x;
-	float	delta_dist_y;
 	float	perp_wall_dist;
 	int		step_x;
 	int		step_y;
-	int		hit;
 	int		side;
 
-	ray_dir_x = cos(appdata->raycast->curr_ray);
-	ray_dir_y = sin(appdata->raycast->curr_ray);
-	map_x = (int)(appdata->player->tile_pos_x / TILE_SIZE);
-	map_y = (int)(appdata->player->tile_pos_y / TILE_SIZE);
-	delta_dist_x = (ray_dir_x == 0) ? 1e30 : fabs(1 / ray_dir_x);
-	delta_dist_y = (ray_dir_y == 0) ? 1e30 : fabs(1 / ray_dir_y);
-	hit = 0;
-	if (ray_dir_x < 0)
-	{
-		step_x = -1;
-		side_dist_x = (appdata->player->tile_pos_x / TILE_SIZE - map_x)
-			* delta_dist_x;
-	}
-	else
-	{
-		step_x = 1;
-		side_dist_x = (map_x + 1.0 - appdata->player->tile_pos_x / TILE_SIZE)
-			* delta_dist_x;
-	}
-	
-	if (ray_dir_y < 0)
-	{
-		step_y = -1;
-		side_dist_y = (appdata->player->tile_pos_y / TILE_SIZE - map_y)
-			* delta_dist_y;
-	}
-	else
-	{
-		step_y = 1;
-		side_dist_y = (map_y + 1.0 - appdata->player->tile_pos_y / TILE_SIZE)
-			* delta_dist_y;
-	}
-	while (hit == 0)
-	{
-		if (side_dist_x < side_dist_y)
-		{
-			side_dist_x += delta_dist_x;
-			map_x += step_x;
-			side = 0;
-		}
-		else
-		{
-			side_dist_y += delta_dist_y;
-			map_y += step_y;
-			side = 1;
-		}
-		if (map_y < 0 || map_x < 0
-			|| map_y >= count_array_len(appdata->map->map)
-			|| map_x >= (int)ft_strlen(appdata->map->map[map_y])
-			|| appdata->map->map[map_y][map_x] == '1')
-		{
-			hit = 1;
-		}
-	}
+	appdata->raycast->map_x = (int)(appdata->player->tile_pos_x / TILE_SIZE);
+	appdata->raycast->map_y = (int)(appdata->player->tile_pos_y / TILE_SIZE);
+	step_x = get_step_x(appdata);
+	step_y = get_step_y(appdata);
+	side = hit_check(appdata->raycast, appdata->map, step_y, step_x);
 	if (side == 0)
-		perp_wall_dist = (side_dist_x - delta_dist_x);
+		perp_wall_dist = (appdata->raycast->side_dist_x
+				- appdata->raycast->delta_dist_x);
 	else
-		perp_wall_dist = (side_dist_y - delta_dist_y);
+		perp_wall_dist = (appdata->raycast->side_dist_y
+				- appdata->raycast->delta_dist_y);
 	perp_wall_dist *= TILE_SIZE;
 	appdata->raycast->wall_side = side;
 	return (perp_wall_dist);
@@ -151,8 +95,9 @@ void	iterate_casted_rays(t_appdata *appdata)
 	ray_index = -1;
 	if (!appdata->textures->view)
 	{
-		ft_putstr_fd("Error creating view image\n", 2);
-		return ;
+		ft_putstr_fd(IMAGE_CREATION_ERROR, 2);
+		free_appdata(appdata);
+		exit(FAILURE);
 	}
 	while (++ray_index < SCREEN_WIDTH)
 	{
