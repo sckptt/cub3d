@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling_utils1.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:30:46 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 15:56:31 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:09:51 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	count_length_of_array(char **array)
+int	count_array_len(char **array)
 {
 	int	counter;
 	int	i;
@@ -32,7 +32,7 @@ char	**get_number_array(t_appdata *appdata, char *string)
 	cleared_line = remove_extra_spaces(string);
 	splitted_numbers = ft_split(cleared_line, ',');
 	free(cleared_line);
-	if (count_length_of_array(splitted_numbers) != 3)
+	if (count_array_len(splitted_numbers) != 3)
 	{
 		free_char_array(splitted_numbers);
 		ft_putstr_fd(INVALID_RGB_AMOUNT, 2);
@@ -40,18 +40,6 @@ char	**get_number_array(t_appdata *appdata, char *string)
 		exit(FAILURE);
 	}
 	return (splitted_numbers);
-}
-
-int	is_png_file(char *str)
-{
-	int	i;
-
-	i = ft_strlen(str) - 1;
-	if (str[i] != 'g' || str[i - 1] != 'n'
-		|| str[i - 2] != 'p'
-		|| str[i - 3] != '.')
-		return (FALSE);
-	return (TRUE);
 }
 
 int	count_identifiers(t_appdata *appdata, char *identifier)
@@ -65,7 +53,6 @@ int	count_identifiers(t_appdata *appdata, char *identifier)
 	{
 		if (ft_strnstr(appdata->map->whole_map[i], identifier,
 				ft_strlen(appdata->map->whole_map[i])))
-			
 		{
 			counter++;
 			if (identifier[0] == 'F' || identifier[0] == 'C')
@@ -116,7 +103,7 @@ int	*create_row_len_array(char **array)
 	int	len_of_array;
 	int	i;
 
-	len_of_array = count_length_of_array(array);
+	len_of_array = count_array_len(array);
 	int_array = malloc(sizeof(int) * len_of_array);
 	if (!int_array)
 	{

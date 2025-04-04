@@ -6,7 +6,7 @@
 #    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/03/27 16:10:37 by vitakinsfat      ###   ########.fr        #
+#    Updated: 2025/04/04 16:56:17 by vitakinsfat      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ graphic/start_graphic.c \
 graphic/graphic_utils.c \
 graphic/move.c \
 graphic/turn.c \
-maths/maths_utils.c \
 maths/maths1.c \
+maths/maths2.c \
 utils/free_things.c \
 utils/get_next_line_utils.c \
 utils/get_next_line.c \

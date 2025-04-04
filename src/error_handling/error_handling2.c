@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:44:37 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/25 16:25:53 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:54:38 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	flood_fill(t_appdata *appdata, int x, int y)
 {
-	if (x < 0 || y < 0 || y >= count_length_of_array(appdata->map->copy_map)
+	if (x < 0 || y < 0 || y >= count_array_len(appdata->map->copy_map)
 		|| x > appdata->map->row_len[y])
 	{
 		ft_putstr_fd(NO_WALL_MSG, 2);
@@ -42,7 +42,8 @@ static int	check_the_wall(t_appdata *appdata)
 	int		pos_x;
 	int		pos_y;
 
-	appdata->map->copy_map = copy_array(appdata->map->whole_map, appdata->map->map_lines_total);
+	appdata->map->copy_map = copy_array(appdata->map->whole_map,
+			appdata->map->map_lines_total);
 	if (!appdata->map->copy_map)
 		return (FAILURE);
 	appdata->map->row_len = create_row_len_array(appdata->map->copy_map);

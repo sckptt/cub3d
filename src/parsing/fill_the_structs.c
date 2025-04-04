@@ -6,10 +6,9 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/04/04 13:05:53 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/04 18:08:15 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -60,38 +59,26 @@ int	fill_map(t_map_data *map)
 	return (SUCCESS);
 }
 
-void	fill_player(t_appdata *appdata)
+void	fill_player(t_player_data *player, t_map_data *map)
 {
 	int	y;
 	int	x;
 
-	appdata->player->pos_x = find_position(appdata->map->map, 'x');
-	appdata->player->pos_y = find_position(appdata->map->map, 'y');
-	x = appdata->player->pos_x;
-	y = appdata->player->pos_y;
-	appdata->player->tile_pos_x = x * 64 + 32;
-	appdata->player->tile_pos_y = y * 64 + 32;
-	if (appdata->map->map[y][x] == 'E')
-		appdata->player->camera_position_deg = 0;
-	else if (appdata->map->map[y][x] == 'N')
-		appdata->player->camera_position_deg = 270;
-	else if (appdata->map->map[y][x] == 'W')
-		appdata->player->camera_position_deg = 180;
+	player->pos_x = find_position(map->map, 'x');
+	player->pos_y = find_position(map->map, 'y');
+	x = player->pos_x;
+	y = player->pos_y;
+	player->tile_pos_x = x * 64 + 32;
+	player->tile_pos_y = y * 64 + 32;
+	if (map->map[y][x] == 'E')
+		player->camera_angle_d = 0;
+	else if (map->map[y][x] == 'N')
+		player->camera_angle_d = 270;
+	else if (map->map[y][x] == 'W')
+		player->camera_angle_d = 180;
 	else
-		appdata->player->camera_position_deg = 90;
-	appdata->player->camera_position_rad = deg_to_rad(appdata->player->camera_position_deg);
-}
-
-void fill_raycast(t_appdata *appdata)
-{
-	appdata->raycast->angle_btw_rays_rad = FOV_R / SCREEN_WIDTH;
-	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(FOV_R);
-}
-
-void fill_textures(t_appdata *appdata)
-{
-	appdata->textures->ceiling_color = rgb_to_long(appdata->map->ceiling_colors);
-	appdata->textures->floor_color = rgb_to_long(appdata->map->floor_colors);
+		player->camera_angle_d = 90;
+	player->camera_angle_r = deg_to_rad(player->camera_angle_d);
 }
 
 int	fill_the_structs(t_appdata *appdata)
@@ -111,8 +98,10 @@ int	fill_the_structs(t_appdata *appdata)
 		free_appdata(appdata);
 		exit(FAILURE);
 	}
-	fill_textures(appdata);
-	fill_player(appdata);
-	fill_raycast(appdata);
+	fill_player(appdata->player, appdata->map);
+	appdata->raycast->angle_btw_rays_rad = FOV_R / SCREEN_WIDTH;
+	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(FOV_R);
+	appdata->textures->ceil_rgba = rgb_to_long(appdata->map->ceiling_colors);
+	appdata->textures->floor_rgba = rgb_to_long(appdata->map->floor_colors);
 	return (SUCCESS);
 }

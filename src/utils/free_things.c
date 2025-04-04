@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:50:21 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/03/27 16:05:35 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/04 16:05:08 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static void	free_textures(t_appdata *appdata)
 		mlx_delete_image(appdata->mlx, appdata->textures->west);
 	if (appdata->textures->east)
 		mlx_delete_image(appdata->mlx, appdata->textures->east);
+	if (appdata->textures->view)
+		mlx_delete_image(appdata->mlx, appdata->textures->view);
 	free(appdata->textures);
 }
 

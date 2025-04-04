@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:50:20 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 15:31:56 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:09:37 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,16 @@ int	check_order(t_appdata *appdata)
 	if (find_line_index(appdata->map->whole_map, "C ") > 5)
 		return (ft_putstr_fd(WRONG_ORDER, 2), FAILURE);
 	return (SUCCESS);
+}
+
+int	is_png_file(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	if (str[i] != 'g' || str[i - 1] != 'n'
+		|| str[i - 2] != 'p'
+		|| str[i - 3] != '.')
+		return (FALSE);
+	return (TRUE);
 }

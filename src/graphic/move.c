@@ -6,27 +6,41 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:43:44 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/04/03 12:14:44 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/04 16:26:23 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void redraw_map(t_appdata *appdata)
+void	redraw_map(t_appdata *appdata)
 {
 	if (appdata->textures->view)
 		mlx_delete_image(appdata->mlx, appdata->textures->view);
 	iterate_casted_rays(appdata);
 }
 
-void move_player(t_appdata *appdata, int offset)
+void	turn_left(t_appdata *appdata, t_player_data *player)
+{
+	player->camera_angle_d = (player->camera_angle_d - TURN_SPEED + 360) % 360;
+	player->camera_angle_r = deg_to_rad(player->camera_angle_d);
+	redraw_map(appdata);
+}
+
+void	turn_right(t_appdata *appdata, t_player_data *player)
+{
+	player->camera_angle_d = (player->camera_angle_d + TURN_SPEED) % 360;
+	player->camera_angle_r = deg_to_rad(player->camera_angle_d);
+	redraw_map(appdata);
+}
+
+void	move_player(t_appdata *appdata, int offset)
 {
 	double	x;
 	double	y;
 	double	angle;
-	int new_angle;
+	int		new_angle;
 
-	new_angle = (appdata->player->camera_position_deg + offset) % 360;
+	new_angle = (appdata->player->camera_angle_d + offset) % 360;
 	angle = deg_to_rad(new_angle);
 	y = appdata->player->tile_pos_y + sin(angle) * MOVE_SPEED;
 	x = appdata->player->tile_pos_x + cos(angle) * MOVE_SPEED;
@@ -57,7 +71,7 @@ void	hook_the_keys(mlx_key_data_t keydata, void *param)
 	if (mlx_is_key_down(appdata->mlx, MLX_KEY_D))
 		move_player(appdata, 90);
 	if (mlx_is_key_down(appdata->mlx, MLX_KEY_LEFT))
-		turn_left(appdata->player);
+		turn_left(appdata, appdata->player);
 	if (mlx_is_key_down(appdata->mlx, MLX_KEY_RIGHT))
-		turn_right(appdata->player);
+		turn_right(appdata, appdata->player);
 }

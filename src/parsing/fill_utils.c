@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 16:30:36 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 16:18:25 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:07:20 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*remove_extra_spaces(char *string)
 {
-	char arr[12];
-	char *res;
-	int i;
-	int j;
+	char	arr[12];
+	char	*res;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -77,21 +77,4 @@ char	*get_path(char *string)
 		return (ft_putstr_fd(ALLOC_ERROR, 2), NULL);
 	free_char_array(splitted_string);
 	return (path_to_texture);
-}
-
-int count_width(char **map)
-{
-	int i;
-	int width;
-	size_t str_width;
-
-	i = -1;
-	width = 0;
-	while (map[++i])
-	{
-		str_width = ft_strlen(map[i]);
-		if ((int)str_width > width)
-			width = (int)str_width;
-	}
-	return (width);
 }

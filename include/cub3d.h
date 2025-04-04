@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/04/03 13:38:39 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/04 18:08:15 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,51 +81,40 @@ typedef struct s_map_data
 	int		*ceiling_colors;
 	int		*row_len;
 	int		map_lines_total;
-
 }	t_map_data;
 
 typedef struct s_textures
 {
-	mlx_image_t	*north;
-	mlx_image_t	*south;
-	mlx_image_t	*west;
-	mlx_image_t	*east;
-	mlx_image_t *player;       //temporary
-	mlx_image_t *view;
-	mlx_image_t *back;
-	unsigned int floor_color;
-	unsigned int ceiling_color;
+	mlx_image_t		*north;
+	mlx_image_t		*south;
+	mlx_image_t		*west;
+	mlx_image_t		*east;
+	mlx_image_t		*view;
+	unsigned int	floor_rgba;
+	unsigned int	ceil_rgba;
 }	t_textures;
 
 typedef struct s_player_data
 {
-	int	pos_x;
-	int	pos_y;
-	int	camera_position_deg;
-	float	camera_position_rad;
+	float	camera_angle_r;
 	float	tile_pos_x;
 	float	tile_pos_y;
-
+	int		pos_x;
+	int		pos_y;
+	int		camera_angle_d;
 }	t_player_data;
 
 typedef struct s_raycasting
 {
 	float	angle_btw_rays_rad;
 	float	dist_to_plane;
-	float	curr_ray_angle;
-	float	closest_wall_dist;
-	float	closest_wall_corrected;
-	// int	first_h_intersection_coord_x;
-	// int	first_h_intersection_coord_y;
-	// int	next_h_intersection_coord_x;
-	// int	next_h_intersection_coord_y;
-	// int	first_v_intersection_coord_x;
-	// int	first_v_intersection_coord_y;
-	// int	next_v_intersection_coord_x;
-	// int	next_v_intersection_coord_y;
-	int	projected_slice_height;
-	int	slice_starting_point;
-	int	slice_end_point;
+	float	curr_ray;
+	float	wall_dist;
+	float	correct_dist;
+	int		slice_height;
+	int		wall_start;
+	int		wall_end;
+	int		wall_side;
 }	t_raycasting;
 
 
@@ -136,7 +125,6 @@ typedef struct s_appdata
 	t_textures		*textures;
 	t_player_data	*player;
 	t_raycasting	*raycast;
-
 }	t_appdata;
 
 //GNL
@@ -147,7 +135,6 @@ size_t	gnl_strlen(const char *str);
 //parsing
 char	*get_path(char *string);
 int		count_non_empty_lines(t_appdata *appdata, char *path);
-int		count_width(char **map);
 int		is_empty_line(char *line);
 int		parse_map(t_appdata *appdata, char *path);
 int		find_position(char **map, char id);
@@ -161,7 +148,7 @@ int		*create_row_len_array(char **array);
 int		check_map(t_appdata *appdata);
 int		check_order(t_appdata *appdata);
 int		count_identifiers(t_appdata *appdata, char *identifier);
-int		count_length_of_array(char **array);
+int		count_array_len(char **array);
 int		is_png_file(char *str);
 int		is_valid_filename(const char *arg);
 void	check_for_errors(t_appdata *appdata);
@@ -179,17 +166,12 @@ void	init_appdata(t_appdata *appdata);
 //graphic
 void	start_mlx(t_appdata *appdata);
 unsigned int	rgb_to_long(int *rgb_array);
-void	draw_player_square(t_appdata *appdata);
 void	hook_the_keys(mlx_key_data_t keydata, void *param);
-int	is_passable(char **map, float y, float x);
-double	deg_to_rad(int angle_deg);
-void	turn_left(t_player_data *player);
-void	turn_right(t_player_data *player);
 
-
-// added by Y:
 //maths
+int		is_passable(char **map, float y, float x);
+double	deg_to_rad(int angle_deg);
+float	set_ray_angle(int ray_index, t_player_data *player);
 void	iterate_casted_rays(t_appdata *appdata);
-
 
 #endif

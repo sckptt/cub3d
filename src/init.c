@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/04/03 13:40:04 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/04 18:08:15 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static void	init_player_data(t_appdata *appdata)
 	}
 	appdata->player->pos_x = 0;
 	appdata->player->pos_y = 0;
-	appdata->player->camera_position_deg = 0;
+	appdata->player->camera_angle_d = 0;
 	appdata->player->tile_pos_x = 0;
 	appdata->player->tile_pos_y = 0;
-	appdata->player->camera_position_rad = 0;
+	appdata->player->camera_angle_r = 0;
 }
 
 static void	init_textures(t_appdata *appdata)
@@ -64,10 +64,9 @@ static void	init_textures(t_appdata *appdata)
 	appdata->textures->south = NULL;
 	appdata->textures->west = NULL;
 	appdata->textures->east = NULL;
-	appdata->textures->player = NULL; //temp
 	appdata->textures->view = NULL;
-	appdata->textures->ceiling_color = 0;
-	appdata->textures->floor_color = 0;
+	appdata->textures->ceil_rgba = 0;
+	appdata->textures->floor_rgba = 0;
 }
 
 static void	init_raycast(t_appdata *appdata)
@@ -83,20 +82,12 @@ static void	init_raycast(t_appdata *appdata)
 	}
 	appdata->raycast->angle_btw_rays_rad = 0;
 	appdata->raycast->dist_to_plane = 0;
-	appdata->raycast->curr_ray_angle = 0;
-	appdata->raycast->closest_wall_dist = 0;
-	appdata->raycast->closest_wall_corrected = 0;
-	// appdata->raycast->first_h_intersection_coord_x = 0;
-	// appdata->raycast->first_h_intersection_coord_y = 0;
-	// appdata->raycast->next_h_intersection_coord_x = 0;
-	// appdata->raycast->next_h_intersection_coord_y = 0;
-	// appdata->raycast->first_v_intersection_coord_x = 0;
-	// appdata->raycast->first_v_intersection_coord_y = 0;
-	// appdata->raycast->next_v_intersection_coord_x = 0;
-	// appdata->raycast->next_v_intersection_coord_y = 0;
-	appdata->raycast->projected_slice_height = 0;
-	appdata->raycast->slice_starting_point = 0;
-	appdata->raycast->slice_end_point = 0;
+	appdata->raycast->curr_ray = 0;
+	appdata->raycast->wall_dist = 0;
+	appdata->raycast->correct_dist = 0;
+	appdata->raycast->slice_height = 0;
+	appdata->raycast->wall_start = 0;
+	appdata->raycast->wall_end = 0;
 }
 
 void	init_appdata(t_appdata *appdata)
