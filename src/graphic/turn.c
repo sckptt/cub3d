@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:42:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 17:47:32 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/03 12:14:44 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	turn_left(t_player_data *player)
 {
-	player->camera_position = (player->camera_position - TURN_SPEED + 360) % 360;
+	player->camera_position_deg = (player->camera_position_deg - TURN_SPEED + 360) % 360;
 }
 
 void	turn_right(t_player_data *player)
 {
-	player->camera_position = (player->camera_position + TURN_SPEED) % 360;
+	player->camera_position_deg = (player->camera_position_deg + TURN_SPEED) % 360;
 }

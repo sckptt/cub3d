@@ -6,18 +6,18 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:43:44 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 17:47:08 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/03 12:14:44 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void redraw_map(t_appdata *appdata)
-// {
-// 	if (appdata->textures->player)
-// 		mlx_delete_image(appdata->mlx, appdata->textures->player);
-// 	draw_player_square(appdata);
-// }
+void redraw_map(t_appdata *appdata)
+{
+	if (appdata->textures->view)
+		mlx_delete_image(appdata->mlx, appdata->textures->view);
+	iterate_casted_rays(appdata);
+}
 
 void move_player(t_appdata *appdata, int offset)
 {
@@ -26,7 +26,7 @@ void move_player(t_appdata *appdata, int offset)
 	double	angle;
 	int new_angle;
 
-	new_angle = (appdata->player->camera_position + offset) % 360;
+	new_angle = (appdata->player->camera_position_deg + offset) % 360;
 	angle = deg_to_rad(new_angle);
 	y = appdata->player->tile_pos_y + sin(angle) * MOVE_SPEED;
 	x = appdata->player->tile_pos_x + cos(angle) * MOVE_SPEED;
@@ -34,7 +34,7 @@ void move_player(t_appdata *appdata, int offset)
 		return ;
 	appdata->player->tile_pos_y = y;
 	appdata->player->tile_pos_x = x;
-	// redraw_map(appdata);
+	redraw_map(appdata);
 }
 
 void	hook_the_keys(mlx_key_data_t keydata, void *param)

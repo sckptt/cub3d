@@ -6,7 +6,7 @@
 /*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 15:13:56 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/27 17:51:00 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/04 13:05:53 by vitakinsfat      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,26 @@ void	fill_player(t_appdata *appdata)
 	appdata->player->tile_pos_x = x * 64 + 32;
 	appdata->player->tile_pos_y = y * 64 + 32;
 	if (appdata->map->map[y][x] == 'E')
-		appdata->player->camera_position = 0;
+		appdata->player->camera_position_deg = 0;
 	else if (appdata->map->map[y][x] == 'N')
-		appdata->player->camera_position = 90;
+		appdata->player->camera_position_deg = 270;
 	else if (appdata->map->map[y][x] == 'W')
-		appdata->player->camera_position = 180;
+		appdata->player->camera_position_deg = 180;
 	else
-		appdata->player->camera_position = 270;
-	appdata->player->camera_position_rad = deg_to_rad(appdata->player->camera_position);
+		appdata->player->camera_position_deg = 90;
+	appdata->player->camera_position_rad = deg_to_rad(appdata->player->camera_position_deg);
 }
 
 void fill_raycast(t_appdata *appdata)
 {
 	appdata->raycast->angle_btw_rays_rad = FOV_R / SCREEN_WIDTH;
 	appdata->raycast->dist_to_plane = (SCREEN_WIDTH / 2) / tan(FOV_R);
+}
+
+void fill_textures(t_appdata *appdata)
+{
+	appdata->textures->ceiling_color = rgb_to_long(appdata->map->ceiling_colors);
+	appdata->textures->floor_color = rgb_to_long(appdata->map->floor_colors);
 }
 
 int	fill_the_structs(t_appdata *appdata)
@@ -105,6 +111,7 @@ int	fill_the_structs(t_appdata *appdata)
 		free_appdata(appdata);
 		exit(FAILURE);
 	}
+	fill_textures(appdata);
 	fill_player(appdata);
 	fill_raycast(appdata);
 	return (SUCCESS);
