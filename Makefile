@@ -25,6 +25,7 @@ graphic/start_graphic.c \
 graphic/move.c \
 maths/maths1.c \
 maths/maths2.c \
+maths/maths3.c \
 utils/error_handling_utils1.c \
 utils/fill_utils.c \
 utils/free_things.c \

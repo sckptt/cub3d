@@ -63,28 +63,41 @@ void	wall_height_for_drawing(t_raycasting *raycast)
 		raycast->wall_end = SCREEN_HEIGHT - 1;
 }
 
-void	draw_the_picture(t_appdata *appdata, int ray_index)
+//ADDED FOR HANDLING TEXTURES (remplacing the old one commented out below):
+void draw_the_picture(t_appdata *appdata, int ray_index)
 {
-	uint32_t	color;
-	int			y;
-
-	y = -1;
-	while (++y < SCREEN_HEIGHT)
-	{
-		if (y < appdata->raycast->wall_start)
-			color = appdata->textures->ceil_rgba;
-		else if (y <= appdata->raycast->wall_end)
-		{
-			if (appdata->raycast->wall_side == 0)
-				color = 0x00693EFF;
-			else
-				color = 0x004D2EFF;
-		}
-		else
-			color = appdata->textures->floor_rgba;
-		mlx_put_pixel(appdata->textures->view, ray_index, y, color);
-	}
+    // Draw ceiling and floor
+    draw_ceiling_and_floor(appdata, ray_index);
+    
+    // Calculate exact point where wall was hit
+    calculate_wall_hit_position(appdata);
+    
+    // Draw the textured wall slice
+    draw_textured_wall_slice(appdata, ray_index);
 }
+
+// void	draw_the_picture(t_appdata *appdata, int ray_index)
+// {
+// 	uint32_t	color;
+// 	int			y;
+
+// 	y = -1;
+// 	while (++y < SCREEN_HEIGHT)
+// 	{
+// 		if (y < appdata->raycast->wall_start)
+// 			color = appdata->textures->ceil_rgba;
+// 		else if (y <= appdata->raycast->wall_end)
+// 		{
+// 			if (appdata->raycast->wall_side == 0)
+// 				color = 0x00693EFF;
+// 			else
+// 				color = 0x004D2EFF;
+// 		}
+// 		else
+// 			color = appdata->textures->floor_rgba;
+// 		mlx_put_pixel(appdata->textures->view, ray_index, y, color);
+// 	}
+// }
 
 void	iterate_casted_rays(t_appdata *appdata)
 {

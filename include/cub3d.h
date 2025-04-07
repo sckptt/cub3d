@@ -122,6 +122,12 @@ typedef struct s_raycasting
 	int		wall_start;
 	int		wall_end;
 	int		wall_side;
+//ADDED FOR TEXTURE HANDLING:
+	float	wall_x;          // Where exactly the wall was hit (for texturing)
+	int     tex_x;           // X coordinate on the texture
+	int     tex_y;           // Y coordinate on the texture
+	int     tex_step;        // How much to increase the texture coordinate per screen pixel
+	int     tex_pos;         // Starting texture position
 }	t_raycasting;
 
 typedef struct s_appdata
@@ -183,5 +189,12 @@ int				get_step_x(t_appdata *appdata);
 int				get_step_y(t_appdata *appdata);
 int				hit_check(t_raycasting *raycast,
 					t_map_data *map, int step_y, int step_x);
+
+//textures calculations
+void			calculate_wall_hit_position(t_appdata *appdata);
+mlx_image_t		*get_texture_for_side(t_appdata *appdata);
+void			calculate_texture_x(t_appdata *appdata, mlx_image_t *texture);
+void			draw_textured_wall_slice(t_appdata *appdata, int ray_index);
+void			draw_ceiling_and_floor(t_appdata *appdata, int ray_index);
 
 #endif
