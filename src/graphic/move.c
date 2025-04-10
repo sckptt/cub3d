@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 14:43:44 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/04/04 16:26:23 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/10 17:54:14 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	move_player(t_appdata *appdata, int offset)
 	redraw_map(appdata);
 }
 
-//FUNCTION MODIFIED TO MODIFY A and D behavior AND left and right hold behavior
 void	hook_the_keys(mlx_key_data_t keydata, void *param)
 {
 	t_appdata	*appdata;
@@ -63,8 +62,6 @@ void	hook_the_keys(mlx_key_data_t keydata, void *param)
 		free_appdata(appdata);
 		exit(SUCCESS);
 	}
-	
-	// Handle active key presses
 	if (mlx_is_key_down(appdata->mlx, MLX_KEY_W))
 		move_player(appdata, 0);
 	if (mlx_is_key_down(appdata->mlx, MLX_KEY_S))
@@ -73,14 +70,12 @@ void	hook_the_keys(mlx_key_data_t keydata, void *param)
 		turn_left(appdata, appdata->player);
 	if (mlx_is_key_down(appdata->mlx, MLX_KEY_D))
 		turn_right(appdata, appdata->player);
-	
-	// Handle left/right arrow keys for temporary looking
 	if (mlx_is_key_down(appdata->mlx, MLX_KEY_LEFT))
-		look_left(appdata);
+		look_left(appdata, appdata->player);
 	else if (mlx_is_key_down(appdata->mlx, MLX_KEY_RIGHT))
-		look_right(appdata);
+		look_right(appdata, appdata->player);
 	else if (appdata->player->is_looking_side)
-		reset_look(appdata);
+		reset_look(appdata, appdata->player);
 }
 
 //FUNCTION MODIFIED TO ONLY CORRECT THE BEHAVIOR of A and D keys, newer above^^

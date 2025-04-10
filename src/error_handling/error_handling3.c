@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:50:20 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/04/10 17:08:51 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:41:50 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	is_wrong_id_order(char *map_line, char *identifier)
 	splitted_line = ft_split(map_line, ' ');
 	if (!ft_strncmp(splitted_line[1], identifier, 1))
 	{
-		free_char_array(splitted_line);	
+		free_char_array(splitted_line);
 		return (TRUE);
 	}
 	free_char_array(splitted_line);

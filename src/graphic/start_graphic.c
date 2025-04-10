@@ -6,17 +6,17 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:21:26 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/04/10 15:37:58 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:55:36 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void load_png(t_appdata *appdata)
+void	load_png(t_appdata *appdata)
 {
 	appdata->textures->north_texture = mlx_load_png(appdata->map->n_texture);
 	appdata->textures->south_texture = mlx_load_png(appdata->map->s_texture);
-	appdata->textures->east_texture =  mlx_load_png(appdata->map->e_texture);
+	appdata->textures->east_texture = mlx_load_png(appdata->map->e_texture);
 	appdata->textures->west_texture = mlx_load_png(appdata->map->w_texture);
 	if (!appdata->textures->north_texture || !appdata->textures->south_texture
 		|| !appdata->textures->east_texture || !appdata->textures->west_texture)

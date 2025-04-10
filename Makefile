@@ -6,7 +6,7 @@
 #    By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/04/10 14:35:17 by vkinsfat         ###   ########.fr        #
+#    Updated: 2025/04/10 17:39:32 by vkinsfat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ OBJ_PATH = obj/
 SRC = error_handling/error_handling1.c \
 error_handling/error_handling2.c \
 error_handling/error_handling3.c \
+error_handling/error_handling4.c \
 graphic/start_graphic.c \
 graphic/move.c \
 graphic/move2.c \

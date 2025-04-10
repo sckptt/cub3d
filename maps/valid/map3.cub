@@ -3,8 +3,8 @@ SO ./textures/south_texture.png
 WE ./textures/west_texture.png
 EA ./textures/east_texture.png
 
-F 145,10,175
-C 54,20,230
+F 81,45,73
+C 122,90,223
 
 111111111111111111
 111111011100S01111

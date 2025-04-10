@@ -63,17 +63,11 @@ void	wall_height_for_drawing(t_raycasting *raycast)
 		raycast->wall_end = SCREEN_HEIGHT - 1;
 }
 
-//ADDED FOR HANDLING TEXTURES (remplacing the old one commented out below):
-void draw_the_picture(t_appdata *appdata, int ray_index)
+void	draw_the_picture(t_appdata *appdata, int ray_index)
 {
-    // Draw ceiling and floor
-    draw_ceiling_and_floor(appdata, ray_index);
-    
-    // Calculate exact point where wall was hit
-    calculate_wall_hit_position(appdata);
-    
-    // Draw the textured wall slice
-    draw_textured_wall_slice(appdata, ray_index);
+	draw_ceiling_and_floor(appdata, ray_index);
+	calculate_wall_hit_position(appdata);
+	draw_textured_wall_slice(appdata, ray_index);
 }
 
 // void	draw_the_picture(t_appdata *appdata, int ray_index)
