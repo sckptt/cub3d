@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+         #
+#    By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/09 15:54:55 by vitakinsfat       #+#    #+#              #
-#    Updated: 2025/04/04 19:09:58 by vitakinsfat      ###   ########.fr        #
+#    Updated: 2025/04/10 14:35:17 by vkinsfat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c include/cub3d.h | $(OBJ_PATH)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
 $(NAME): $(OBJS) $(LIBFT_DIR)$(LIBNAME)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft $(LIBMLX_FLAG) $(MLX42)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFT_DIR) -lft $(MLX42)
 	@echo "\n$(GREEN)$(NAME) is created!$(NC)"
 
 clean:

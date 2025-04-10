@@ -6,7 +6,7 @@
 /*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:40:00 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/03/25 15:56:53 by vkinsfat         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:24:15 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,40 @@ void	check_numeric(t_appdata *appdata, char *string)
 	free_char_array(splitted_numbers);
 }
 
+int is_map_started(char *line)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] != '1' && line[i] != ' ' && line[i] != '\n')
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
+int check_extra_id(t_appdata *appdata)
+{
+	int i;
+	char **split_line;
+
+	i = -1;
+	while (++i < appdata->map->map_lines_total)
+	{
+		if (is_map_started(appdata->map->whole_map[i]) == TRUE)
+			break ;
+		split_line = ft_split(appdata->map->whole_map[i], ' ');
+		if (!ft_strnstr("NOSOWEEAFC", split_line[0], ft_strlen("NOSOWEEAFC")))
+		{
+			free_char_array(split_line);
+			return (FAILURE);
+		}
+		free_char_array(split_line);
+	}
+	return (SUCCESS);
+}
+
 static int	check_paths(t_appdata *appdata)
 {
 	int	north;
@@ -56,6 +90,10 @@ static int	check_paths(t_appdata *appdata)
 		return (ft_putstr_fd(TEXTURE_DUPLICATE, 2), FAILURE);
 	else if (north == -1 || south == -1 || east == -1 || west == -1)
 		return (ft_putstr_fd(NON_PNG_TEXTURE, 2), FAILURE);
+	else if (north == -2 || south == -2 || east == -2 || west == -2)
+		return (ft_putstr_fd(WRONG_ID_ORDER, 2), FAILURE);
+	else if (check_extra_id(appdata) == FAILURE)
+		return (ft_putstr_fd(WRONG_IDENTIFIER, 2), FAILURE);
 	return (SUCCESS);
 }
 

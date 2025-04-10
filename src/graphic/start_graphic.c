@@ -3,30 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   start_graphic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 15:21:26 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/04/04 15:57:08 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:37:58 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void load_png(t_appdata *appdata)
+{
+	appdata->textures->north_texture = mlx_load_png(appdata->map->n_texture);
+	appdata->textures->south_texture = mlx_load_png(appdata->map->s_texture);
+	appdata->textures->east_texture =  mlx_load_png(appdata->map->e_texture);
+	appdata->textures->west_texture = mlx_load_png(appdata->map->w_texture);
+	if (!appdata->textures->north_texture || !appdata->textures->south_texture
+		|| !appdata->textures->east_texture || !appdata->textures->west_texture)
+	{
+		ft_putstr_fd(NON_EXISTING_TEXTURE, 2);
+		free_appdata(appdata);
+		exit(FAILURE);
+	}
+}
+
 void	get_textures(t_appdata *appdata)
 {
-	mlx_texture_t	*north;
-	mlx_texture_t	*south;
-	mlx_texture_t	*west;
-	mlx_texture_t	*east;
-
-	north = mlx_load_png(appdata->map->n_texture);
-	south = mlx_load_png(appdata->map->s_texture);
-	west = mlx_load_png(appdata->map->w_texture);
-	east = mlx_load_png(appdata->map->e_texture);
-	appdata->textures->north = mlx_texture_to_image(appdata->mlx, north);
-	appdata->textures->south = mlx_texture_to_image(appdata->mlx, south);
-	appdata->textures->west = mlx_texture_to_image(appdata->mlx, west);
-	appdata->textures->east = mlx_texture_to_image(appdata->mlx, east);
+	load_png(appdata);
+	appdata->textures->north = mlx_texture_to_image(appdata->mlx,
+			appdata->textures->north_texture);
+	appdata->textures->south = mlx_texture_to_image(appdata->mlx,
+			appdata->textures->south_texture);
+	appdata->textures->east = mlx_texture_to_image(appdata->mlx,
+			appdata->textures->east_texture);
+	appdata->textures->west = mlx_texture_to_image(appdata->mlx,
+			appdata->textures->west_texture);
 	if (!appdata->textures->north || !appdata->textures->south
 		|| !appdata->textures->west || !appdata->textures->east)
 	{
@@ -34,10 +45,6 @@ void	get_textures(t_appdata *appdata)
 		free_appdata(appdata);
 		exit(FAILURE);
 	}
-	mlx_delete_texture(north);
-	mlx_delete_texture(south);
-	mlx_delete_texture(west);
-	mlx_delete_texture(east);
 }
 
 void	init_mlx(t_appdata *appdata)

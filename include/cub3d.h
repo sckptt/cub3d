@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 15:51:34 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/04/04 19:04:31 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/10 17:24:35 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@
 # define TEXTURE_DUPLICATE "Error\nDuplicates in texture path!\n"
 # define MISSING_TEXTURE "Error\nOne of textures is missing!\n"
 # define NON_PNG_TEXTURE "Error\nTexture is not .png file!\n"
+# define NON_EXISTING_TEXTURE "Error\nTexture does not exist!\n"
 
 //Map error messages
 # define EXTRA_SYMBOLS_MSG "Error\nExtra symbols in the map!\n"
@@ -70,6 +71,8 @@
 # define EMPTY "Error\nEmpty file!\n"
 # define WRONG_ORDER "Error\nWrong order of identifiers!\n"
 # define SPACE_FOUND "Error\nSpace instead of 0!\n"
+# define WRONG_ID_ORDER "Error\nPath before identifier!\n"
+# define WRONG_IDENTIFIER "Error\nWrong identifier in the map!\n"
 
 typedef struct s_map_data
 {
@@ -93,6 +96,10 @@ typedef struct s_textures
 	mlx_image_t		*west;
 	mlx_image_t		*east;
 	mlx_image_t		*view;
+	mlx_texture_t	*north_texture;
+	mlx_texture_t	*south_texture;
+	mlx_texture_t	*west_texture;
+	mlx_texture_t	*east_texture;
 	unsigned int	floor_rgba;
 	unsigned int	ceil_rgba;
 }	t_textures;
@@ -173,6 +180,7 @@ int				is_valid_filename(const char *arg);
 void			check_for_errors(t_appdata *appdata);
 void			check_numeric(t_appdata *appdata, char *string);
 char			*remove_extra_spaces(char *string);
+int				is_wrong_id_order(char *map_line, char *identifier);
 
 //free memory
 void			free_appdata(t_appdata *appdata);

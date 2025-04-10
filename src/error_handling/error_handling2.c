@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:44:37 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/04/04 16:54:38 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/10 16:22:27 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	flood_fill(t_appdata *appdata, int x, int y)
 {
 	if (x < 0 || y < 0 || y >= count_array_len(appdata->map->copy_map)
-		|| x > appdata->map->row_len[y])
+		|| x > appdata->map->row_len[y] - 1)
 	{
 		ft_putstr_fd(NO_WALL_MSG, 2);
 		free_appdata(appdata);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_things.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:50:21 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/04/04 16:05:08 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:42:55 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ static void	free_textures(t_appdata *appdata)
 		mlx_delete_image(appdata->mlx, appdata->textures->east);
 	if (appdata->textures->view)
 		mlx_delete_image(appdata->mlx, appdata->textures->view);
+	if (appdata->textures->north_texture)
+		mlx_delete_texture(appdata->textures->north_texture);
+	if (appdata->textures->south_texture)
+		mlx_delete_texture(appdata->textures->south_texture);
+	if (appdata->textures->west_texture)
+		mlx_delete_texture(appdata->textures->west_texture);
+	if (appdata->textures->east_texture)
+		mlx_delete_texture(appdata->textures->east_texture);
 	free(appdata->textures);
 }
 

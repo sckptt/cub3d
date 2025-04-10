@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling_utils1.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 13:30:46 by vitakinsfat       #+#    #+#             */
-/*   Updated: 2025/04/04 18:09:51 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:41:48 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	count_identifiers(t_appdata *appdata, char *identifier)
 				check_numeric(appdata, appdata->map->whole_map[i]);
 			if (ft_strchr("NSEW", identifier[0]))
 			{
+				if (is_wrong_id_order(appdata->map->whole_map[i], identifier))
+					return (-2);
 				if (is_png_file(appdata->map->whole_map[i]) == FALSE)
 					return (-1);
 			}

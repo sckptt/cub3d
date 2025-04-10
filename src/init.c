@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitakinsfator <vitakinsfator@student.42    +#+  +:+       +#+        */
+/*   By: vkinsfat <vkinsfat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:23:29 by vkinsfat          #+#    #+#             */
-/*   Updated: 2025/04/04 18:08:15 by vitakinsfat      ###   ########.fr       */
+/*   Updated: 2025/04/10 15:28:16 by vkinsfat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ static void	init_textures(t_appdata *appdata)
 	appdata->textures->west = NULL;
 	appdata->textures->east = NULL;
 	appdata->textures->view = NULL;
+	appdata->textures->north_texture = NULL;
+	appdata->textures->south_texture = NULL;
+	appdata->textures->west_texture = NULL;
+	appdata->textures->east_texture = NULL;
 	appdata->textures->ceil_rgba = 0;
 	appdata->textures->floor_rgba = 0;
 }
