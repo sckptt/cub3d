@@ -23,6 +23,7 @@ error_handling/error_handling2.c \
 error_handling/error_handling3.c \
 graphic/start_graphic.c \
 graphic/move.c \
+graphic/move2.c \
 maths/maths1.c \
 maths/maths2.c \
 maths/maths3.c \

@@ -33,8 +33,10 @@
 # define SCREEN_WIDTH 800
 # define FOV_D 60
 # define FOV_R 1.047
-# define MOVE_SPEED 10
-# define TURN_SPEED 30
+//CHANGED BY Y
+# define MOVE_SPEED 8
+# define TURN_SPEED 8
+
 # define TILE_SIZE 64
 # define EYES_HEIGHT 32
 
@@ -103,6 +105,11 @@ typedef struct s_player_data
 	int		pos_x;
 	int		pos_y;
 	int		camera_angle_d;
+
+//ADDED TO HANDLE LOOKING LEFT OR RIGHT
+	int		original_angle;
+	int		is_looking_side;
+
 }	t_player_data;
 
 typedef struct s_raycasting
@@ -179,6 +186,11 @@ void			init_appdata(t_appdata *appdata);
 void			start_mlx(t_appdata *appdata);
 unsigned int	rgb_to_long(int *rgb_array);
 void			hook_the_keys(mlx_key_data_t keydata, void *param);
+void			redraw_map(t_appdata *appdata);
+//ADDED TO HANDLE LOOKING LEFT OR RIGHT
+void			reset_look(t_appdata *appdata);
+void			look_right(t_appdata *appdata);
+void			look_left(t_appdata *appdata);
 
 //maths
 int				is_passable(char **map, float y, float x);

@@ -48,6 +48,8 @@ static void	init_player_data(t_appdata *appdata)
 	appdata->player->tile_pos_x = 0;
 	appdata->player->tile_pos_y = 0;
 	appdata->player->camera_angle_r = 0;
+	appdata->player->original_angle = -1;
+	appdata->player->is_looking_side = 0;
 }
 
 static void	init_textures(t_appdata *appdata)
