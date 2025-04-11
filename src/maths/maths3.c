@@ -34,9 +34,6 @@ void	calculate_texture_x(t_appdata *appdata, mlx_image_t *texture)
 	raycast = appdata->raycast;
 	tex_width = texture->width;
 	raycast->tex_x = (int)(raycast->wall_x * tex_width);
-	if ((raycast->wall_side == 0 && cos(raycast->curr_ray) > 0)
-		|| (raycast->wall_side == 1 && sin(raycast->curr_ray) < 0))
-		raycast->tex_x = tex_width - raycast->tex_x - 1;
 }
 
 void	get_color_and_draw(t_appdata *appdata,
@@ -52,7 +49,7 @@ void	get_color_and_draw(t_appdata *appdata,
 	step = (float)texture->height / appdata->raycast->slice_height;
 	tex_pos = (appdata->raycast->wall_start - SCREEN_HEIGHT / 2
 			+ appdata->raycast->slice_height / 2) * step;
-	while (y < appdata->raycast->wall_end)
+	while (y <= appdata->raycast->wall_end)
 	{
 		appdata->raycast->tex_y = (int)tex_pos & (texture->height - 1);
 		tex_pos += step;

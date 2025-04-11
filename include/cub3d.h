@@ -107,7 +107,6 @@ typedef struct s_player_data
 	float	tile_pos_x;
 	float	tile_pos_y;
 	int		camera_angle_d;
-	int		is_looking_side;
 	int		original_angle;
 	int		pos_x;
 	int		pos_y;
@@ -188,9 +187,6 @@ void			init_appdata(t_appdata *appdata);
 mlx_image_t		*get_texture_for_side(t_appdata *appdata);
 unsigned int	rgb_to_long(int *rgb_array);
 void			hook_the_keys(mlx_key_data_t keydata, void *param);
-void			look_left(t_appdata *appdata, t_player_data *player);
-void			look_right(t_appdata *appdata, t_player_data *player);
-void			reset_look(t_appdata *appdata, t_player_data *player);
 void			redraw_map(t_appdata *appdata);
 void			start_mlx(t_appdata *appdata);
 

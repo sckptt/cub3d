@@ -12,7 +12,7 @@
 
 # set a compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 MLX42 = MLX42/build/libmlx42.a -I include -ldl -L/opt/homebrew/lib -lglfw -pthread -lm
 
 # path to source and object files, source and object files
@@ -24,7 +24,6 @@ error_handling/error_handling3.c \
 error_handling/error_handling4.c \
 graphic/start_graphic.c \
 graphic/move.c \
-graphic/move2.c \
 maths/maths1.c \
 maths/maths2.c \
 maths/maths3.c \

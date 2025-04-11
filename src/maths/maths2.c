@@ -26,28 +26,6 @@ float	set_ray_angle(int ray_index, t_player_data *player)
 	return (ray_angle);
 }
 
-// float	calc_wall_distance_basic(t_appdata *appdata)
-// {
-// 	float	ray_x;
-// 	float	ray_y;
-// 	float	ray_dir_x;
-// 	float	ray_dir_y;
-// 	float	ray_dist;
-
-// 	ray_x = appdata->player->tile_pos_x;
-// 	ray_y = appdata->player->tile_pos_y;
-// 	ray_dir_x = cos(appdata->raycast->curr_ray);
-// 	ray_dir_y = sin(appdata->raycast->curr_ray);
-// 	while (is_passable(appdata->map->map, ray_y, ray_x))
-// 	{
-// 		ray_x += ray_dir_x * 0.1;
-// 		ray_y += ray_dir_y * 0.1;
-// 	}
-// 	ray_dist = sqrt(pow(ray_x - appdata->player->tile_pos_x, 2.0)
-// 			+ pow(ray_y - appdata->player->tile_pos_y, 2.0));
-// 	return (ray_dist);
-// }
-
 int	get_step_x(t_appdata *appdata)
 {
 	float	ray_dir_x;
@@ -57,7 +35,7 @@ int	get_step_x(t_appdata *appdata)
 	if (ray_dir_x == 0)
 		appdata->raycast->delta_dist_x = 1e30;
 	else
-		appdata->raycast->delta_dist_x = fabs(1 / ray_dir_x);
+		appdata->raycast->delta_dist_x = fabsf(1 / ray_dir_x);
 	if (ray_dir_x < 0)
 	{
 		step_x = -1;
@@ -85,7 +63,7 @@ int	get_step_y(t_appdata *appdata)
 	if (ray_dir_y == 0)
 		appdata->raycast->delta_dist_y = 1e30;
 	else
-		appdata->raycast->delta_dist_y = fabs(1 / ray_dir_y);
+		appdata->raycast->delta_dist_y = fabsf(1 / ray_dir_y);
 	if (ray_dir_y < 0)
 	{
 		step_y = -1;
